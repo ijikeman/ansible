@@ -1,0 +1,3 @@
+---
+# vars file for docker
+daemon_name: docker

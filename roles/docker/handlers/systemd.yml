@@ -1,0 +1,12 @@
+---
+- name: "start {{role_name}}"
+  systemd: name={{daemon_name}} state=started
+
+- name: "restart {{role_name}}"
+  systemd: name={{daemon_name}} state=restarted
+
+- name: "reload {{role_name}}"
+  systemd: name={{daemon_name}} state=reloaded
+
+- name: "stop {{role_name}}"
+  systemd: name={{daemon_name}} state=stop

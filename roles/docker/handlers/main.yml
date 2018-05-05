@@ -1,0 +1,48 @@
+---
+- name: "service start {{role_name}}"
+  service: name={{daemon_name}} state=started
+  # when:
+   # - ansible_os_family == 'RedHat' and ansible_distribution_major_version > '7'
+   # - ansible_os_family == 'Debian' and ansible_distribution_major_version > '16'
+
+- name: "restart {{role_name}}"
+  service: name={{daemon_name}} state=restarted
+  when:
+   - ansible_os_family == 'RedHat' and ansible_distribution_major_version > '7'
+   # - ansible_os_family == 'Debian' and ansible_distribution_major_version > '16'
+
+- name: "reload {{role_name}}"
+  service: name={{daemon_name}} state=reloaded
+  when:
+   - ansible_os_family == 'RedHat' and ansible_distribution_major_version > '7'
+   # - ansible_os_family == 'Debian' and ansible_distribution_major_version > '16'
+
+- name: "stop {{role_name}}"
+  service: name={{daemon_name}} state=stop
+  when:
+   - ansible_os_family == 'RedHat' and ansible_distribution_major_version > '7'
+   # - ansible_os_family == 'Debian' and ansible_distribution_major_version > '16'
+
+- name: "systemd start {{role_name}}"
+  systemd: name={{daemon_name}} state=started
+  # when:
+   # - ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+   # - ansible_os_family == 'Debian' and ansible_distribution_major_version == '16'
+
+- name: "restart {{role_name}}"
+  systemd: name={{daemon_name}} state=restarted
+  when:
+   - ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+   # - ansible_os_family == 'Debian' and ansible_distribution_major_version == '16'
+
+- name: "reload {{role_name}}"
+  systemd: name={{daemon_name}} state=reloaded
+  when:
+   - ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+   # - ansible_os_family == 'Debian' and ansible_distribution_major_version == '16'
+
+- name: "stop {{role_name}}"
+  systemd: name={{daemon_name}} state=stop
+  when:
+   - ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+   # - ansible_os_family == 'Debian' and ansible_distribution_major_version == '16'

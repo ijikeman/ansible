@@ -1,0 +1,7 @@
+---
+- name: install packages
+  yum: name={{ item.name }}
+  with_items:
+    - { name: git }
+    - { name: gcc }
+    - { name: make }

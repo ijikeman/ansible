@@ -1,0 +1,4 @@
+---
+# tasks file for vps
+- include: setup_selinux.yml
+- include: install.yml
