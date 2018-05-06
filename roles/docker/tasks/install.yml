@@ -1,15 +1,2 @@
 ---
-- name: install
-  yum: name=docker
-
-- name: Start docker
-  command: echo 'Start docker'
-  notify: systemd start docker
-  when:
-   - ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
-
-- name: Start docker
-  command: echo 'Start docker'
-  notify: service start docker
-  when:
-   - ansible_os_family == 'RedHat' and ansible_distribution_major_version > '7'
+- include: install_{{ ansible_os_family }}.yml

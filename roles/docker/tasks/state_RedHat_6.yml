@@ -1,0 +1,4 @@
+---
+- name: Start docker
+  command: echo 'Start docker'
+  notify: service start docker

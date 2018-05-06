@@ -1,3 +1,4 @@
 ---
 # tasks file for docker
 - include: install.yml
+- include: state.yml
