@@ -1,5 +1,6 @@
 ---
 - hosts: vps
   roles:
-#    - vps
-    - docker
+    # - vps
+    # - docker
+    - nginx

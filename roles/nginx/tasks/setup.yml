@@ -1,0 +1,9 @@
+---
+- name: Setup nginx.conf
+  template:
+    src: nginx.conf.j2
+    dest: "{{ DIR_CONF }}/nginx.conf"
+    owner: nginx
+    group: nginx
+    mode: 0644
+  notify: "systemd restart {{ role_name }}"
