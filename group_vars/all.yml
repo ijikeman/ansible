@@ -22,13 +22,13 @@ COMMON_MKDIRS:
     mode: '0755',
     recurse: 'no'
   }
-  - {
-    path: "{{PATH_1MG}}/www",
-    owner: 'nginx',
-    group: 'nginx',
-    mode: '0775',
-    recurse: 'no'
-  }
+  # - {
+  #   path: "{{PATH_1MG}}/www",
+  #   owner: 'nginx',
+  #   group: 'nginx',
+  #   mode: '0775',
+  #   recurse: 'no'
+  # }
   - {
     path: "{{PATH_1MG}}/logs",
     owner: 'root',

@@ -1,4 +1,5 @@
 ---
 - name: Start {{ role_name }}
   command: echo "Start {{ role_name }}"
+  changed_when: False
   notify: service start {{ role_name }}

@@ -1,4 +1,4 @@
 ---
-# tasks file for docker
-- include: install_{{ ansible_os_family }}.yml
-- include: state_{{ ansible_os_family }}_{{ ansible_distribution_major_version}}.yml
+# - include: install_Redhat_6.yml
+- include: install_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
+- include: state_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml

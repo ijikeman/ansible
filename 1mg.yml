@@ -1,0 +1,6 @@
+---
+- hosts: 1mg
+  # connection: docker
+  roles:
+    # - common
+    - docker
