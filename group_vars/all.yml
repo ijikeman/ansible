@@ -1,4 +1,8 @@
 ---
+COMMON_PKG_LIST:
+  - { name: git }
+  - { name: wget }
+HOSTNAME: '1mg.biz'
 PATH_1MG: /usr/local/1mg
 COMMON_MKDIRS:
   - {

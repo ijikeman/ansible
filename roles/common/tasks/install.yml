@@ -1,0 +1,4 @@
+---
+- name: install packages
+  yum: name={{ item.name }}
+  with_items: "{{ COMMON_PKG_LIST }}"

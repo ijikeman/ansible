@@ -1,6 +1,6 @@
 ---
-- name: install
-  yum: name={{ item }}
-  with_items:
-    - epel-release
-    - docker-io
+- name: install repo
+  yum: name=epel-release
+
+- name: install docker
+  yum: name=docker-io

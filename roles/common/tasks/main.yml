@@ -1,3 +1,4 @@
 ---
-# - include: install.yml
-- include: setup.yml
+- include: install.yml
+- include: setup_dir.yml
+- include: setup_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml

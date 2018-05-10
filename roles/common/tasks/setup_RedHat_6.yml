@@ -20,3 +20,14 @@
 - name: disable selinux on conf when not set
   shell: echo 'SELINUX=disabled' >> /etc/selinux/config
   when: selinux_current_status_on_conf.stdout == ''
+
+- name: setup hostname
+  template:
+    src: hostname.j2
+    dest: /etc/sysconfig/network
+    owner: root
+    group: root
+    mode: 0644
+
+- name: hostname command
+  command: hostname {{ HOSTNAME }}
