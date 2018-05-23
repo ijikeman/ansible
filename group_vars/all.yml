@@ -69,10 +69,12 @@ ARRAY_USER:
     shell: '/bin/zsh',
     group: 'sftponly',
     home: '/home/matsuyanyan',
+    uid: '1001'
     }
   - {
     name: 'keiji',
     shell: '/bin/zsh',
     group: 'sftponly',
     home: '/home/keiji',
+    uid: '1002'
     }
