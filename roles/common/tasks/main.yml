@@ -1,4 +1,12 @@
 ---
-- include: install.yml
-- include: setup_dir.yml
-- include: setup_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
+- name: System Group control
+  include_tasks: group.yml
+  with_items: "{{ ARRAY_GROUP }}"
+
+- name: System User control
+  include_tasks: user.yml
+  with_items: "{{ ARRAY_USER }}"
+
+- include_tasks: install.yml
+- include_tasks: setup_dir.yml
+- include_tasks: setup_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml

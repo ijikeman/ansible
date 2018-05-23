@@ -7,7 +7,7 @@
     group: "{{ item.group}}"
     mode: "{{ item.mode }}"
     recurse: "{{ item.recurse }}"
-  with_items: "{{ COMMON_MKDIRS }}"
+  with_items: "{{ ARRAY_COMMON_MKDIRS | default([]) }}"
 
 - name: Make Directory for HostsGroup
   file:
@@ -17,4 +17,4 @@
     group: "{{ item.group}}"
     mode: "{{ item.mode }}"
     recurse: "{{ item.recurse }}"
-  with_items: "{{ HOSTSGROUP_MKDIRS | default([]) }}"
+  with_items: "{{ ARRAY_HOSTSGROUP_MKDIRS | default([]) }}"

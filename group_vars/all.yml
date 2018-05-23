@@ -1,10 +1,11 @@
 ---
-COMMON_PKG_LIST:
+ARRAY_INSTALL_PKG:
   - { name: git }
   - { name: wget }
+
 HOSTNAME: '1mg.biz'
 PATH_1MG: /usr/local/1mg
-COMMON_MKDIRS:
+ARRAY_COMMON_MKDIRS:
   - {
     path: "{{PATH_1MG}}",
     owner: 'root',
@@ -54,3 +55,23 @@ COMMON_MKDIRS:
     mode: '0755',
     recurse: 'no'
   }
+
+ARRAY_GROUP:
+  - {
+    name: 'sftponly',
+    gid: 1001
+    }
+
+ARRAY_USER:
+  - {
+    name: 'matsuyanyan',
+    shell: '/bin/zsh',
+    group: 'sftponly',
+    home: '/home/matsuyanyan',
+    }
+  - {
+    name: 'keiji',
+    shell: '/bin/zsh',
+    group: 'sftponly',
+    home: '/home/keiji',
+    }

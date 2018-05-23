@@ -1,0 +1,8 @@
+- name User Create
+  user:
+    name: "{{ item.name }}"
+    group: "{{ item.group }}"
+    home: "{{ item.group }}"
+    shell: "{{ item.shell }}"
+    uid: "{{ item.uid }}"
+    state: present
