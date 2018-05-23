@@ -1,5 +1,5 @@
-- name Group Create
-  user:
+- name: Group Create
+  group:
     name: "{{ item.name }}"
     gid: "{{ item.gid }}"
     state: present

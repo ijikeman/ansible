@@ -1,4 +1,4 @@
-- name User Create
+- name: User Create
   user:
     name: "{{ item.name }}"
     group: "{{ item.group }}"
