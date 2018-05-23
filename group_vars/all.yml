@@ -2,6 +2,7 @@
 ARRAY_INSTALL_PKG:
   - { name: git }
   - { name: wget }
+  - { name: libselinux-python }
 
 HOSTNAME: '1mg.biz'
 PATH_1MG: /usr/local/1mg

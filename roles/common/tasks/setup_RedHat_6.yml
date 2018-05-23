@@ -1,33 +1,8 @@
 ---
-- name: check state to selinux
-  command: getenforce
-  register: selinux_current_status
-  changed_when: False
+- name: Disabled Selinux
+  selinux:
+    state: disabled
 
-- name: disable selinux
-  command: setenforce 0
-  when: selinux_current_status.stdout == 'Enforcing'
-
-- name: check state to selinux on conf
-  shell: egrep '^ *SELINUX=' /etc/selinux/config|sed -e 's/ //g'
-  register: selinux_current_status_on_conf
-  changed_when: False
-
-- name: disable selinux on conf when set
-  command: sed -i -e 's/^\s*SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
-  when: selinux_current_status_on_conf.stdout != 'SELINUX=disabled' and selinux_current_status_on_conf.stdout != ''
-
-- name: disable selinux on conf when not set
-  shell: echo 'SELINUX=disabled' >> /etc/selinux/config
-  when: selinux_current_status_on_conf.stdout == ''
-
-- name: setup hostname
-  template:
-    src: hostname.j2
-    dest: /etc/sysconfig/network
-    owner: root
-    group: root
-    mode: 0644
-
-- name: hostname command
-  command: hostname {{ HOSTNAME }}
+- name: Setup Hostname
+  hostname:
+    name: "{{ HOSTNAME }}"
