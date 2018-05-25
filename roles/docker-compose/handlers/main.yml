@@ -1,0 +1,37 @@
+---
+- name: "systemd start {{ role_name }}"
+  systemd:
+    name: "{{ daemon_name }}"
+    state: started
+    enabled: yes
+
+- name: "systemd restart {{ role_name }}"
+  systemd:
+    name: "{{ daemon_name }}"
+    state: restarted
+
+- name: "systemd stop {{ role_name }}"
+  systemd:
+    name: "{{ daemon_name }}"
+    state: stop
+    enabled: no
+
+- name: "service start {{ role_name }}"
+  service:
+    name: "{{ daemon_name }}"
+    state: started
+    enabled: yes
+
+- name: "service restart {{ role_name }}"
+  service:
+    name: "{{ daemon_name }}"
+    state: restarted
+
+- name: "service stop {{ role_name }}"
+  service:
+    name: "{{ daemon_name }}"
+    state: stop
+    enabled: no
+
+- name: "regist {{ role_name }}"
+  command: chkconfig --add {{ daemon_name }}
