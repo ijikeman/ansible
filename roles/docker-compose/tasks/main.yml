@@ -15,6 +15,6 @@
 - name: Regist To Service Control
   include_tasks: "regist_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml"
 
-- include_roles:
+- include_role:
     name: common_tasks
     tasks_from: service_start.yml
