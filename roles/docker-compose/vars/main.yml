@@ -1,0 +1,2 @@
+daemon_name: docker-compose
+URL_DOCKER_COMPOSE: "https://github.com/docker/compose/releases/download/"

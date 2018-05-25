@@ -5,3 +5,4 @@
     - common
     - openssh
     - docker
+    - docker-compose

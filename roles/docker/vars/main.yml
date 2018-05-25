@@ -1,4 +1,1 @@
----
-# vars file for docker
 daemon_name: docker
-URL_DOCKER_COMPOSE: "https://github.com/docker/compose/releases/download/"

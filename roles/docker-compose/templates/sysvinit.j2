@@ -1,0 +1,61 @@
+#!/bin/sh
+#
+# chkconfig: 2345 99 04
+# description: start your-service-name containers.
+
+workspace="/usr/local/1mg/data/docker"
+cmdpath="/usr/local/bin/docker-compose"
+prog="docker-compose"
+lockfile="/var/lock/subsys/docker-compose"
+pidfile="/var/run/docker-compose.pid"
+PATH="$PATH:/usr/local/bin"
+
+
+start() {
+    [ -x $cmdpath ] || exit 5
+    echo -n $"Starting $prog: "
+
+    cd $workspace
+    $cmdpath up -d
+    retval=$?
+    pid=$!
+    echo
+    [ $retval -eq 0 ] && touch $lockfile && echo $pid > $pidfile
+
+    return $retval
+}
+
+stop() {
+    [ -x $cmdpath ] || exit 5
+    echo -n $"Stopping $prog: "
+
+    cd $workspace
+    $cmdpath stop
+    $cmdpath rm -f
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f $lockfile && rm -f $pidfile
+
+    return $retval
+}
+
+restart() {
+    stop
+    sleep 3
+    start
+}
+
+case "$1" in
+    start)
+        $1
+        ;;
+    stop)
+        $1
+        ;;
+    restart)
+        $1
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart}"
+        exit 2
+esac
