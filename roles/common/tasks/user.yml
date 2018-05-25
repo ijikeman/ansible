@@ -1,9 +1,23 @@
+- name: Create salt
+  shell: "mktemp -u | awk '{print substr($0, length($0)-8+1)}'"
+  changed_when: False
+  register: salt
+  when: password is defined
+
+- name: Create hash for password
+  shell: python -c 'import crypt; print crypt.crypt("{{ item.password }}", "$6${{ salt.stdout }}")'
+  changed_when: False
+  register: hash_password
+  when: item.password is defined
+
 - name: User Create
   user:
     name: "{{ item.name }}"
-    group: "{{ item.group }}"
-    home: "{{ item.home }}"
-    shell: "{{ item.shell }}"
-    uid: "{{ item.uid }}"
-    create_home: "{{ item.create_home }}"
+    group: "{{ item.group | default('no') }}"
+    home: "{{ item.home | default('no') }}"
+    shell: "{{ item.shell | default('no') }}"
+    uid: "{{ item.uid | default('no') }}"
+    create_home: "{{ item.create_home | default('yes') }}"
     state: present
+    password: "{{ item.password | default('no') }}"
+    update_password: "{{ item.update_password | default('no') }}"

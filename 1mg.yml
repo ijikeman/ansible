@@ -3,4 +3,5 @@
   # connection: docker
   roles:
     - common
+    - openssh
     - docker

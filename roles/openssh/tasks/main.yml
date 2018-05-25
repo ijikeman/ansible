@@ -1,0 +1,16 @@
+- name: Setfact daemon_name
+  set_fact:
+    daemon_name: "{{ daemon_name }}"
+
+- name: Set sshd_config
+  template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0600
+  notify: Service restart
+
+- include_role:
+    name: common_tasks
+    tasks_from: service_start.yml
