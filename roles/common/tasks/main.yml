@@ -1,12 +1,32 @@
 ---
-- name: System Group control
-  include_tasks: group.yml
+- include_role:
+     name: common_tasks
+     tasks_from: group.yml
   with_items: "{{ ARRAY_GROUP }}"
 
-- name: System User control
-  include_tasks: user.yml
+- include_role:
+     name: common_tasks
+     tasks_from: user.yml
   with_items: "{{ ARRAY_USER }}"
 
-- include_tasks: install.yml
-- include_tasks: setup_dir.yml
-- include_tasks: setup_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
+- include_role:
+     name: common_tasks
+     tasks_from: install_yum.yml
+  with_items: "{{ ARRAY_INSTALL_PKG }}"
+
+- include_role:
+     name: common_tasks
+     tasks_from: mkdir.yml
+  with_items:
+    - "{{ ARRAY_COMMON_MKDIRS | default([]) }}"
+    - "{{ ARRAY_HOSTSGROUP_MKDIRS | default([]) }}"
+
+- name: Make Symlinks
+  file:
+    src: "{{ item.src }}"
+    path: "{{ item.path }}"
+    state: link
+  with_items: "{{ ARRAY_COMMON_LINKS | default([]) }}"
+
+- name: Default OS Setup
+  include_tasks: setup_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml

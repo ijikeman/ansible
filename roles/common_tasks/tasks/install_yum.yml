@@ -1,0 +1,4 @@
+---
+- name: Yum Install packages
+  yum:
+    name: "{{ item.name }}"

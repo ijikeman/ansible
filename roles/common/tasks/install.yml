@@ -1,4 +1,0 @@
----
-- name: install packages
-  yum: name={{ item.name }}
-  with_items: "{{ ARRAY_INSTALL_PKG }}"
