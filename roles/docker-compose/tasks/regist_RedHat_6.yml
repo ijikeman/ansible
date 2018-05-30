@@ -4,5 +4,5 @@
     dest: /etc/rc.d/init.d/docker-compose
     owner: 0
     group: 0
-    mode: 0644
+    mode: 0755
   notify: "regist {{ role_name }}"
