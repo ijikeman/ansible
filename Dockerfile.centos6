@@ -1,0 +1,7 @@
+From centos:6
+
+RUN yum install -y epel-release
+RUN yum install -y ansible
+RUN yum install -y openssh-clients
+RUN mkdir /ansible
+WORKDIR /ansible
