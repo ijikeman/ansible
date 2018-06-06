@@ -34,4 +34,6 @@ RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
 
 
 # default command: display Ansible version
+RUN mkdir /ansible
+WORKDIR /ansible
 CMD [ "ansible-playbook", "--version" ]
