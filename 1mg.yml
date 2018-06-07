@@ -3,6 +3,7 @@
   # connection: docker
   roles:
     - common
+    - cron
     - openssh
     - docker
     - docker-compose
