@@ -1,0 +1,13 @@
+[Unit]
+Description=dockcer-compose script
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+EnvironmentFile=/etc/sysconfig/docker-compose
+ExecStart=/usr/local/bin/docker-compose $OPTIONS up
+ExecStop=/usr/local/bin/docker-compose $OPTIONS stop
+
+[Install]
+WantedBy=local.target

@@ -33,5 +33,8 @@
     state: stop
     enabled: no
 
-- name: "regist {{ role_name }}"
+- name: "regist sysvinit {{ role_name }}"
   command: chkconfig --add {{ daemon_name }}
+
+- name: "regist systemd {{ role_name }}"
+  command: systemctl enable {{ daemon_name }}

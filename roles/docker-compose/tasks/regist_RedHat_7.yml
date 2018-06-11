@@ -1,0 +1,16 @@
+- name: Set sysconfig
+  template:
+    src: sysconfig.j2
+    dest: /etc/sysconfig/docker-compose
+    owner: 0
+    group: 0
+    mode: 0644
+
+- name: Regist To Systemd
+  template:
+    src: systemd.j2
+    dest: /usr/lib/systemd/system/docker-compose.service
+    owner: 0
+    group: 0
+    mode: 0644
+  notify: "regist systemd {{ role_name }}"

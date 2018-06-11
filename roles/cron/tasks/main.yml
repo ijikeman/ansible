@@ -2,7 +2,7 @@
 - name: Set backup script
   template:
     src: backup.sh.j2
-    dest: "{{ IMG_DIR }}/bin/backup.sh"
+    dest: "{{ PATH_1MG }}/bin/backup.sh"
     owner: 0
     group: 0
     mode: 0700
@@ -12,4 +12,4 @@
     name: "backup script"
     minute: "0"
     hour: "0"
-    job: "{{ IMG_DIR }}/bin/backup.sh"
+    job: "{{ PATH_1MG }}/bin/backup.sh"
