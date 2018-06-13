@@ -1,0 +1,19 @@
+---
+- name: Setup Mackerel-Agent
+  shell: curl -fsSL https://mackerel.io/file/script/setup-all-yum-v2.sh | MACKEREL_APIKEY='{{ MACKEREL.APIKEY }}' sh
+
+- name: Install Mackerel-Plugins
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - mackerel-agent-plugins
+    - mackerel-check-plugins
+
+- name: Set Config File
+  template:
+    src: mackerel-agent.conf.j2
+    dest: /etc/mackerel-agent/mackerel-agent.conf
+    owner: 0
+    group: 0
+    mode: 0644
+  notify: systemd restart {{ role_name }}
