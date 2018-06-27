@@ -29,4 +29,4 @@
   with_items: "{{ ARRAY_COMMON_LINKS | default([]) }}"
 
 - name: Default OS Setup
-  include_tasks: setup_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
+  include_tasks: setup_{{ ansible_os_family }}.yml
