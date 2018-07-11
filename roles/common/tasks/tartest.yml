@@ -1,0 +1,6 @@
+---
+- name: Tar test
+  unarchive:
+    src: tartest.tar.gz
+    dest: /tmp/
+

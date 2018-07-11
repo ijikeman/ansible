@@ -1,0 +1,7 @@
+---
+- hosts: 1mg
+  # connection: docker
+  tasks:
+    - include_role:
+        name : common
+        tasks_from: tartest.yml
