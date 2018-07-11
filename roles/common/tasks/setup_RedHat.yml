@@ -15,3 +15,11 @@
     owner: 0
     group: 0
   notify: Reload Sysctl
+
+- name: Setup cron.d/sysstat
+  template:
+    src: "{{ ansible_os_family }}.sysstat.j2"
+    dest: /etc/cron.d/sysstat
+    mode: 0644
+    owner: 0
+    group: 0
