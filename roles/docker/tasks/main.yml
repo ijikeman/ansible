@@ -6,4 +6,7 @@
   include_tasks: state_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
 
 - name: Docker setup
-  include_tasks: state_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
+  include_tasks: setup_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
+
+- name: Docker start
+  include_tasks: start_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml

@@ -1,34 +1,60 @@
 ---
-- name: "systemd start {{ role_name }}"
+- name: "systemd start"
   systemd:
     name: "{{ daemon_name }}"
     state: started
-    enabled: yes
+  listen: "systemd start"
 
-- name: "systemd restart {{ role_name }}"
+- name: "systemd restart"
   systemd:
     name: "{{ daemon_name }}"
     state: restarted
+  listen: "systemd restart"
 
-- name: "systemd stop {{ role_name }}"
+- name: "systemd stop"
   systemd:
     name: "{{ daemon_name }}"
-    state: stop
-    enabled: no
+    state: stopped
+  listen: "systemd stop"
 
-- name: "service start {{ role_name }}"
+ - name: "systemd enable"
+   systemd:
+     name: "{{ daemon_name }}"
+     enabled: yes
+   listen: "systemd enable"
+
+ - name: "systemd disable"
+   systemd:
+     name: "{{ daemon_name }}"
+     enabled: no
+   listen: "systemd disable"
+
+- name: "service start"
   service:
     name: "{{ daemon_name }}"
     state: started
-    enabled: yes
+  listen: "service start"
 
-- name: "service restart {{ role_name }}"
+- name: "service restart"
   service:
     name: "{{ daemon_name }}"
     state: restarted
+  listen: "service start"
 
-- name: "service stop {{ role_name }}"
+- name: "service stop"
   service:
     name: "{{ daemon_name }}"
-    state: stop
+    state: stopped
+  listen: "service stop"
+
+- name: "service enable"
+  systemd:
+    name: "{{ daemon_name }}"
+    enabled: yes
+  listen: "service enable"
+
+- name: "service disable"
+  systemd:
+    name: "{{ daemon_name }}"
     enabled: no
+  listen: "service disable"

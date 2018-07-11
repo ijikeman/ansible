@@ -1,4 +1,14 @@
 ---
+- name: Enable {{ daemon_name }}
+  command: echo "Enable {{ daemon_name }}"
+  changed_when: False
+  notify: "systemd enable"
+
+- name: Start {{ daemon_name }}
+  command: echo "Start {{ daemon_name }}"
+  changed_when: False
+  notify: "systemd start"
+
 - name: Set backup script
   template:
     src: backup.sh.j2

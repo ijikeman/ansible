@@ -16,4 +16,14 @@
     owner: 0
     group: 0
     mode: 0644
-  notify: systemd restart {{ role_name }}
+  notify: "systemd restart"
+
+- name: Enabled Service
+  command: echo "Enabled {{ role_name }}"
+  changed_when: False
+  notify: "systemd enable"
+
+- name: Start Service
+  command: echo "Started {{ role_name }}"
+  changed_when: False
+  notify: "systemd start"
