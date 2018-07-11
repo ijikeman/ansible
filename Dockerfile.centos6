@@ -1,4 +1,4 @@
-From centos:6
+From centos:latest
 
 RUN yum install -y epel-release
 RUN yum install -y ansible

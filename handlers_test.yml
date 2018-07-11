@@ -1,0 +1,14 @@
+---
+- hosts: all
+  roles:
+    - test
+    - test2
+#  tasks:
+#  - include_role:
+#      name: test
+#      tasks_from: main.yml
+##      static: yes
+#  - include_role:
+#      name: test2
+#      tasks_from: main.yml
+##      static: yes
