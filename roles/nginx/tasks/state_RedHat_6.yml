@@ -1,4 +1,4 @@
 ---
 - name: Start {{ role_name }}
   command: echo "Start {{ role_name }}"
-  notify: service start {{ role_name }}
+  notify: Service start {{ daemon_name }}

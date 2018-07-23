@@ -6,4 +6,4 @@
     owner: 0
     group: 0
     mode: 0644
-  notify: systemd restart
+  notify: Systemd restart {{ daemon_name }}

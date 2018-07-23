@@ -2,4 +2,4 @@
 - name: Start {{ role_name }}
   command: echo "Start {{ role_name }}"
   changed_when: False
-  notify: "systemd start"
+  notify: Systemd start {{ daemon_name }}

@@ -16,14 +16,14 @@
     owner: 0
     group: 0
     mode: 0644
-  notify: "systemd restart"
+  notify: Systemd restart {{ daemon_name }}
 
 - name: Enabled Service
   command: echo "Enabled {{ role_name }}"
   changed_when: False
-  notify: "systemd enable"
+  notify: Systemd enable  {{ daemon_name }}
 
 - name: Start Service
   command: echo "Started {{ role_name }}"
   changed_when: False
-  notify: "systemd start"
+  notify: Systemd start {{ daemon_name }}

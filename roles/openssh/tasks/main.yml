@@ -9,7 +9,7 @@
     owner: root
     group: root
     mode: 0600
-  notify: Service restart
+  notify: Service restart {{ daemon_name }}
 
 - include_role:
     name: common_tasks

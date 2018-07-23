@@ -6,4 +6,4 @@
     owner: nginx
     group: nginx
     mode: 0644
-  notify: "systemd restart {{ role_name }}"
+  notify: Systemd restart {{ daemon_name }}

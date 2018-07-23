@@ -1,60 +1,72 @@
 ---
-- name: "systemd start"
-  systemd:
-    name: "{{ daemon_name }}"
-    state: started
-  listen: "systemd start"
-
-- name: "systemd restart"
-  systemd:
-    name: "{{ daemon_name }}"
-    state: restarted
-  listen: "systemd restart"
-
-- name: "systemd stop"
-  systemd:
-    name: "{{ daemon_name }}"
-    state: stopped
-  listen: "systemd stop"
-
- - name: "systemd enable"
-   systemd:
-     name: "{{ daemon_name }}"
-     enabled: yes
-   listen: "systemd enable"
-
- - name: "systemd disable"
-   systemd:
-     name: "{{ daemon_name }}"
-     enabled: no
-   listen: "systemd disable"
-
-- name: "service start"
+- name: Service start {{ daemon_name }}
   service:
     name: "{{ daemon_name }}"
     state: started
-  listen: "service start"
+  listen: Service start {{ daemon_name }}
 
-- name: "service restart"
+- name: Service restart {{ daemon_name }}
   service:
     name: "{{ daemon_name }}"
     state: restarted
-  listen: "service start"
+  listen: Service restart {{ daemon_name }}
 
-- name: "service stop"
+- name: Service reloaded {{ daemon_name }}
+  service:
+    name: "{{ daemon_name }}"
+    state: reloaded
+  listen: Service reloaded {{ daemon_name }}
+
+- name: Service stop {{ daemon_name }}
   service:
     name: "{{ daemon_name }}"
     state: stopped
-  listen: "service stop"
+  listen: Service stop {{ daemon_name }}
 
-- name: "service enable"
+- name: Service enabled {{ daemon_name }}
+  service:
+    name: "{{ daemon_name }}"
+    enabled: yes
+  listen: Service enabled {{ daemon_name }}
+
+- name: Service disabled {{ daemon_name }}
+  service:
+    name: "{{ daemon_name }}"
+    enabled: no
+  listen: Service disabled {{ daemon_name }}
+
+- name: Systemd start {{ daemon_name }}
+  systemd:
+    name: "{{ daemon_name }}"
+    state: started
+  listen: Systemd start {{ daemon_name }}
+
+- name: Systemd restart {{ daemon_name }}
+  systemd:
+    name: "{{ daemon_name }}"
+    state: restarted
+  listen: Systemd restart {{ daemon_name }}
+
+- name: Systemd reloaded {{ daemon_name }}
+  systemd:
+    name: "{{ daemon_name }}"
+    state: reloaded
+  listen: Systemd reloaded {{ daemon_name }}
+
+- name: Systemd stop {{ daemon_name }}
+  systemd:
+    name: "{{ daemon_name }}"
+    state: stopped
+  listen: Systemd stop {{ daemon_name }}
+
+- name: Systemd enabled {{ daemon_name }}
   systemd:
     name: "{{ daemon_name }}"
     enabled: yes
-  listen: "service enable"
+  listen: Systemd enabled {{ daemon_name }}
 
-- name: "service disable"
+- name: Systemd disabled {{ daemon_name }}
   systemd:
     name: "{{ daemon_name }}"
     enabled: no
-  listen: "service disable"
+  listen: Systemd disabled {{ daemon_name }}

@@ -2,12 +2,12 @@
 - name: Enable {{ daemon_name }}
   command: echo "Enable {{ daemon_name }}"
   changed_when: False
-  notify: "systemd enable"
+  notify: Systemd enable {{ daemon_name }}
 
 - name: Start {{ daemon_name }}
   command: echo "Start {{ daemon_name }}"
   changed_when: False
-  notify: "systemd start"
+  notify: Systemd start {{ daemon_name }}
 
 - name: Set backup script
   template:
