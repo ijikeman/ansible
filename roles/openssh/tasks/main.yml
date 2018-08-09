@@ -1,6 +1,6 @@
-- name: Setfact daemon_name
-  set_fact:
-    daemon_name: "{{ daemon_name }}"
+---
+- include_task: enable.yml
+- include_task: start.yml
 
 - name: Set sshd_config
   template:
@@ -10,7 +10,3 @@
     group: root
     mode: 0600
   notify: Service restart {{ daemon_name }}
-
-- include_role:
-    name: common_tasks
-    tasks_from: service_start.yml
