@@ -18,12 +18,5 @@
     mode: 0644
   notify: Systemd restart {{ daemon_name }}
 
-- name: Enabled Service
-  command: echo "Enabled {{ role_name }}"
-  changed_when: False
-  notify: Systemd enable  {{ daemon_name }}
-
-- name: Start Service
-  command: echo "Started {{ role_name }}"
-  changed_when: False
-  notify: Systemd start {{ daemon_name }}
+- include_tasks: enable.yml
+- include_tasks: start.yml
