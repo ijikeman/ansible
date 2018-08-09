@@ -1,17 +1,17 @@
 #!/bin/sh
 DATE=`date +%Y%m%d%H%M%S`
-DIR_SQL_BACKUP=/usr/local/1mg/data/backup
+DIR_SQL_BACKUP=/usr/local/1mg/data/backup/
 MAX_BACKUP_NUM=2
 
 # BACKUP DB
 for db_name in phpbb ee_megane
 do
-  mysqldump -u root -h 127.0.0.1 $db_name > /usr/local/1mg/data/backup/$db_name.$DATE.sql
+  mysqldump -u root -h 127.0.0.1 ${db_name} > ${DIR_SQL_BACKUP}${db_name}.${DATE}.sql
   # SQL FILE ROTATE
-  file_num=`ls -U1 $DIR_SQL_BACKUP/$db_name.*.sql|wc -l`
+  file_num=`ls -U1 ${DIR_SQL_BACKUP}${db_name}.*.sql|wc -l`
   if [ $file_num -gt $MAX_BACKUP_NUM ];then
     delete_num=`expr $file_num - $MAX_BACKUP_NUM`
-    ls -tr $DIR_SQL_BACKUP/$db_name.*.sql|head -$delete_num|xargs -IFILENAME rm -f FILENAME
+    ls -tr ${DIR_SQL_BACKUP}${db_name}.*.sql|head -$delete_num|xargs -IFILENAME rm -f FILENAME
   fi
 done
 

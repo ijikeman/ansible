@@ -1,13 +1,6 @@
 ---
-- name: Enable {{ daemon_name }}
-  command: echo "Enable {{ daemon_name }}"
-  changed_when: False
-  notify: Systemd enable {{ daemon_name }}
-
-- name: Start {{ daemon_name }}
-  command: echo "Start {{ daemon_name }}"
-  changed_when: False
-  notify: Systemd start {{ daemon_name }}
+- include_task: enable.yml
+- include_task: start.yml
 
 - name: Set backup script
   template:
@@ -26,16 +19,8 @@
 
 - name: Set Update Let's Encrypt Certs
   cron:
-    name: "Update Let's Encrypt Certs(ee-megane.com)"
-    minute: "0"
-    hour: "3"
-    day: "1"
-    job: "docker run --rm -v {{ PATH_1MG }}/data/www/ee-megane.com/:/var/www/html -v {{ PATH_1MG }}/data/www/letsencrypt:/etc/letsencrypt letsencrypt /usr/bin/certbot-auto renw --no-bootstrap"
-
-- name: Set Update Let's Encrypt Certs
-  cron:
-    name: "Update Let's Encrypt Certs(server.1mg.org)"
+    name: "Update Let's Encrypt Certs"
     minute: "15"
     hour: "3"
     day: "1"
-    job: "docker run --rm -v {{ PATH_1MG }}/data/www/server.1mg.org/:/var/www/html -v {{ PATH_1MG }}/data/www/letsencrypt:/etc/letsencrypt letsencrypt /usr/bin/certbot-auto renw --no-bootstrap"
+    job: "docker run --rm -v {{ PATH_1MG }}/data/www/server.1mg.org/:/var/www/html -v {{ PATH_1MG }}/data/www/letsencrypt:/etc/letsencrypt letsencrypt /usr/bin/certbot-auto renew --no-bootstrap"
