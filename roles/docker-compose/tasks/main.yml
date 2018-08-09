@@ -15,7 +15,4 @@
 - name: Regist To Service Control
   include_tasks: "regist_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml"
 
-- name: Start {{ role_name }}
-  command: echo "Start {{ role_name }}"
-  changed_when: False
-  notify: Systemd start {{ daemon_name }}
+- include_tasks: start.yml
