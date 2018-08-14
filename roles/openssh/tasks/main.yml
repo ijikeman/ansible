@@ -1,6 +1,6 @@
 ---
-- include_task: enable.yml
-- include_task: start.yml
+- include_tasks: enable.yml
+- include_tasks: start.yml
 
 - name: Set sshd_config
   template:
