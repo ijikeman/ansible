@@ -1,12 +1,12 @@
 ---
-- name: Docker install
+- name: Install
   include_tasks: install_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
 
-- name: Docker enable
+- name: Service Enable
   include_tasks: state_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
 
-- name: Docker setup
+- name: Setup
   include_tasks: setup_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
 
-- name: Docker start
+- name: Daemon Start
   include_tasks: start_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
