@@ -1,4 +1,5 @@
 ---
 - name: Start {{ role_name }}
   command: echo "Start {{ role_name }}"
-  notify: Service enabled {{ daemon_name }}
+  changed_when: False
+  notify: Systemd start {{ daemon_name }}
