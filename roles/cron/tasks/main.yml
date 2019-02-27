@@ -23,4 +23,4 @@
     minute: "15"
     hour: "3"
     day: "1"
-    job: "docker run --rm -v {{ PATH_1MG }}/data/www/server.1mg.org/:/var/www/html -v {{ PATH_1MG }}/data/www/letsencrypt:/etc/letsencrypt letsencrypt /usr/bin/certbot-auto renew --no-bootstrap"
+    job: "docker run web-docker_proxy-1 certbot certonly --webroot -w /var/www/html/.well-known/ -d server.1mg.org && cd {{ PATH_1MG }}/data/web-docker/ && docker-compose restart proxy"
