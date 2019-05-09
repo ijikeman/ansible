@@ -24,3 +24,11 @@
     hour: "3"
     day: "1"
     job: "docker exec web-docker_proxy_1 certbot certonly --webroot -w /var/www/html/.well-known/ -d server.1mg.org && cd {{ PATH_1MG }}/data/web-docker/ && docker-compose restart proxy"
+
+- name: Set Update Let's Encrypt Certs
+  cron:
+    name: "Update Let's Encrypt Certs"
+    minute: "30"
+    hour: "3"
+    day: "1"
+    job: "docker exec web-docker_proxy_1 certbot certonly --webroot -w /var/www/html/.well-known/ -d ee-megane.com && cd {{ PATH_1MG }}/data/web-docker/ && docker-compose restart proxy"
