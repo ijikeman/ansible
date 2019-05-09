@@ -17,7 +17,7 @@
     hour: "0"
     job: "{{ PATH_1MG }}/bin/backup.sh"
 
-- name: Set Update Let's Encrypt Certs
+- name: Set Update Let's Encrypt Certs(1mg.org)
   cron:
     name: "Update Let's Encrypt Certs"
     minute: "15"
@@ -25,7 +25,7 @@
     day: "1"
     job: "docker exec web-docker_proxy_1 certbot certonly --webroot -w /var/www/html/.well-known/ -d server.1mg.org && cd {{ PATH_1MG }}/data/web-docker/ && docker-compose restart proxy"
 
-- name: Set Update Let's Encrypt Certs
+- name: Set Update Let's Encrypt Certs(ee-megane.com)
   cron:
     name: "Update Let's Encrypt Certs"
     minute: "30"
