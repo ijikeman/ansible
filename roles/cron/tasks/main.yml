@@ -19,7 +19,7 @@
 
 - name: Set Update Let's Encrypt Certs 1mg.org
   cron:
-    name: "Update Let's Encrypt Certs"
+    name: "Update Let's Encrypt Certs 1mg.org"
     minute: "15"
     hour: "3"
     day: "1"
@@ -27,7 +27,7 @@
 
 - name: Set Update Let's Encrypt Certs ee-megane.com
   cron:
-    name: "Update Let's Encrypt Certs"
+    name: "Update Let's Encrypt Certs ee-megane.com"
     minute: "30"
     hour: "3"
     day: "1"
