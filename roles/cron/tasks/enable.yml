@@ -1,5 +1,4 @@
 ---
 - name: Enable {{ daemon_name }}
   command: echo "Enable {{ daemon_name }}"
-  changed_when: False
   notify: Systemd enabled {{ daemon_name }}

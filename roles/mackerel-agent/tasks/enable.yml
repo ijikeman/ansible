@@ -1,5 +1,4 @@
 ---
 - name: Enabled Service
   command: echo "Enabled {{ role_name }}"
-  changed_when: False
   notify: Systemd enabled {{ daemon_name }}

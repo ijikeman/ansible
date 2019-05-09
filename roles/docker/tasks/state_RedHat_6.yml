@@ -1,5 +1,4 @@
 ---
 - name: Start {{ role_name }}
   command: echo "Start {{ role_name }}"
-  changed_when: False
   notify: Service enabled {{ daemon_name }}

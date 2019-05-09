@@ -23,4 +23,4 @@
     minute: "15"
     hour: "3"
     day: "1"
-    job: "docker run web-docker_proxy-1 certbot certonly --webroot -w /var/www/html/.well-known/ -d server.1mg.org && cd {{ PATH_1MG }}/data/web-docker/ && docker-compose restart proxy"
+    job: "docker exec web-docker_proxy_1 certbot certonly --webroot -w /var/www/html/.well-known/ -d server.1mg.org && cd {{ PATH_1MG }}/data/web-docker/ && docker-compose restart proxy"
