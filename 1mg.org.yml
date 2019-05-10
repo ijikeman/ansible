@@ -1,5 +1,5 @@
 ---
-- hosts: 1mg.org
+- hosts: 1mg_org
   # connection: docker
   roles:
     - common
