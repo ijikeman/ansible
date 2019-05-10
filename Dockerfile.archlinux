@@ -1,6 +1,7 @@
 From archlinux/base
 
 RUN pacman -Syy
-RUN packman -S --noconfirm ansible
+RUN pacman -S --noconfirm ansible
+RUN pacman -S --noconfirm openssh
 RUN mkdir /ansible
 WORKDIR /ansible

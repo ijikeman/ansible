@@ -1,3 +1,4 @@
+rm -f Dockerfile
 ln -s Dockerfile.archlinux Dockerfile
 docker build -t ansible .
 mkdir /tmp/ansible_logs/`date +%Y%m%d`
