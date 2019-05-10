@@ -3,6 +3,7 @@
   service:
     name: "{{ daemon_name }}"
     state: started
+    enabled: yes
   listen: Service start {{ daemon_name }}
 
 - name: Service restart {{ daemon_name }}
@@ -21,24 +22,14 @@
   service:
     name: "{{ daemon_name }}"
     state: stopped
-  listen: Service stop {{ daemon_name }}
-
-- name: Service enabled {{ daemon_name }}
-  service:
-    name: "{{ daemon_name }}"
-    enabled: yes
-  listen: Service enabled {{ daemon_name }}
-
-- name: Service disabled {{ daemon_name }}
-  service:
-    name: "{{ daemon_name }}"
     enabled: no
-  listen: Service disabled {{ daemon_name }}
+  listen: Service stop {{ daemon_name }}
 
 - name: Systemd start {{ daemon_name }}
   systemd:
     name: "{{ daemon_name }}"
     state: started
+    enabled: yes
   listen: Systemd start {{ daemon_name }}
 
 - name: Systemd restart {{ daemon_name }}
@@ -57,16 +48,5 @@
   systemd:
     name: "{{ daemon_name }}"
     state: stopped
-  listen: Systemd stop {{ daemon_name }}
-
-- name: Systemd enabled {{ daemon_name }}
-  systemd:
-    name: "{{ daemon_name }}"
-    enabled: yes
-  listen: Systemd enabled {{ daemon_name }}
-
-- name: Systemd disabled {{ daemon_name }}
-  systemd:
-    name: "{{ daemon_name }}"
     enabled: no
-  listen: Systemd disabled {{ daemon_name }}
+  listen: Systemd stop {{ daemon_name }}

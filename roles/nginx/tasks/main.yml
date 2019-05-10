@@ -4,7 +4,6 @@
 
 # tasks file for nginx
 - include: install_{{ ansible_os_family }}.yml
-- include: state_{{ ansible_os_family }}_{{ ansible_distribution_major_version}}.yml
 - include: setup.yml
 
 - name: Daemon start

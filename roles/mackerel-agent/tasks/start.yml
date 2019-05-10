@@ -1,4 +1,0 @@
----
-- name: Start Service
-  command: echo "Started {{ role_name }}"
-  notify: Systemd start {{ daemon_name }}

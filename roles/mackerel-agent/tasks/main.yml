@@ -18,5 +18,5 @@
     mode: 0644
   notify: Systemd restart {{ daemon_name }}
 
-- include_tasks: enable.yml
-- include_tasks: start.yml
+- name: Daemon Start
+  include_tasks: start_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml

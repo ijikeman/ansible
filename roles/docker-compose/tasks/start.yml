@@ -1,4 +1,0 @@
----
-- name: Start {{ role_name }}
-  command: echo "Start {{ role_name }}"
-  notify: Systemd start {{ daemon_name }}

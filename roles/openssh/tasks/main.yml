@@ -1,6 +1,6 @@
 ---
-- include_tasks: enable.yml
-- include_tasks: start.yml
+- name: Daemon start
+  include_tasks: start_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
 
 - name: Set sshd_config
   template:
@@ -9,4 +9,4 @@
     owner: root
     group: root
     mode: 0600
-  notify: Service restart {{ daemon_name }}
+  notify: Systemd restart {{ daemon_name }}
