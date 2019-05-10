@@ -1,0 +1,4 @@
+From ansible/centos7-ansible:latest
+
+RUN mkdir /ansible
+WORKDIR /ansible
