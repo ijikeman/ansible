@@ -15,4 +15,6 @@
   include_tasks: "regist_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml"
 
 - name: Daemon Start
-  include_tasks: start_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
+  include_role:
+    name: common_tasks
+    tasks_from: service_start_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml

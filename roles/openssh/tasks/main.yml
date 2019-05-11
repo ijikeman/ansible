@@ -1,6 +1,8 @@
 ---
-- name: Daemon start
-  include_tasks: start_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
+- name: Daemon Start
+  include_role:
+    name: common_tasks
+    tasks_from: service_start_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
 
 - name: Set sshd_config
   template:

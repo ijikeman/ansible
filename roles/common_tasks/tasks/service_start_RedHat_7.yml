@@ -1,0 +1,18 @@
+---
+- name: Check State "{{ daemon_name }}"
+  shell: systemctl status {{ daemon_name }}
+  register: service_status
+  changed_when: False
+  failed_when: False
+  ignore_errors: True
+  tags:
+    - skip-check
+    - service_start
+
+- name: Start "{{ daemon_name }}"
+  shell: echo "Start {{ daemon_name }}"
+  when: service_status.rc != 0
+  notify: Systemd start {{ daemon_name }}
+  tags:
+    - skip-check
+    - service_start
