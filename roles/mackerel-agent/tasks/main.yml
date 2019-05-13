@@ -1,6 +1,13 @@
 ---
+- name: Get State Mackerel-Agent repo
+  stat:
+    path: /etc/yum.repos.d/mackerel.repo
+  register: stat_mackerel_repo
+  failed_when: False
+
 - name: Setup Mackerel-Agent
   shell: curl -fsSL https://mackerel.io/file/script/setup-all-yum-v2.sh | MACKEREL_APIKEY='{{ MACKEREL.APIKEY }}' sh
+  when: not stat_mackerel_repo.stat.exists
 
 - name: Install Mackerel-Plugins
   yum:
