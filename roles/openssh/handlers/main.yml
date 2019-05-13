@@ -1,16 +1,16 @@
 ---
-- name: Service start {{ daemon_name }}
+- name: Service started {{ daemon_name }}
   service:
     name: "{{ daemon_name }}"
     state: started
     enabled: yes
-  listen: Service start {{ daemon_name }}
+  listen: Service started {{ daemon_name }}
 
-- name: Service restart {{ daemon_name }}
+- name: Service restarted {{ daemon_name }}
   service:
     name: "{{ daemon_name }}"
     state: restarted
-  listen: Service restart {{ daemon_name }}
+  listen: Service restarted {{ daemon_name }}
 
 - name: Service reloaded {{ daemon_name }}
   service:
@@ -18,25 +18,25 @@
     state: reloaded
   listen: Service reloaded {{ daemon_name }}
 
-- name: Service stop {{ daemon_name }}
+- name: Service stopped {{ daemon_name }}
   service:
     name: "{{ daemon_name }}"
     state: stopped
     enabled: no
-  listen: Service stop {{ daemon_name }}
+  listen: Service stopped {{ daemon_name }}
 
-- name: Systemd start {{ daemon_name }}
+- name: Systemd started {{ daemon_name }}
   systemd:
     name: "{{ daemon_name }}"
     state: started
     enabled: yes
-  listen: Systemd start {{ daemon_name }}
+  listen: Systemd started {{ daemon_name }}
 
-- name: Systemd restart {{ daemon_name }}
+- name: Systemd restarted {{ daemon_name }}
   systemd:
     name: "{{ daemon_name }}"
     state: restarted
-  listen: Systemd restart {{ daemon_name }}
+  listen: Systemd restarted {{ daemon_name }}
 
 - name: Systemd reloaded {{ daemon_name }}
   systemd:
@@ -44,9 +44,9 @@
     state: reloaded
   listen: Systemd reloaded {{ daemon_name }}
 
-- name: Systemd stop {{ daemon_name }}
+- name: Systemd stopped {{ daemon_name }}
   systemd:
     name: "{{ daemon_name }}"
     state: stopped
     enabled: no
-  listen: Systemd stop {{ daemon_name }}
+  listen: Systemd stopped {{ daemon_name }}

@@ -16,9 +16,9 @@
     owner: 0
     group: 0
     mode: 0644
-  notify: Systemd restart {{ daemon_name }}
+  notify: Systemd restarted {{ daemon_name }}
 
-- name: Daemon Start
+- name: Daemon Started
   include_role:
     name: common_tasks
-    tasks_from: service_start_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
+    tasks_from: service_started_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml

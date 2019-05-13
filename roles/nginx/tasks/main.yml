@@ -6,7 +6,7 @@
 - include: install_{{ ansible_os_family }}.yml
 - include: setup.yml
 
-- name: Daemon Start
+- name: Daemon Started
   include_role:
     name: common_tasks
-    tasks_from: service_start_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
+    tasks_from: service_started_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml

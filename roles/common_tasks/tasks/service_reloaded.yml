@@ -8,17 +8,17 @@
     - skip-check
 
 # Start if serivce stop(rc != 0)
-- name: Restart "{{ daemon_name }}"
-  command: echo "Restart(start) {{ daemon_name }}"
+- name: Restarted "{{ daemon_name }}"
+  command: echo "Restarted(started) {{ daemon_name }}"
   when: service_status.rc != 0
-  notify: Service start
+  notify: Service started
   tags:
     - skip-check
 
 # ReStart if serivce stop(rc == 0)
-- name: Restart "{{ daemon_name }}"
-  command: echo "Restart {{ daemon_name }}"
+- name: Restarted "{{ daemon_name }}"
+  command: echo "Restarted {{ daemon_name }}"
   when: service_status.rc == 0
-  notify: Service restart
+  notify: Service reloaded
   tags:
     - skip-check

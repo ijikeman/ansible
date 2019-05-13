@@ -9,10 +9,10 @@
     - skip-check
     - service_start
 
-- name: Start "{{ daemon_name }}"
-  shell: echo "Start {{ daemon_name }}"
+- name: Started "{{ daemon_name }}"
+  shell: echo "Started {{ daemon_name }}"
   when: service_status.rc != 0
-  notify: Service start {{ daemon_name }}
+  notify: Service started {{ daemon_name }}
   tags:
     - skip-check
     - service_start
