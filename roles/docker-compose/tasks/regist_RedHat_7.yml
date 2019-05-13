@@ -11,4 +11,4 @@
   systemd:
     name: "{{ daemon_name }}"
     enabled: yes
-    state: reloaded
+    state: startted
