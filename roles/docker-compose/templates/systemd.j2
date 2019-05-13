@@ -1,13 +1,27 @@
 [Unit]
-Description=dockcer-compose script
+Description=docker-compose %i service
 Requires=docker.service
 After=docker.service
 
 [Service]
+User=root
+Type=simple
+
+EnvironmentFile=-/etc/sysconfig/compose.d/%i.env
+Environment=COMPOSE_FILE={{ PATH_1MG }}data/%i/docker-compose.yml
+
+ExecStartPre=-/usr/local/bin/docker-compose -f ${COMPOSE_FILE} kill
+ExecStartPre=-/usr/local/bin/docker-compose -f ${COMPOSE_FILE} rm -v -f
+ExecStartPre=-/usr/local/bin/docker-compose -f ${COMPOSE_FILE} down
+
+ExecStart=-/usr/local/bin/docker-compose -f ${COMPOSE_FILE} up --force-recreate --abort-on-container-exit
+
+ExecStop=-/usr/local/bin/docker-compose -f ${COMPOSE_FILE} stop
+ExecStopPost=-/usr/local/bin/docker-compose -f ${COMPOSE_FILE} rm -v -f
+ExecStopPost=-/usr/local/bin/docker-compose -f ${COMPOSE_FILE} down
+
 Restart=always
-EnvironmentFile=/etc/sysconfig/docker-compose
-ExecStart=/usr/local/bin/docker-compose $OPTIONS up
-ExecStop=/usr/local/bin/docker-compose $OPTIONS stop
+RestartSec=180s
 
 [Install]
-WantedBy=local.target
+WantedBy=mult-user.target

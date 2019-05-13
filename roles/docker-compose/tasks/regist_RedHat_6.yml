@@ -1,3 +1,4 @@
+---
 - name: Regist To SysvInit
   template:
     src: sysvinit.j2
@@ -5,4 +6,3 @@
     owner: 0
     group: 0
     mode: 0755
-  notify: "regist sysvinit {{ role_name }}"

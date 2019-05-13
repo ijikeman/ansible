@@ -1,16 +1,14 @@
-- name: Set sysconfig
+---
+- name: Set Servicefile to Systemd
   template:
-    src: sysconfig.j2
-    dest: /etc/sysconfig/docker-compose
+    src: systemd.j2
+    dest: /etc/systemd/system/dc@.service
     owner: 0
     group: 0
     mode: 0644
 
 - name: Regist To Systemd
-  template:
-    src: systemd.j2
-    dest: /usr/lib/systemd/system/docker-compose.service
-    owner: 0
-    group: 0
-    mode: 0644
-  notify: "regist systemd {{ role_name }}"
+  systemd:
+    name: "{{ daemon_name }}"
+    enabled: yes
+    state: reloaded

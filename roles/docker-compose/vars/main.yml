@@ -1,2 +1,2 @@
-daemon_name: docker-compose
+daemon_name: dc@web-docker
 URL_DOCKER_COMPOSE: "https://github.com/docker/compose/releases/download/"
