@@ -1,4 +1,0 @@
-- name: Call Test
-  debug:
-    msg: "Call Test2"
-  listen: Call Test

@@ -1,6 +1,0 @@
-- name: "TEST"
-  command: echo "TEST {{ role_name }}"
-  notify: Call Test
-
-- name "TEST2"
-  command: echo "TEST2"

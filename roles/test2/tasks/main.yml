@@ -1,3 +1,0 @@
-- name: "TEST2"
-  command: echo "TEST2 {{ role_name }}"
-  notify: Call Test
