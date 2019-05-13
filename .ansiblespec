@@ -1,0 +1,4 @@
+---
+-
+  playbook: 1mg.org.yml
+  inventory: hosts/production/inventory

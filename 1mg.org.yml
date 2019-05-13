@@ -1,6 +1,8 @@
 ---
-- hosts: 1mg_org
+- name: 1mg.org
+  hosts: 1mg_org
   # connection: docker
+  user: root
   roles:
     - common
     - cron
@@ -8,3 +10,4 @@
     - docker
     - docker-compose
     - mackerel-agent
+    - nginx
