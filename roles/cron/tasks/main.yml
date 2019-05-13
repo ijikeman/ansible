@@ -7,7 +7,7 @@
 - name: Set backup script
   template:
     src: backup.sh.j2
-    dest: "{{ PATH_1MG }}/bin/backup.sh"
+    dest: "{{ PATH_1MG }}bin/backup.sh"
     owner: 0
     group: 0
     mode: 0700
@@ -17,7 +17,7 @@
     name: "backup script"
     minute: "0"
     hour: "0"
-    job: "{{ PATH_1MG }}/bin/backup.sh"
+    job: "{{ PATH_1MG }}bin/backup.sh"
 
 - name: Set Update Let's Encrypt Certs 1mg.org
   cron:
@@ -25,7 +25,7 @@
     minute: "15"
     hour: "3"
     day: "1"
-    job: "docker exec web-docker_proxy_1 certbot certonly --webroot -w /var/www/html/.well-known/ -d server.1mg.org && cd {{ PATH_1MG }}/data/web-docker/ && docker-compose restart proxy"
+    job: "docker exec web-docker_proxy_1 certbot certonly --webroot -w /var/www/html/.well-known/ -d server.1mg.org && cd {{ PATH_1MG }}data/web-docker/ && docker-compose restart proxy"
 
 - name: Set Update Let's Encrypt Certs ee-megane.com
   cron:
@@ -33,4 +33,4 @@
     minute: "30"
     hour: "3"
     day: "1"
-    job: "docker exec web-docker_proxy_1 certbot certonly --webroot -w /var/www/html/.well-known/ -d ee-megane.com && cd {{ PATH_1MG }}/data/web-docker/ && docker-compose restart proxy"
+    job: "docker exec web-docker_proxy_1 certbot certonly --webroot -w /var/www/html/.well-known/ -d ee-megane.com && cd {{ PATH_1MG }}data/web-docker/ && docker-compose restart proxy"

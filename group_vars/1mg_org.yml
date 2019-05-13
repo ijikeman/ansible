@@ -7,7 +7,7 @@ ARRAY_INSTALL_PKG:
   - { name: sysstat }
 
 HOSTNAME: '1mg.org'
-PATH_1MG: /usr/local/1mg
+PATH_1MG: /usr/local/1mg/
 ARRAY_COMMON_MKDIRS:
   - {
     path: "{{PATH_1MG}}",
@@ -17,35 +17,35 @@ ARRAY_COMMON_MKDIRS:
     recurse: 'no'
   }
   - {
-    path: "{{PATH_1MG}}/etc",
+    path: "{{PATH_1MG}}etc",
     owner: 'root',
     group: 'root',
     mode: '0775',
     recurse: 'no'
   }
   - {
-    path: "{{PATH_1MG}}/data",
+    path: "{{PATH_1MG}}data",
     owner: 'root',
     group: 'root',
     mode: '0755',
     recurse: 'no'
   }
   # - {
-  #   path: "{{PATH_1MG}}/www",
+  #   path: "{{PATH_1MG}}www",
   #   owner: 'nginx',
   #   group: 'nginx',
   #   mode: '0775',
   #   recurse: 'no'
   # }
   - {
-    path: "{{PATH_1MG}}/home",
+    path: "{{PATH_1MG}}home",
     owner: 'root',
     group: 'root',
     mode: '0755',
     recurse: 'no'
     }
   - {
-    path: "{{PATH_1MG}}/bin",
+    path: "{{PATH_1MG}}bin",
     owner: 'root',
     group: 'root',
     mode: '0755',
