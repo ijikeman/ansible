@@ -1,5 +1,6 @@
 From centos:7
 
+# Install ansible
 RUN yum install -y epel-release
 RUN yum install -y ansible
 RUN yum install -y openssh-clients
@@ -12,13 +13,16 @@ RUN git config --global http.sslVerify false
 RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv --depth 1
 RUN mkdir ~/.rbenv/plugins
 RUN git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build --depth 1
-RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
-RUN echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+RUN echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 
 # Install Ruby
 RUN yum install tar gcc make curl bzip2 -y
-RUN source ~/.bash_profile && rbenv install 2.6.3
-RUN source ~/.bash_profile && rbenv global 2.6.3
+RUN source ~/.bashrc && rbenv install 2.6.3
+RUN source ~/.bashrc && rbenv global 2.6.3
 
 # Install ansible_spec
-RUN source ~/.bash_profile && gem install ansible_spec
+RUN source ~/.bashrc && gem install ansible_spec
+
+# Set ruby path
+ENV PATH=/root/.rbenv/versions/2.6.3/bin:$PATH
