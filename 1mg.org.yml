@@ -5,6 +5,7 @@
   user: root
   roles:
     - common
+    - os
     - cron
     - openssh
     - docker

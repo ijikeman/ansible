@@ -1,12 +1,4 @@
 ---
-- name: Disabled Selinux
-  selinux:
-    state: disabled
-
-- name: Setup Hostname
-  hostname:
-    name: "{{ HOSTNAME }}"
-
 - name: Setup sysctl.conf
   template:
     src: "{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.sysctl.conf.j2"
@@ -23,3 +15,9 @@
     mode: 0644
     owner: 0
     group: 0
+
+- name: Disabled SELinux
+  include: setup_selinux.yml
+  tags:
+    - docker
+    - skip-check

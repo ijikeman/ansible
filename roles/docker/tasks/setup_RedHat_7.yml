@@ -7,3 +7,5 @@
     group: 0
     mode: 0644
   notify: Systemd restart {{ daemon_name }}
+  tags:
+    - docker

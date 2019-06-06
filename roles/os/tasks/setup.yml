@@ -1,0 +1,9 @@
+---
+- name: Setup Hostname
+  hostname:
+    name: "{{ HOSTNAME }}"
+  tags:
+    - skip-docker
+
+- name: Default OS Setup
+  include_tasks: setup_{{ ansible_os_family }}.yml
