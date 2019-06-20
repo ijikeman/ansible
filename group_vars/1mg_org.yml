@@ -15,21 +15,21 @@ ARRAY_COMMON_MKDIRS:
     group: 'root',
     mode: '0775',
     recurse: 'no'
-  }
+    }
   - {
     path: "{{PATH_1MG}}etc",
     owner: 'root',
     group: 'root',
     mode: '0775',
     recurse: 'no'
-  }
+    }
   - {
     path: "{{PATH_1MG}}data",
     owner: 'root',
     group: 'root',
     mode: '0755',
     recurse: 'no'
-  }
+    }
   # - {
   #   path: "{{PATH_1MG}}www",
   #   owner: 'nginx',
@@ -50,25 +50,25 @@ ARRAY_COMMON_MKDIRS:
     group: 'root',
     mode: '0755',
     recurse: 'no'
-  }
+    }
   - {
     path: "/usr/local/docker",
     owner: 'root',
     group: 'root',
     mode: '0755',
     recurse: 'no'
-  }
+    }
   - {
     path: "/usr/local/git",
     owner: 'root',
     group: 'root',
     mode: '0755',
     recurse: 'no'
-  }
+    }
   - {
     path: "/usr/local/docker/mysql",
     owner: 'root',
     group: 'root',
     mode: '0755',
     recurse: 'no'
-  }
+    }

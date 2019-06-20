@@ -17,4 +17,4 @@ ARRAY_USER:
 
 MACKEREL: {
   APIKEY: "test"
-}
+  }
