@@ -11,4 +11,3 @@
     - docker
     - docker-compose
     - mackerel-agent
-    - nginx
