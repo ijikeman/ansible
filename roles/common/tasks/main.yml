@@ -21,6 +21,11 @@
     - "{{ ARRAY_COMMON_MKDIRS | default([]) }}"
     - "{{ ARRAY_HOSTSGROUP_MKDIRS | default([]) }}"
 
+- include_role:
+     name: common_tasks
+     tasks_from: disabled_service.yml
+  with_items: "{{ ARRAY_DISABLE_SERVICE }}"
+
 - name: Make Symlinks
   file:
     src: "{{ item.src }}"
