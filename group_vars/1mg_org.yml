@@ -67,8 +67,22 @@ ARRAY_COMMON_MKDIRS:
     }
   - {
     path: "/usr/local/docker/mysql",
-    owner: 'root',
-    group: 'root',
+    owner: 999,
+    group: 999,
+    mode: '0755',
+    recurse: 'no'
+    }
+  - {
+    path: "/usr/local/docker/mysql.blog.1mg.org",
+    owner: 999,
+    group: 999,
+    mode: '0755',
+    recurse: 'no'
+    }
+  - {
+    path: "/usr/local/docker/mysql.ee-megane",
+    owner: 999,
+    group: 999,
     mode: '0755',
     recurse: 'no'
     }

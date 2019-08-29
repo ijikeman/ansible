@@ -7,7 +7,7 @@ MAX_BACKUP_NUM=7
 # BACKUP DB
 for db_name in phpbb
 do
-  docker exec web-docker_1mg-db_1 mysqldump -u root -h 127.0.0.1 ${db_name} > ${DIR_SQL_BACKUP}${db_name}.${DATE}.sql
+  docker exec 1mg-db mysqldump -u root -h 127.0.0.1 ${db_name} > ${DIR_SQL_BACKUP}${db_name}.${DATE}.sql
   # SQL FILE ROTATE
   file_num=`ls -U1 ${DIR_SQL_BACKUP}${db_name}.*.sql|wc -l`
   if [ $file_num -gt $MAX_DB_BACKUP_NUM ];then
@@ -17,7 +17,7 @@ do
 done
 for db_name in ee_megane
 do
-  docker exec web-docker_ee-db_1 mysqldump -u root -h 127.0.0.1 ${db_name} > ${DIR_SQL_BACKUP}${db_name}.${DATE}.sql
+  docker exec ee-db mysqldump -u root -h 127.0.0.1 ${db_name} > ${DIR_SQL_BACKUP}${db_name}.${DATE}.sql
   # SQL FILE ROTATE
   file_num=`ls -U1 ${DIR_SQL_BACKUP}${db_name}.*.sql|wc -l`
   if [ $file_num -gt $MAX_DB_BACKUP_NUM ];then
