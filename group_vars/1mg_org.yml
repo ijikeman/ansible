@@ -6,12 +6,6 @@ ARRAY_INSTALL_PKG:
   - { name: mariadb }
   - { name: sysstat }
 
-ARRAY_DISABLE_SERVICE:
-  - {
-      package_name: dbus,
-      service_name: dbus
-    }
-
 HOSTNAME: '1mg.org'
 PATH_1MG: /usr/local/1mg/
 ARRAY_COMMON_MKDIRS:

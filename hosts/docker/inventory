@@ -1,0 +1,2 @@
+[1mg_org]
+centos7 ansible_connection=docker
