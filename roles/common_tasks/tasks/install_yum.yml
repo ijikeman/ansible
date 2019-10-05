@@ -1,5 +1,0 @@
----
-- name: Yum Install packages
-  yum:
-    name: "{{ item.name }}"
-    enablerepo: "{{ item.enablerepo | default(['base']) }}"

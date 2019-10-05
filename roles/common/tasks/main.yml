@@ -13,9 +13,15 @@
 
 - include_role:
      name: common_tasks
-     tasks_from: install_yum.yml
-  with_items: "{{ ARRAY_COMMON_INSTALL_PKG | default([]) }}"
-  with_items: "{{ ARRAY_HOSTGROUP_INSTALL_PKG | default([]) }}"
+     tasks_from: remove_yum.yml
+  with_items: "{{ ARRAY_COMMON_REMOVE_PKG | default([]) }}"
+  with_items: "{{ ARRAY_HOSTGROUP_REMOVE_PKG | default([]) }}"
+
+- include_role:
+     name: common_tasks
+     tasks_from: control_yum.yml
+  with_items: "{{ ARRAY_COMMON_CONTROL_PKG | default([]) }}"
+  with_items: "{{ ARRAY_HOSTGROUP_CONTROL_PKG | default([]) }}"
 
 - include_role:
      name: common_tasks

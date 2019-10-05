@@ -1,5 +1,5 @@
 ---
-ARRAY_INSTALL_PKG:
+ARRAY_CONTROL_PKG:
   - { name: git }
   - { name: wget }
   - { name: libselinux-python }
