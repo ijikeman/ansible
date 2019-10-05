@@ -2,17 +2,20 @@
 - include_role:
      name: common_tasks
      tasks_from: group.yml
-  with_items: "{{ ARRAY_GROUP }}"
+  with_items: "{{ ARRAY_COMMON_GROUP | default([]) }}"
+  with_items: "{{ ARRAY_HOSTGROUP_GROUP | default([]) }}"
 
 - include_role:
      name: common_tasks
      tasks_from: user.yml
-  with_items: "{{ ARRAY_USER }}"
+  with_items: "{{ ARRAY_COMMON_USER | default([]) }}"
+  with_items: "{{ ARRAY_HOSTGROUP_USER | default([]) }}"
 
 - include_role:
      name: common_tasks
      tasks_from: install_yum.yml
-  with_items: "{{ ARRAY_INSTALL_PKG }}"
+  with_items: "{{ ARRAY_COMMON_INSTALL_PKG | default([]) }}"
+  with_items: "{{ ARRAY_HOSTGROUP_INSTALL_PKG | default([]) }}"
 
 - include_role:
      name: common_tasks
@@ -24,8 +27,8 @@
 - include_role:
      name: common_tasks
      tasks_from: disabled_service.yml
-  with_items: "{{ ARRAY_DISABLE_SERVICE }}"
-  when: ARRAY_DISABLE_SERVICE is defined
+  with_items: "{{ ARRAY_COMMON_DISABLE_SERVICE | default([]) }}"
+  with_items: "{{ ARRAY_HOSTGROUP_DISABLE_SERVICE | default([]) }}"
 
 - name: Make Symlinks
   file:
@@ -33,3 +36,4 @@
     path: "{{ item.path }}"
     state: link
   with_items: "{{ ARRAY_COMMON_LINKS | default([]) }}"
+  with_items: "{{ ARRAY_HOSTGROUP_LINKS | default([]) }}"

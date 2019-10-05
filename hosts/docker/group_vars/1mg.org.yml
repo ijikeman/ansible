@@ -1,4 +1,4 @@
-ARRAY_HOSTGROPU_GROUP:
+ARRAY_HOSTGROUP_GROUP:
   - {
     name: 'sftponly',
     gid: 1001
