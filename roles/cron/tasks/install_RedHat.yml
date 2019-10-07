@@ -1,0 +1,10 @@
+---
+- name: Remove cronie-anacron
+  yum:
+    name: cronie-anacron
+    state: discard
+
+- name: Install cronie-noanacron
+  yum:
+    name: cronie-noanacron
+    state: installed
