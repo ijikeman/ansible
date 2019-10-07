@@ -2,8 +2,7 @@
 - name: Setup Hostname
   hostname:
     name: "{{ HOSTNAME }}"
-  tags:
-    - skip-docker
+  when: ansible_virtualization_type != 'docker'
 
 - name: Default OS Setup
   include_tasks: setup_{{ ansible_os_family }}.yml

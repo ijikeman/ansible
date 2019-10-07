@@ -18,9 +18,7 @@
 
 - name: Disabled SELinux
   include: setup_selinux.yml
-  tags:
-    - docker
-    - skip-check
+  when: ansible_virtualization_type != 'docker' or not ansible_check_mode
 
 - name: Setup Logrotate.conf
   template:

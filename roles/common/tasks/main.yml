@@ -1,45 +1,49 @@
 ---
-- include_role:
+- name: Create Groups
+  include_role:
      name: common_tasks
      tasks_from: group.yml
-  with_items: "{{ ARRAY_COMMON_GROUP | default([]) }}"
-  with_items: "{{ ARRAY_HOSTGROUP_GROUP | default([]) }}"
+  with_items:
+    - "{{ ARRAY_COMMON_GROUP | default([]) }}"
+    - "{{ ARRAY_HOSTGROUP_GROUP | default([]) }}"
 
-- include_role:
+- name: Create Users
+  include_role:
      name: common_tasks
      tasks_from: user.yml
-  with_items: "{{ ARRAY_COMMON_USER | default([]) }}"
-  with_items: "{{ ARRAY_HOSTGROUP_USER | default([]) }}"
+  with_items:
+    - "{{ ARRAY_COMMON_USER | default([]) }}"
+    - "{{ ARRAY_HOSTGROUP_USER | default([]) }}"
 
-- include_role:
-     name: common_tasks
-     tasks_from: remove_yum.yml
-  with_items: "{{ ARRAY_COMMON_REMOVE_PKG | default([]) }}"
-  with_items: "{{ ARRAY_HOSTGROUP_REMOVE_PKG | default([]) }}"
-
-- include_role:
+- name: Remove and Install Packages
+  include_role:
      name: common_tasks
      tasks_from: control_yum.yml
-  with_items: "{{ ARRAY_COMMON_CONTROL_PKG | default([]) }}"
-  with_items: "{{ ARRAY_HOSTGROUP_CONTROL_PKG | default([]) }}"
+  with_items:
+    - "{{ ARRAY_COMMON_CONTROL_PKG | default([]) }}"
+    - "{{ ARRAY_HOSTGROUP_CONTROL_PKG | default([]) }}"
 
-- include_role:
+- name: Create Directories
+  include_role:
      name: common_tasks
      tasks_from: mkdir.yml
   with_items:
     - "{{ ARRAY_COMMON_MKDIRS | default([]) }}"
     - "{{ ARRAY_HOSTSGROUP_MKDIRS | default([]) }}"
 
-- include_role:
+- name: Disable Services
+  include_role:
      name: common_tasks
      tasks_from: disabled_service.yml
-  with_items: "{{ ARRAY_COMMON_DISABLE_SERVICE | default([]) }}"
-  with_items: "{{ ARRAY_HOSTGROUP_DISABLE_SERVICE | default([]) }}"
+  with_items:
+    - "{{ ARRAY_COMMON_DISABLE_SERVICE | default([]) }}"
+    - "{{ ARRAY_HOSTGROUP_DISABLE_SERVICE | default([]) }}"
 
-- name: Make Symlinks
+- name: Create Symlinks
   file:
     src: "{{ item.src }}"
     path: "{{ item.path }}"
     state: link
-  with_items: "{{ ARRAY_COMMON_LINKS | default([]) }}"
-  with_items: "{{ ARRAY_HOSTGROUP_LINKS | default([]) }}"
+  with_items:
+    - "{{ ARRAY_COMMON_LINKS | default([]) }}"
+    - "{{ ARRAY_HOSTGROUP_LINKS | default([]) }}"
