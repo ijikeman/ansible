@@ -3,3 +3,4 @@
   yum:
     name: "{{ item.NAME }}"
     enablerepo: "{{ item.ENABLEREPO | default(['base']) }}"
+    state: "{{ item.STATE | default(['installed']) }}"
