@@ -1,88 +1,115 @@
 ---
-ARRAY_CONTROL_PKG:
-  - { name: git }
-  - { name: wget }
-  - { name: libselinux-python }
-  - { name: mariadb }
-  - { name: sysstat }
+COMMON_INSTALL_PACKAGES:
+  - { NAME: git }
+  - { NAME: wget }
+  - { NAME: libselinux-python }
+  - { NAME: mariadb }
+  - { NAME: sysstat }
 
 HOSTNAME: '1mg.org'
-PATH_1MG: /usr/local/1mg/
-ARRAY_COMMON_MKDIRS:
+PATH_1MG : /usr/local/1mg/
+COMMON_MKDIRS:
   - {
-    path: "{{PATH_1MG}}",
-    owner: 'root',
-    group: 'root',
-    mode: '0775',
-    recurse: 'no'
+    PATH: "{{ PATH_1MG }}",
+    OWNER: 'root',
+    GROUP: 'root',
+    MODE: '0775',
+    RECURSE: 'no'
     }
   - {
-    path: "{{PATH_1MG}}etc",
-    owner: 'root',
-    group: 'root',
-    mode: '0775',
-    recurse: 'no'
+    PATH: "{{ PATH_1MG }}etc",
+    OWNER: 'root',
+    GROUP: 'root',
+    MODE: '0775',
+    RECURSE: 'no'
     }
   - {
-    path: "{{PATH_1MG}}data",
-    owner: 'root',
-    group: 'root',
-    mode: '0755',
-    recurse: 'no'
+    PATH: "{{ PATH_1MG }}data",
+    OWNER: 'root',
+    GROUP: 'root',
+    MODE: '0755',
+    RECURSE: 'no'
     }
   # - {
-  #   path: "{{PATH_1MG}}www",
-  #   owner: 'nginx',
-  #   group: 'nginx',
-  #   mode: '0775',
-  #   recurse: 'no'
+  #   PATH: "{{PATH_1MG}}www",
+  #   OWNER: 'nginx',
+  #   GROUP: 'nginx',
+  #   MODE: '0775',
+  #   RECURSE: 'no'
   # }
   - {
-    path: "{{PATH_1MG}}home",
-    owner: 'root',
-    group: 'root',
-    mode: '0755',
-    recurse: 'no'
+    PATH: "{{ PATH_1MG }}home",
+    OWNER: 'root',
+    GROUP: 'root',
+    MODE: '0755',
+    RECURSE: 'no'
     }
   - {
-    path: "{{PATH_1MG}}bin",
-    owner: 'root',
-    group: 'root',
-    mode: '0755',
-    recurse: 'no'
+    PATH: "{{ PATH_1MG }}bin",
+    OWNER: 'root',
+    GROUP: 'root',
+    MODE: '0755',
+    RECURSE: 'no'
     }
   - {
-    path: "/usr/local/docker",
-    owner: 'root',
-    group: 'root',
-    mode: '0755',
-    recurse: 'no'
+    PATH: "/usr/local/docker",
+    OWNER: 'root',
+    GROUP: 'root',
+    MODE: '0755',
+    RECURSE: 'no'
     }
   - {
-    path: "/usr/local/git",
-    owner: 'root',
-    group: 'root',
-    mode: '0755',
-    recurse: 'no'
+    PATH: "/usr/local/git",
+    OWNER: 'root',
+    GROUP: 'root',
+    MODE: '0755',
+    RECURSE: 'no'
     }
   - {
-    path: "/usr/local/docker/mysql",
-    owner: 999,
-    group: 999,
-    mode: '0755',
-    recurse: 'no'
+    PATH: "/usr/local/docker/mysql",
+    OWNER: 999,
+    GROUP: 999,
+    MODE: '0755',
+    RECURSE: 'no'
     }
   - {
-    path: "/usr/local/docker/mysql.blog.1mg.org",
-    owner: 999,
-    group: 999,
-    mode: '0755',
-    recurse: 'no'
+    PATH: "/usr/local/docker/mysql.blog.1mg.org",
+    OWNER: 999,
+    GROUP: 999,
+    MODE: '0755',
+    RECURSE: 'no'
     }
   - {
-    path: "/usr/local/docker/mysql.ee-megane",
-    owner: 999,
-    group: 999,
-    mode: '0755',
-    recurse: 'no'
+    PATH: "/usr/local/docker/mysql.ee-megane",
+    OWNER: 999,
+    GROUP: 999,
+    MODE: '0755',
+    RECURSE: 'no'
+    }
+
+FIREWALLD_SETTINGS: {
+  NEW_ZONE_LIST:
+    domestic
+  }
+
+COMMON_HOSTGROUP_CRON_SETTINGS:
+  - {
+    MINUTE: '0',
+    HOUR: '0',
+    JOB: "{{ PATH_1MG }}bin/backup.sh"
+    }
+  - {
+    MINUTE: '15',
+    HOUR: '3',
+    DAY: '1',
+    JOB: "docker exec proxy certbot certonly --webroot -w /usr/share/nginx/html -d server.1mg.org,ee-megane.com,blog.1mg.org && cd {{ PATH_1MG }}data/web-docker/ && docker-compose restart proxy"
+    }
+
+COMMON_HOSTGROUP_TEMPLATE_FILES:
+  - {
+    SRC: 'backup.sh.j2',
+    DEST: "{{ PATH_1MG }}bin/backup.sh",
+    OWNER: 'root',
+    GROUP: 'root',
+    MODE: '0700'
     }

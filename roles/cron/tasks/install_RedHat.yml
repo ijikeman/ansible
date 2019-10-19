@@ -3,6 +3,7 @@
   yum:
     name: cronie-anacron
     state: discard
+  when: not ansible_check_mode
 
 - name: Install cronie-noanacron
   yum:

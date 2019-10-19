@@ -1,5 +1,5 @@
 - name: Group Create
   group:
-    name: "{{ item.name }}"
-    gid: "{{ item.gid }}"
+    name: "{{ item.NAME }}"
+    gid: "{{ item.GID }}"
     state: present
