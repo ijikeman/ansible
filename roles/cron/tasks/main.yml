@@ -1,28 +1,13 @@
 ---
+- name: Add the OS AND VERSION specific variables
+  include_vars: "{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml"
+
+- include: install.yml
+
+- include: setup.yml
+
 - name: Daemon Started
   include_role:
     name: common_tasks
     tasks_from: service_started_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
-
-- name: Set backup script
-  template:
-    src: backup.sh.j2
-    dest: "{{ PATH_1MG }}bin/backup.sh"
-    owner: 0
-    group: 0
-    mode: 0700
-
-- name: Set backup script to crond
-  cron:
-    name: "backup script"
-    minute: "0"
-    hour: "0"
-    job: "{{ PATH_1MG }}bin/backup.sh"
-
-- name: Set Update Let's Encrypt Certs all domains
-  cron:
-    name: "Update Let's Encrypt Certs 1mg.org"
-    minute: "15"
-    hour: "3"
-    day: "1"
-    job: "docker exec proxy certbot certonly --webroot -w /usr/share/nginx/html -d server.1mg.org,ee-megane.com,blog.1mg.org && cd {{ PATH_1MG }}data/web-docker/ && docker-compose restart proxy"
+  when: not ansible_check_mode

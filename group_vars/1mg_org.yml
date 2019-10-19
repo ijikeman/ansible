@@ -91,3 +91,25 @@ FIREWALLD_SETTINGS: {
   NEW_ZONE_LIST:
     domestic
   }
+
+COMMON_HOSTGROUP_CRON_SETTINGS:
+  - {
+    MINUTE: '0',
+    HOUR: '0',
+    JOB: "{{ PATH_1MG }}bin/backup.sh"
+    }
+  - {
+    MINUTE: '15',
+    HOUR: '3',
+    DAY: '1',
+    JOB: "docker exec proxy certbot certonly --webroot -w /usr/share/nginx/html -d server.1mg.org,ee-megane.com,blog.1mg.org && cd {{ PATH_1MG }}data/web-docker/ && docker-compose restart proxy"
+    }
+
+COMMON_HOSTGROUP_TEMPLATE_FILES:
+  - {
+    SRC: 'backup.sh.j2',
+    DEST: "{{ PATH_1MG }}bin/backup.sh",
+    OWNER: 'root',
+    GROUP: 'root',
+    MODE: '0700'
+    }

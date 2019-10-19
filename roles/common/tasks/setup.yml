@@ -52,6 +52,19 @@
     - "{{ INVENTORY_COPY_FILES | default([]) }}"
     - "{{ INVENTORY_HOSTGROUP_COPY_FILES | default([]) }}"
 
+- name: Template files
+  template:
+    src: "{{ group_names[0] }}/{{ item.SRC }}"
+    dest: "{{ item.DEST }}"
+    owner: "{{ item.OWNER }}"
+    group: "{{ item.GROUP }}"
+    mode: "{{ item.MODE }}"
+  with_items:
+    - "{{ COMMON_TEMPLATE_FILES | default([]) }}"
+    - "{{ COMMON_HOSTGROUP_TEMPLATE_FILES | default([]) }}"
+    - "{{ INVENTORY_TEMPLATE_FILES | default([]) }}"
+    - "{{ INVENTORY_HOSTGROUP_TEMPLATE_FILES | default([]) }}"
+
 - name: Make Symlinks
   file:
     src: "{{ item.SRC }}"

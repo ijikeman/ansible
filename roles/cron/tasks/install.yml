@@ -1,0 +1,10 @@
+---
+- name: Remove rpm Package
+  yum:
+    name: cronie-anacron
+    state: "removed"
+  when: not ansible_check_mode
+
+- name: Install noanacron
+  yum:
+    name: cronie-noanacron

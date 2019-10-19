@@ -1,0 +1,17 @@
+---
+- name: Setup Cron Tab
+  cron:
+    name: "{{ item.NAME | default('*')}}"
+    minute: "{{ item.MINUTE | default('*') }}"
+    hour: "{{ item.HOUR | default('*') }}"
+    day: "{{ item.DAY | default('*') }}"
+    month: "{{  item.MONTH | default('*') }}"
+    weekday: "{{ item.WEEKDAY | default('*') }}"
+    job: "{{ item.JOB }}"
+  with_items:
+    - "{{ COMMON_CRON_SETTINGS | default([]) }}"
+    - "{{ COMMON_HOSTGROUP_CRON_SETTINGS | default([]) }}"
+    - "{{ INVENTORY_CRON_SETTINGS | default([]) }}"
+    - "{{ INVENTORY_HOSTGROUP_CRON_SETTINGS | default([]) }}"
+  when:
+    - not ansible_check_mode

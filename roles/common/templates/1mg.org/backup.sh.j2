@@ -1,0 +1,46 @@
+#!/bin/sh
+DATE=`date +%Y%m%d%H%M%S`
+DIR_SQL_BACKUP=/usr/local/1mg/data/backup/
+MAX_DB_BACKUP_NUM=1
+MAX_BACKUP_NUM=7
+
+# BACKUP DB
+for db_name in phpbb
+do
+  docker exec 1mg-db mysqldump -u root -h 127.0.0.1 ${db_name} > ${DIR_SQL_BACKUP}${db_name}.${DATE}.sql
+  # SQL FILE ROTATE
+  file_num=`ls -U1 ${DIR_SQL_BACKUP}${db_name}.*.sql|wc -l`
+  if [ $file_num -gt $MAX_DB_BACKUP_NUM ];then
+    delete_num=`expr $file_num - $MAX_DB_BACKUP_NUM`
+    ls -tr ${DIR_SQL_BACKUP}${db_name}.*.sql|head -$delete_num|xargs -IFILENAME rm -f FILENAME
+  fi
+done
+for db_name in ee_megane
+do
+  docker exec ee-db mysqldump -u root -h 127.0.0.1 ${db_name} > ${DIR_SQL_BACKUP}${db_name}.${DATE}.sql
+  # SQL FILE ROTATE
+  file_num=`ls -U1 ${DIR_SQL_BACKUP}${db_name}.*.sql|wc -l`
+  if [ $file_num -gt $MAX_DB_BACKUP_NUM ];then
+    delete_num=`expr $file_num - $MAX_DB_BACKUP_NUM`
+    ls -tr ${DIR_SQL_BACKUP}${db_name}.*.sql|head -$delete_num|xargs -IFILENAME rm -f FILENAME
+  fi
+done
+for db_name in ghost
+do
+  docker exec ghost-db mysqldump -u root -h 127.0.0.1 ${db_name} > ${DIR_SQL_BACKUP}${db_name}.${DATE}.sql
+  # SQL FILE ROTATE
+  file_num=`ls -U1 ${DIR_SQL_BACKUP}${db_name}.*.sql|wc -l`
+  if [ $file_num -gt $MAX_DB_BACKUP_NUM ];then
+    delete_num=`expr $file_num - $MAX_DB_BACKUP_NUM`
+    ls -tr ${DIR_SQL_BACKUP}${db_name}.*.sql|head -$delete_num|xargs -IFILENAME rm -f FILENAME
+  fi
+done
+
+# BACKUP 1MG
+# 1MG FILE ROTATE
+cd /usr/local/; tar cfpz /root/1mg.$DATE.tar.gz 1mg
+file_num=`ls -U1 /root/1mg.*.tar.gz|wc -l`
+if [ $file_num -gt $MAX_BACKUP_NUM ];then
+  delete_num=`expr $file_num - $MAX_BACKUP_NUM`
+  ls -tr /root/1mg.*.tar.gz|head -$delete_num|xargs -IFILENAME rm -f FILENAME
+fi
