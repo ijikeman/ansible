@@ -1,0 +1,4 @@
+---
+- name: Loaded Config
+  command: /usr/sbin/logrotate /etc/logrotate.conf
+  listen: Loaded Config

@@ -1,0 +1,19 @@
+---
+- name: Setup Config
+  template:
+    src: zabbix_agentd.conf_{{ ZABBIX_AGENT_SETTINGS.VERSION }}.j2
+    dest: /etc/zabbix/zabbix_agentd.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: "{{ NAME_SERVICE}} restarted {{ daemon_name }}"
+
+- name: Copy Parameter Config
+  copy:
+    src: "{{ group_names[0] }}/{{ item }}.j2"
+    dest: /etc/zabbix/zabbix_agentd.d/{{ item }}
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ ZABBIX_AGENT_SETTINGS.PARAMETER_CONFIGS | default([]) }}"
+  notify: "{{ NAME_SERVICE}} restarted {{ daemon_name }}"

@@ -1,0 +1,51 @@
+# see "man logrotate" for details
+# rotate log files weekly
+{% if PARAMS_LOG_ROTATE_CONF.PERIOD is not defined %}
+weekly
+{% else %}
+{{ PARAMS_LOG_ROTATE_CONF.PERIOD }}
+{% endif %}
+
+# keep 4 weeks worth of backlogs
+{% if PARAMS_LOG_ROTATE_CONF.GENERATION is not defined %}
+rotate 4
+{% else %}
+rotate {{ PARAMS_LOG_ROTATE_CONF.GENERATION }}
+{% endif %}
+
+# create new (empty) log files after rotating old ones
+create
+
+# use date as a suffix of the rotated file
+{% if PARAMS_LOG_ROTATE_CONF.DATEEXT is not defined or PARAMS_LOG_ROTATE_CONF.DATEEXT == 'yes' %}
+dateext
+{% elif PARAMS_LOG_ROTATE_CONF.DATEEXT == 'no' %}
+#dateext
+{% endif %}
+
+# uncomment this if you want your log files compressed
+{% if PARAMS_LOG_ROTATE_CONF.COMPRESS  is not defined or PARAMS_LOG_ROTATE_CONF.COMPRESS == 'no' %}
+#compress
+{% elif PARAMS_LOG_ROTATE_CONF.COMPRESS == 'yes' %}
+compress
+{% endif %}
+
+# RPM packages drop log rotation information into this directory
+include /etc/logrotate.d
+
+# no packages own wtmp and btmp -- we'll rotate them here
+/var/log/wtmp {
+    monthly
+    create 0664 root utmp
+	minsize 1M
+    rotate 1
+}
+
+/var/log/btmp {
+    missingok
+    monthly
+    create 0600 root utmp
+    rotate 1
+}
+
+# system-specific logs may be also be configured here.
