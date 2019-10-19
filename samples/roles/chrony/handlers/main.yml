@@ -1,0 +1,45 @@
+---
+- name: Service started {{ daemon_name }}
+  service:
+    name: "{{ daemon_name }}"
+    state: started
+    enabled: yes
+
+- name: Service restarted {{ daemon_name }}
+  service:
+    name: "{{ daemon_name }}"
+    state: restarted
+
+- name: Service reloaded {{ daemon_name }}
+  service:
+    name: "{{ daemon_name }}"
+    state: reloaded
+
+- name: Service stopped {{ daemon_name }}
+  service:
+    name: "{{ daemon_name }}"
+    state: stopped
+    enabled: no
+
+- name: Systemd started {{ daemon_name }}
+  systemd:
+    name: "{{ daemon_name }}"
+    state: started
+    enabled: yes
+
+- name: Systemd restarted {{ daemon_name }}
+  systemd:
+    name: "{{ daemon_name }}"
+    state: restarted
+
+- name: Systemd reloaded {{ daemon_name }}
+  systemd:
+    name: "{{ daemon_name }}"
+    state: reloaded
+
+- name: Systemd stopped {{ daemon_name }}
+  systemd:
+    name: "{{ daemon_name }}"
+    state: stopped
+    enabled: no
+

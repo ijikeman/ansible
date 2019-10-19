@@ -1,0 +1,24 @@
+---
+- name: Install python module for SELinux
+  yum:
+    name: libselinux-python
+    state: installed
+
+- name: Get SELinux Status
+  shell: getenforce
+  register: selinux_status
+  changed_when: False
+  become: True
+
+- name: Disabled Selinux
+  selinux:
+    state: disabled
+  become: True
+  notify: Rebooted
+  when:
+    - not ansible_check_mode
+    - selinux_status.stdout == 'Enforcing'
+
+- include_role:
+    name: common_tasks
+    tasks_from: flush_handlers.yml

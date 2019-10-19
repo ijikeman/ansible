@@ -1,0 +1,16 @@
+---
+- name: Setup hosts.allow
+  template:
+    src: hosts.allow.j2
+    dest: /etc/hosts.allow
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+
+- name: Setup hosts.deny
+  template:
+    src: hosts.deny.j2
+    dest: /etc/hosts.deny
+    owner: 'root'
+    group: 'root'
+    mode: 0644

@@ -1,0 +1,19 @@
+---
+- name: Hold Repository
+  template:
+    src: "releasever.j2"
+    dest: "/etc/yum/vars/releasever"
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+
+- name: Base Repo
+  template:
+    src: "{{ ansible_distribution }}_{{ ansible_distribution_major_version }}-Base.repo.j2"
+    dest: "/etc/yum.repos.d/{{ ansible_distribution }}-Base.repo"
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  notify: Cache clear yum
+
+- include_tasks: setup_repository_epel.yml

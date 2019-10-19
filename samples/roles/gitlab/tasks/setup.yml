@@ -1,0 +1,41 @@
+---
+- name: Set Config
+  template:
+    src: gitlab.rb.j2
+    dest: /etc/gitlab/gitlab.rb
+    owner: root
+    group: root
+    mode: 0644
+  notify: Gitlab Reconfigure
+
+- name: Set fact for Make Direcotry
+  set_fact:
+    item:
+      PATH: /etc/gitlab/ssl
+      OWNER: 'git'
+      GROUP: 'git'
+      MODE: '0755'
+      RECURSE: 'yes'
+
+- name: Create SSL Directory
+  include_role:
+    name: common_tasks
+    tasks_from: mkdir.yml
+
+- name: Set SSL Key
+  copy:
+    src: ssl.key
+    dest: /etc/gitlab/ssl/{{ inventory_hostname }}.key
+    owner: root
+    group: root
+    mode: 0400
+  notify: Gitlab Reconfigure
+
+- name: Set SSL Certificate
+  copy:
+    src: ssl.crt
+    dest: /etc/gitlab/ssl/{{ inventory_hostname }}.crt
+    owner: root
+    group: root
+    mode: 0400
+  notify: Gitlab Reconfigure

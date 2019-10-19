@@ -1,0 +1,56 @@
+---
+- name: Setup network
+  template:
+    src: network_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.j2
+    dest: /etc/sysconfig/network
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+
+- name: Setup ethernet
+  template:
+    src:  ifcfg-eth.j2
+    dest: "/etc/sysconfig/network-scripts/ifcfg-{{ item.DEVICE }}"
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  with_items:
+    - "{{ NETWORK_SETTINGS.IFCFG }}"
+  when: ansible_virtualization_type != 'docker'
+
+- name: Setup nic name is eth
+  template:
+    src: grub.j2
+    dest: /etc/default/grub
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  notify: Rebooted
+  when: ansible_virtualization_type != 'docker'
+
+- name: modprobe.conf setup for disabled ipv6
+  template:
+    src: modprobe.conf.j2
+    dest: /etc/modprobe.d/modprobe.conf
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+
+- name: Remove 70-persistent-net.rules file for disabled ipv6
+  file:
+    state: absent
+    dest: /etc/udev/rules.d/70-persistent-net.rules
+
+- name: Setup Hostname
+  hostname:
+    name: "{{ NETWORK_SETTINGS.COMMON.HOSTNAME }}"
+  when: ansible_virtualization_type != 'docker'
+
+- name: Setup Resolv.conf
+  template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  when: ansible_virtualization_type != 'docker'

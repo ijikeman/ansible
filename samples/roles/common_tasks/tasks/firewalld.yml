@@ -1,0 +1,16 @@
+---
+- name: Allow "{{ item.service }}"
+  firewalld:
+    service: "{{ item.service }}"
+    permanent: true
+    state: enabled
+    immediate: true
+  when: item.service is defined
+
+- name: Allow "{{ item.port }}"
+  firewalld:
+    port: "{{ item.port }}"
+    permanent: true
+    state: enabled
+    immediate: true
+  when: item.port is defined

@@ -1,0 +1,15 @@
+---
+- include_tasks: setup_SSL_CA.yml
+- include_tasks: setup_repository.yml
+- include_tasks: setup_yum_all_update.yml
+- include_tasks: setup_timezone.yml
+- include_tasks: setup_systemd.yml
+- include_tasks: setup_sysctl.yml
+- include_tasks: setup_network.yml
+- include_tasks: setup_hosts_allow_deny.yml
+- include: setup_selinux.yml
+  when: ansible_virtualization_type != 'docker'
+
+- include_role:
+    name: common_tasks
+    tasks_from: flush_handlers.yml

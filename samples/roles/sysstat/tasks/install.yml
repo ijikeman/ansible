@@ -1,0 +1,4 @@
+---
+- name: Package install
+  yum:
+    name: sysstat

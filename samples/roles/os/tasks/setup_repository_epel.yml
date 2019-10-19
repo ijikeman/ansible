@@ -1,0 +1,12 @@
+---
+- name: Install Epel.repo
+  yum:
+    name: epel-release
+
+- name: https to http on epel.repo
+  replace:
+    path: /etc/yum.repos.d/epel.repo
+    regexp: 'https://(.+)'
+    replace: 'http://\1'
+  when: not ansible_check_mode
+  notify: Cache clear yum

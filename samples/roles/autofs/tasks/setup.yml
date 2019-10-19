@@ -1,0 +1,12 @@
+---
+- name: Setup Config
+  template:
+    src: "{{ item.SRC }}.j2"
+    dest: "/etc/{{ item.DEST }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - { SRC: auto.master, DEST: auto.master }
+    - { SRC: "auto.direct.{{ group_names[0] }}", DEST: auto.direct }
+  notify: "{{ NAME_SERVICE }} reloaded {{ daemon_name }}"

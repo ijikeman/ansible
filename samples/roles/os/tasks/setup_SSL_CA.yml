@@ -1,0 +1,14 @@
+---
+- name: Set SSL Cert
+  copy:
+    src: "{{ FILE_SSL_CA }}"
+    dest: /usr/share/pki/ca-trust-source/anchors/{{ FILE_SSL_CA }}
+    owner: 'root'
+    group: 'root'
+    mode: 0400
+  notify: Update Server Certs
+  when: FILE_SSL_CA is defined
+
+- include_role:
+    name: common_tasks
+    tasks_from: flush_handlers.yml
