@@ -1,0 +1,14 @@
+---
+- name: Rebooted
+  shell: "sleep 2 && reboot"
+  async: 1
+  poll: 0
+  listen: Rebooted
+
+- name: Wait for Rebooting
+  local_action: wait_for host={{ inventory_hostname }} port={{ ssh_port }} delay=30
+  become: False
+  listen: Rebooted
+
+- name: Reload Sysctl
+  command: /sbin/sysctl -p
