@@ -25,4 +25,4 @@
     minute: "15"
     hour: "3"
     day: "1"
-    job: "docker exec proxy certbot certonly --webroot -d server.1mg.org,ee-megane.com,blog.1mg.org && cd {{ PATH_1MG }}data/web-docker/ && docker-compose restart proxy"
+    job: "docker exec proxy certbot certonly --webroot -w /usr/share/nginx/html -d server.1mg.org,ee-megane.com,blog.1mg.org && cd {{ PATH_1MG }}data/web-docker/ && docker-compose restart proxy"

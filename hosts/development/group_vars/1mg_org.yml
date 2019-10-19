@@ -1,10 +1,10 @@
-ARRAY_GROUP:
+INVENTORY_HOSTGROUP_GROUPS:
   - {
     name: 'sftponly',
     gid: 1001
     }
 
-ARRAY_USER:
+INVENTORY_HOSTGROUP_USERS:
   - {
     name: 'test',
     shell: '/bin/zsh',
