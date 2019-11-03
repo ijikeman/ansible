@@ -1,0 +1,5 @@
+---
+- name: Install
+  yum:
+    name: logrotated
+    state: present

@@ -6,6 +6,7 @@
   roles:
     - common
     - os
+    - logrotated
     - cron
     - openssh
     - docker
