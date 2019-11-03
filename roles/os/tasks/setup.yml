@@ -1,8 +1,10 @@
 ---
-- name: Setup Hostname
-  hostname:
-    name: "{{ HOSTNAME }}"
-  when: ansible_virtualization_type != 'docker'
+- name: Setup Network
+  include_tasks: setup_network.yml
 
 - name: Default OS Setup
   include_tasks: setup_{{ ansible_os_family }}.yml
+
+- name: Setup SELinux
+  include: setup_selinux.yml
+  when: ansible_virtualization_type != 'docker' or not ansible_check_mode

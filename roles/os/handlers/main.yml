@@ -10,5 +10,5 @@
   become: False
   listen: Rebooted
 
-- name: Reload Sysctl
+- name: Reloaded Sysctl
   command: /sbin/sysctl -p

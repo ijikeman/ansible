@@ -1,0 +1,7 @@
+---
+- name: Setup Hostname
+  hostname:
+    name: "{{ NETWORK_SETTINGS.HOSTNAME }}"
+  when:
+    - ansible_virtualization_type != 'docker'
+    - NETWORK_SETTINGS.HOSTNAME is defined
