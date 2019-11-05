@@ -1,0 +1,10 @@
+TYPE=Ethernet
+BOOTPROTO="{{ item.BOOTPROTO if item.BOOTPROTO is defined else 'none' }}"
+DEFROUTE="{{ 'yes' if item.GATEWAY is defined else 'no' }}"
+IPV4_FAILURE_FATAL="no"
+NAME="{{ item.NAME_DEV }}"
+DEVICE="{{ item.NAME_DEV }}"
+ONBOOT="yes"
+IPADDR="{{ item.IPADDR }}"
+PREFIX="{{ item.PREFIX }}"
+{% if item.GATEWAY is defined %}GATEWAY="{{ item.GATEWAY }}"{% endif %}

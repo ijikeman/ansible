@@ -6,9 +6,23 @@
   listen: Rebooted
 
 - name: Wait for Rebooting
-  local_action: wait_for host={{ inventory_hostname }} port={{ ssh_port }} delay=30
+  local_action: wait_for host={{ inventory_hostname }} delay=30
   become: False
   listen: Rebooted
 
 - name: Reloaded Sysctl
   command: /sbin/sysctl -p
+
+- name: Systemd restarted systemd
+  systemd:
+    daemon_reexec: yes
+
+- name: Service restarted network
+  service:
+    name: "network"
+    state: restarted
+
+- name: Systemd restarted NetworkManager
+  systemd:
+    name: "NetworkManager"
+    state: restarted

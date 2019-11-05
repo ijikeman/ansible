@@ -1,0 +1,11 @@
+{% if NETWORK_SETTINGS.COMMON.SEARCH_DOMAIN is defined %}
+search {{ NETWORK_SETTINGS.COMMON.SEARCH_DOMAIN }}
+{% endif %}
+{% if NETWORK_SETTINGS.COMMON.NAMESERVERS is defined %}
+{% for nameserver in NETWORK_SETTINGS.COMMON.NAMESERVERS %}
+nameserver {{ nameserver }}
+{% endfor %}
+{% else %}
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+{% endif %}

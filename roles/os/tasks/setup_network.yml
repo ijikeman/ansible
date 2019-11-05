@@ -1,7 +1,29 @@
 ---
 - name: Setup Hostname
   hostname:
-    name: "{{ NETWORK_SETTINGS.HOSTNAME }}"
+    name: "{{ NETWORK_SETTINGS.COMMON.HOSTNAME }}"
   when:
     - ansible_virtualization_type != 'docker'
-    - NETWORK_SETTINGS.HOSTNAME is defined
+    - NETWORK_SETTINGS.COMMON.HOSTNAME is defined
+
+- name: Setup resolv.conf
+  template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  when:
+    - ansible_virtualization_type != 'docker'
+
+- name: Setup ifcfg
+  template:
+    src: ifcfg.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-{{ item.NAME_DEV }}
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  with_items: "{{ NETWORK_SETTINGS.EXTERNAL | default([]) }}"
+  when:
+    - ansible_virtualization_type != 'docker'
+  notify: "{{ NAME_SERVICE }} restarted {{ NAME_NETWORKMANAGER }}"
