@@ -1,10 +1,13 @@
 ---
+- name: Default OS Setup
+  include_tasks: setup_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
+
 - name: Setup Network
   include_tasks: setup_network.yml
-
-- name: Default OS Setup
-  include_tasks: setup_{{ ansible_os_family }}.yml
 
 - name: Setup SELinux
   include: setup_selinux.yml
   when: ansible_virtualization_type != 'docker' or not ansible_check_mode
+
+- name: Setup Network
+  include_tasks: setup_sysctl.yml

@@ -1,2 +1,2 @@
 [1mg_org]
-centos7 ansible_connection=docker
+140.227.234.75 ansible_connection=ssh

@@ -4,10 +4,19 @@
     name: libselinux-python
     state: installed
 
+- name: Get Status selinux
+  shell: getenforce
+  register: status_selinux
+  failed_when: False
+  changed_when: False
+  when: not ansible_check_mode
+
 - name: Disabled Selinux
   selinux:
     state: disabled
-  when: selinux_status.stdout == 'Enforcing'
+  when:
+    - not ansible_check_mode
+    - status_selinux.stdout == 'Enforcing'
   become: True
   notify: Rebooted
 
