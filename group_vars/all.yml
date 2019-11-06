@@ -1,0 +1,6 @@
+# COMMON_
+COMMON_DISABLE_SERVICES:
+  - {
+    NAME_PACKAGE: 'tuned',
+    NAME_SERVICE: 'tuned'
+    }

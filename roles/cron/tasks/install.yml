@@ -1,2 +1,11 @@
 ---
-- include: "install_{{ ansible_os_family }}.yml"
+- name: Remove cronie-anacron
+  yum:
+    name: cronie-anacron
+    state: removed
+  when: not ansible_check_mode
+
+- name: Install cronie-noanacron
+  yum:
+    name: cronie-noanacron
+    state: installed

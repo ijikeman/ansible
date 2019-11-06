@@ -18,7 +18,7 @@
 # ReStart if serivce stop(rc == 0)
 - name: Restarted "{{ NAME_DAEMON }}"
   shell: echo "Restarted {{ NAME_DAEMON }}"
-  notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_DAEMON }}"
+  notify: "{{ NAME_SERVICE_MANAGER }} reloaded {{ NAME_DAEMON }}"
   when:
     - not ansible_check_mode
     - service_status.rc == 0

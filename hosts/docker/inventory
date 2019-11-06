@@ -1,2 +1,2 @@
-[1mg_org]
+[www]
 centos7 ansible_connection=docker

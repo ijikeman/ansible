@@ -2,22 +2,22 @@
   shell: "mktemp -u | awk '{print substr($0, length($0)-8+1)}'"
   changed_when: False
   register: salt
-  when: password is defined
+  when: item.PASSWORD is defined
 
 - name: Create hash for password
-  shell: python -c 'import crypt; print crypt.crypt("{{ item.password }}", "$6${{ salt.stdout }}")'
+  shell: python -c 'import crypt; print crypt.crypt("{{ item.PASSWORD }}", "$6${{ salt.stdout }}")'
   changed_when: False
   register: hash_password
-  when: item.password is defined
+  when: item.PASSWORD is defined
 
 - name: User Create
   user:
-    name: "{{ item.name }}"
-    group: "{{ item.group | default('no') }}"
-    home: "{{ item.home | default('no') }}"
-    shell: "{{ item.shell | default('no') }}"
-    uid: "{{ item.uid | default('no') }}"
-    create_home: "{{ item.create_home | default('yes') }}"
-    state: present
-    password: "{{ item.password | default('no') }}"
-    update_password: "{{ item.update_password | default('no') }}"
+    name: "{{ item.NAME }}"
+    group: "{{ item.GROUP | default('no') }}"
+    home: "{{ item.HOME | default('no') }}"
+    shell: "{{ item.SHELL | default('no') }}"
+    uid: "{{ item.UID | default('no') }}"
+    create_home: "{{ item.CREATE_HOME | default('yes') }}"
+    state: "{{ item.STATE | default('present') }}"
+    password: "{{ hash_password | default('no') }}"
+    update_password: "{{ item.UPDATE_PASSWORD | default('always') }}"
