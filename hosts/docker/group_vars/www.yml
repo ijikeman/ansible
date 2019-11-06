@@ -1,0 +1,21 @@
+# ORIGINAL DEFINED
+MACKEREL: {
+  APIKEY: "test"
+  }
+
+# INVENTORY_HOSTGROUP_
+INVENTORY_HOSTGROUP_GROUPS:
+  - {
+    NAME: 'sftponly',
+    GID: '1001'
+    }
+
+INVENTORY_HOSTGROUP_USERS:
+  - {
+    NAME: 'test',
+    SHELL: '/bin/zsh',
+    GRUOP: 'sftponly',
+    HOME: '/home/test',
+    UID: '1000',
+    CREATE_HOME: 'yes',
+    }

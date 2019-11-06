@@ -1,11 +1,10 @@
 ---
-- name: 1mg.org
-  hosts: 1mg_org
-  # connection: docker
+- name: www
+  hosts: www
   user: root
   roles:
-    - common
     - os
+    - common
     - logrotated
     - cron
     - openssh

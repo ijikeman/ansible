@@ -1,0 +1,39 @@
+# ORIGINAL SETTINGS
+MACKEREL: {
+  APIKEY: "test"
+  }
+
+NETWORK_SETTINGS:
+  COMMON:
+    NAMESERVERS:
+      - '210.150.255.28'
+      - '202.229.78.37'
+    HOSTNAME: '1mg.org'
+    SEARCH_DOMAIN: '1mg.org'
+    GATEWAY: '140.227.234.1'
+    ENABLE_IPV6: 'no'
+  EXTERNAL:
+    - {
+      DEVICE: 'eth0',
+      IPADDR: '140.227.234.75',
+      NETMASK: '255.255.255.0',
+      PREFIX: '24',
+      BOOTPRONPT: 'none',
+      }
+
+# INVENTORY_HOSTGROUP_
+INVENTORY_HOSTGROUP_GROUPS:
+  - {
+    NAME: 'sftponly',
+    GID: '1001'
+    }
+
+INVENTORY_HOSTGROUP_USERS:
+  - {
+    NAME: 'test',
+    SHELL: '/bin/zsh',
+    GROUP: 'sftponly',
+    HOME: '/home/test',
+    UID: '1000',
+    CREATE_HOME: 'yes',
+    }

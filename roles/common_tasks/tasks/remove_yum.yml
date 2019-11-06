@@ -1,6 +1,0 @@
----
-- name: Yum remove packages
-  yum:
-    name: "{{ item.NAME }}"
-    enablerepo: "{{ item.ENABLEREPO | default(['base']) }}"
-    state: removed

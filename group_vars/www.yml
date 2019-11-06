@@ -1,26 +1,46 @@
----
-COMMON_INSTALL_PACKAGES:
+# ORIGINAL DEFINED
+PATH_1MG : /usr/local/1mg/
+FIREWALLD_SETTINGS: {
+  NEW_ZONE_LIST:
+    domestic
+  }
+
+SYSTEMD_SETTINGS:
+  - {
+    KEY: 'CtrlAltDelBurstAction',
+    VALUE: 'none',
+    COMMENT: 'Disable Ctrl + Alt + Delete'
+    }
+
+NETWORK_MANAGER_SETTINGS:
+  MAIN:
+    - {
+      KEY: 'dns',
+      VALUE: 'none',
+      COMMENT: 'For Setup nameserver on Ansible'
+      }
+
+# COMMON_HOSTGROUP_
+COMMON_HOSTGROUP_INSTALL_PACKAGES:
   - { NAME: git }
   - { NAME: wget }
   - { NAME: libselinux-python }
   - { NAME: mariadb }
   - { NAME: sysstat }
 
-HOSTNAME: '1mg.org'
-PATH_1MG : /usr/local/1mg/
-COMMON_MKDIRS:
+COMMON_HOSTGROUP_MKDIRS:
   - {
     PATH: "{{ PATH_1MG }}",
     OWNER: 'root',
     GROUP: 'root',
-    MODE: '0775',
+    MODE: '0755',
     RECURSE: 'no'
     }
   - {
     PATH: "{{ PATH_1MG }}etc",
     OWNER: 'root',
     GROUP: 'root',
-    MODE: '0775',
+    MODE: '0755',
     RECURSE: 'no'
     }
   - {
@@ -31,12 +51,12 @@ COMMON_MKDIRS:
     RECURSE: 'no'
     }
   # - {
-  #   PATH: "{{PATH_1MG}}www",
+  #   PATH: "{{ PATH_1MG }}data/www",
   #   OWNER: 'nginx',
   #   GROUP: 'nginx',
-  #   MODE: '0775',
+  #   MODE: '0755',
   #   RECURSE: 'no'
-  # }
+  #   }
   - {
     PATH: "{{ PATH_1MG }}home",
     OWNER: 'root',
@@ -87,11 +107,6 @@ COMMON_MKDIRS:
     RECURSE: 'no'
     }
 
-FIREWALLD_SETTINGS: {
-  NEW_ZONE_LIST:
-    domestic
-  }
-
 COMMON_HOSTGROUP_CRON_SETTINGS:
   - {
     MINUTE: '0',
@@ -112,4 +127,14 @@ COMMON_HOSTGROUP_TEMPLATE_FILES:
     OWNER: 'root',
     GROUP: 'root',
     MODE: '0700'
+    }
+
+COMMON_HOSTGROUP_SYSCTL_SETTINGS:
+  - {
+    KEY: 'net.ipv6.conf.all.disable_ipv6',
+    VALUE: '1',
+    }
+  - {
+    KEY: 'net.ipv6.conf.default.disable_ipv6',
+    VALUE: '1',
     }
