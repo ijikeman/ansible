@@ -1,0 +1,28 @@
+#
+# hosts.allow	This file contains access rules which are used to
+#		allow or deny connections to network services that
+#		either use the tcp_wrappers library or that have been
+#		started through a tcp_wrappers-enabled xinetd.
+#
+#		See 'man 5 hosts_options' and 'man 5 hosts_access'
+#		for information on rule syntax.
+#		See 'man tcpd' for information on tcp_wrappers
+#
+{% set array = [] %}
+{% if COMMON_HOSTS_ALLOW_SETTINGS.MAIN is defined %}
+{% set array = array + COMMON_HOSTS_ALLOW_SETTINGS %}
+{% endif %}
+{% if COMMON_HOSTGROUP_HOSTS_ALLOW_SETTINGS.MAIN is defined %}
+{% set array = array + COMMON_HOSTGROUP_HOSTS_ALLOW_SETTINGS %}
+{% endif %}
+{% if INVENTORY_HOSTS_ALLOW_SETTINGS.MAIN is defined %}
+{% set array = array + INVENTORY_HOSTS_ALLOW_SETTINGS %}
+{% endif %}
+{% if INVENTORY_HOSTGROUP_HOSTS_ALLOW_SETTINGS.MAIN is defined %}
+{% set array = array + INVENTORY_HOSTGROUP_HOSTS_ALLOW_SETTINGS %}
+{% endif %}
+{% for item in array %}
+{% for ALLOW_IP in item.ALLOW_IP_LIST  %}
+{{ item.PROCESS_NAME }}:{{ ALLOW_IP }}
+{% endfor %}
+{% endfor %}

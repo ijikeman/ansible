@@ -3,11 +3,12 @@
   hosts: www
   user: root
   roles:
-    - os
-    - common
-    - logrotated
-    - cron
-    - openssh
-    - docker
-    - docker-compose
-    - mackerel-agent
+    - systemd
+    # - os
+    # - common
+    # - logrotated
+    # - cron
+    # - openssh
+    # - docker
+    # - docker-compose
+    # - mackerel-agent
