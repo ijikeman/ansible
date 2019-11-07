@@ -1,0 +1,14 @@
+---
+- name: Set SSL Cert
+  copy:
+    src: "{{ item.CA }}"
+    dest: /usr/share/pki/ca-trust-source/anchors/{{ item.CA }}
+    owner: 'root'
+    group: 'root'
+    mode: '0400'
+  notify: Update Server Certs
+  with_items: "{{ FILES_SSL_CA | default([]) }}"
+
+- include_role:
+    name: common_tasks
+    tasks_from: flush_handlers.yml

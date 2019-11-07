@@ -1,0 +1,23 @@
+---
+- name: Setup Hold Repository
+  template:
+    src: "releasever.j2"
+    dest: "/etc/yum/vars/releasever"
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  when: VERSION_OS is defined
+
+- name: Setup Default Repo
+  template:
+    src: "{{ item }}_{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.j2"
+    dest: "/etc/yum.repos.d/{{ item }}"
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: Clear Yum Cache
+  with_items:
+    - "{{ FILES_REPO | default([]) }}"
+    - "{{ FILES_ORIGINAL_REPO | default([]) }}"
+
+- include_tasks: setup_repository_epel.yml
