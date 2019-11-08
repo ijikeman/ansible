@@ -1,6 +1,6 @@
 ---
-- name: install repo
-  yum: name=epel-release
-
-- name: install docker
-  yum: name=docker-io
+- name: Install
+  yum:
+    name: "{{ NAME_PACKAGE }}"
+    enablerepo: "{{ NAME_ENABLEREPO | default(['base']) }}"
+    state: present
