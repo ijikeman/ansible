@@ -4,6 +4,7 @@
   user: root
   roles:
     - systemd
+    - sysstat
     # - os
     # - common
     # - logrotated

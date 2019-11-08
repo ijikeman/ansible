@@ -1,7 +1,7 @@
 ---
 - name: Setup Config
   template:
-    src: 'sysstat.conf.j2'
+    src: 'sysstat.j2'
     dest: '/etc/cron.d/sysstat'
     owner: 'root'
     group: 'root'
