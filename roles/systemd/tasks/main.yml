@@ -5,9 +5,3 @@
 - import_tasks: install.yml
 
 - import_tasks: setup.yml
-
-- name: Daemon Started
-  include_role:
-    name: common_tasks
-    tasks_from: service_started_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
-  when: not ansible_check_mode

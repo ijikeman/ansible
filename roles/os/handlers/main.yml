@@ -47,11 +47,6 @@
   when: not ansible_check_mode
 # End Update Grub and Rebooted
 
-- name: Systemd restarted systemd
-  systemd:
-    daemon-reexec: yes
-  when: ansible_virtualization_type != 'docker'
-
 - name: Clear Yum Cache
   command: yum clean all
   when: not ansible_check_mode
