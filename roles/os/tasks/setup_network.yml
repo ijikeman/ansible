@@ -6,6 +6,18 @@
     - ansible_virtualization_type != 'docker'
     - NETWORK_SETTINGS.COMMON.HOSTNAME is defined
 
+- name: Setup NetworkManager
+  template:
+    src: NetworkManager.conf.j2
+    dest: /etc/NetworkManager/NetworkManager.conf
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_NETWORK_MANAGER }}"
+  when:
+    - ansible_distribution_major_version >= 7
+    - ansible_virtualization_type != 'docker'
+
 - name: Setup Resolv.conf
   template:
     src: resolv.conf.j2
@@ -14,7 +26,7 @@
     group: 'root'
     mode: '0644'
 
-- name: Setup network
+- name: Setup /etc/sysconfig/network
   template:
     src: network_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.j2
     dest: /etc/sysconfig/network
@@ -23,7 +35,7 @@
     mode: '0644'
   notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_NETWORK_MANAGER }}"
 
-- name: Setup ethernet
+- name: Setup Ethernet Interface
   template:
     src:  ifcfg.j2
     dest: "/etc/sysconfig/network-scripts/ifcfg-{{ item.DEVICE }}"
@@ -34,31 +46,21 @@
     - "{{ NETWORK_SETTINGS.IFCFG | default([]) }}"
   notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_NETWORK_MANAGER }}"
 
-- name: Setup Hold nic name is eth
+- name: Setup Hold Nic-name is eth
   template:
-    src: grub.j2
+    src: grub_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.j2
     dest: /etc/default/grub
     owner: 'root'
     group: 'root'
     mode: '0644'
   notify: Update Grub and Rebooted
+  when:
+    - ansible_distribution_major_version >= 7
 
 - name: Remove 70-persistent-net.rules for Not Hold Mac Address
   file:
     state: absent
     dest: /etc/udev/rules.d/70-persistent-net.rules
-
-- name: Setup NetworkManager
-  template:
-    src: NetworkManager.conf.j2
-    dest: /etc/NetworkManager/NetworkManager.conf
-    owner: 'root'
-    group: 'root'
-    mode: '0644'
-  notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_NETWORK_MANAGER }}"
-  when:
-    - COMMON_NETWORK_MANAGER_SETTINGS is defined or COMMON_HOSTGROUP_NETWORK_MANAGER_SETTINGS is defined or INVENTORY_NETWORK_MANAGER_SETTINGS is defined or INVENTORY_HOSTGROUP_NETWORK_MANAGER_SETTINGS is defined
-    - ansible_virtualization_type != 'docker'
 
 - include_role:
     name: common_tasks

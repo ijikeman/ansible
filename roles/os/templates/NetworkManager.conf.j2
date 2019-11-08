@@ -12,25 +12,7 @@
 
 [main]
 plugins=ifcfg-rh
-{% set array = [] %}
-{% if COMMON_NETWORKMANAGER_SETTINGS.MAIN is defined %}
-{% set array = array + COMMON_NETWORKMANAGER_SETTINGS %}
-{% endif %}
-{% if COMMON_HOSTGROUP_NETWORKMANAGER_SETTINGS.MAIN is defined %}
-{% set array = array + COMMON_HOSTGROUP_NETWORKMANAGER_SETTINGS %}
-{% endif %}
-{% if INVENTORY_NETWORKMANAGER_SETTINGS.MAIN is defined %}
-{% set array = array + INVENTORY_NETWORKMANAGER_SETTINGS %}
-{% endif %}
-{% if INVENTORY_HOSTGROUP_NETWORKMANAGER_SETTINGS.MAIN is defined %}
-{% set array = array + INVENTORY_HOSTGROUP_NETWORKMANAGER_SETTINGS %}
-{% endif %}
-{% for item in array %}
-{% if item.COMMENT is defined %}
-# {{ item.COMMENT }}
-{% endif %}
-{{ item.KEY }}={{ item.VALUE }}
-{% endfor %}
+dns=none # for settings 'nameserver' to resolv.conf
 
 [logging]
 #level=DEBUG

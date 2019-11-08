@@ -9,20 +9,18 @@
 #		See 'man tcpd' for information on tcp_wrappers
 #
 {% set array = [] %}
-{% if COMMON_HOSTS_ALLOW_SETTINGS.MAIN is defined %}
+{% if COMMON_HOSTS_ALLOW_SETTINGS is defined %}
 {% set array = array + COMMON_HOSTS_ALLOW_SETTINGS %}
 {% endif %}
-{% if COMMON_HOSTGROUP_HOSTS_ALLOW_SETTINGS.MAIN is defined %}
+{% if COMMON_HOSTGROUP_HOSTS_ALLOW_SETTINGS is defined %}
 {% set array = array + COMMON_HOSTGROUP_HOSTS_ALLOW_SETTINGS %}
 {% endif %}
-{% if INVENTORY_HOSTS_ALLOW_SETTINGS.MAIN is defined %}
+{% if INVENTORY_HOSTS_ALLOW_SETTINGS is defined %}
 {% set array = array + INVENTORY_HOSTS_ALLOW_SETTINGS %}
 {% endif %}
-{% if INVENTORY_HOSTGROUP_HOSTS_ALLOW_SETTINGS.MAIN is defined %}
+{% if INVENTORY_HOSTGROUP_HOSTS_ALLOW_SETTINGS is defined %}
 {% set array = array + INVENTORY_HOSTGROUP_HOSTS_ALLOW_SETTINGS %}
 {% endif %}
 {% for item in array %}
-{% for ALLOW_IP in item.ALLOW_IP_LIST  %}
-{{ item.PROCESS_NAME }}:{{ ALLOW_IP }}
-{% endfor %}
+{{ item.NAME_PROCESS }} : {{ IP }} {% if item.COMMENT is defined %}# {{ item.COMMENT }}{% endif %} 
 {% endfor %}

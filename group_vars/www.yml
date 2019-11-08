@@ -120,11 +120,11 @@ COMMON_HOSTGROUP_TEMPLATE_FILES:
 
 COMMON_HOSTGROUP_SYSCTL_SETTINGS:
   - {
-    KEY: 'net.ipv6.conf.all.disable_ipv6',
+    NAME: 'net.ipv6.conf.all.disable_ipv6',
     VALUE: '1',
     }
   - {
-    KEY: 'net.ipv6.conf.default.disable_ipv6',
+    NAME: 'net.ipv6.conf.default.disable_ipv6',
     VALUE: '1',
     }
 

@@ -3,10 +3,10 @@
   hosts: www
   user: root
   roles:
-    - systemd
-    - sysstat
-    # - os
+    # - systemd
+    - os
     # - common
+    # - sysstat
     # - logrotated
     # - cron
     # - openssh

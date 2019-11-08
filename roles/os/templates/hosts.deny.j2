@@ -25,7 +25,5 @@
 {% set array = array + INVENTORY_HOSTGROUP_HOSTS_DENY_SETTINGS %}
 {% endif %}
 {% for item in array %}
-{% for DENY_IP in item.DENY_IP_LIST  %}
-{{ item.PROCESS_NAME }}:{{ DENY_IP }}
-{% endfor %}
+{{ item.NAME_PROCESS }} : {{ IP }} {% if item.COMMENT is defined %}# {{ item.COMMENT }}{% endif %} 
 {% endfor %}
