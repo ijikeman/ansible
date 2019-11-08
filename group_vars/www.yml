@@ -134,10 +134,3 @@ COMMON_HOSTGROUP_SYSTEMD_SETTINGS:
     VALUE: 'none',
     COMMENT: 'Disable Ctrl + Alt + Delete'
     }
-
-COMMON_HOSTGROUP_NETWORK_MANAGER_SETTINGS:
-  - {
-    KEY: 'dns',
-    VALUE: 'none',
-    COMMENT: 'For Setup nameserver on Ansible'
-    }
