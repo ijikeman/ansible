@@ -1,10 +1,13 @@
 # ORIGINAL DEFINED
 VERSION_OS: '7.6.1810'
+
 PATH_1MG : /usr/local/1mg/
+
 FIREWALLD_SETTINGS: {
   NEW_ZONE_LIST:
     domestic
   }
+
 SYSSTAT_SETTINGS:
   SA1:
     MINUTE: '*'
