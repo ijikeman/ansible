@@ -1,24 +1,21 @@
 # ORIGINAL DEFINED
+VERSION_OS: '7.6.1810'
+
 PATH_1MG : /usr/local/1mg/
+
 FIREWALLD_SETTINGS: {
   NEW_ZONE_LIST:
     domestic
   }
 
-SYSTEMD_SETTINGS:
-  - {
-    KEY: 'CtrlAltDelBurstAction',
-    VALUE: 'none',
-    COMMENT: 'Disable Ctrl + Alt + Delete'
-    }
+SYSSTAT_SETTINGS:
+  SA1:
+    MINUTE: '*'
 
-NETWORK_MANAGER_SETTINGS:
-  MAIN:
-    - {
-      KEY: 'dns',
-      VALUE: 'none',
-      COMMENT: 'For Setup nameserver on Ansible'
-      }
+LOGROTATE_SETTINGS:
+  INTERVAL: 'daily'
+  COUNT : '365'
+  
 
 # COMMON_HOSTGROUP_
 COMMON_HOSTGROUP_INSTALL_PACKAGES:
@@ -131,10 +128,17 @@ COMMON_HOSTGROUP_TEMPLATE_FILES:
 
 COMMON_HOSTGROUP_SYSCTL_SETTINGS:
   - {
-    KEY: 'net.ipv6.conf.all.disable_ipv6',
+    NAME: 'net.ipv6.conf.all.disable_ipv6',
     VALUE: '1',
     }
   - {
-    KEY: 'net.ipv6.conf.default.disable_ipv6',
+    NAME: 'net.ipv6.conf.default.disable_ipv6',
     VALUE: '1',
+    }
+
+COMMON_HOSTGROUP_SYSTEMD_SETTINGS:
+  - {
+    KEY: 'CtrlAltDelBurstAction',
+    VALUE: 'none',
+    COMMENT: 'Disable Ctrl + Alt + Delete'
     }

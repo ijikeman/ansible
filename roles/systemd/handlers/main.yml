@@ -1,0 +1,5 @@
+---
+- name: Systemd restarted systemd
+  systemd:
+    daemon-reexec: yes
+  when: ansible_virtualization_type != 'docker'

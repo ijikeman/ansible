@@ -12,14 +12,7 @@
 
 [main]
 plugins=ifcfg-rh
-{% if NETWORK_MANAGER_SETTINGS.MAIN is defined %}
-{% for item in NETWORK_MANAGER_SETTINGS.MAIN %}
-{% if item.comment is defined %}
-# {{ item.comment }}
-{% endif %}
-{{ item.key }}={{ item.value }}
-{% endfor %}
-{% endif %}
+dns=none # for settings 'nameserver' to resolv.conf
 
 [logging]
 #level=DEBUG

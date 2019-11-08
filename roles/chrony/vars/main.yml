@@ -1,0 +1,3 @@
+NAME_SERVICE_MANAGER: Systemd
+NAME_DAEMON: chronyd
+NAME_PACKAGE: chrony

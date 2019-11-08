@@ -1,0 +1,9 @@
+---
+- name: Set Config
+  template:
+    src: chrony.conf.j2
+    dest: /etc/chrony.conf
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: "{{ NAME_SERVICE_MANAGER: }} restarted {{ NAME_DAEMON }}"

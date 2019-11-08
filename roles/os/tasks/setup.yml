@@ -1,13 +1,28 @@
 ---
-- name: Default OS Setup
-  include_tasks: setup_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml
+- name: Setup Repository
+  include_tasks: setup_repository.yml
+
+- name: Setup Sysctl
+  include_tasks: setup_sysctl.yml
 
 - name: Setup Network
   include_tasks: setup_network.yml
+  when: ansible_virtualization_type != 'docker'
 
 - name: Setup SELinux
   include: setup_selinux.yml
   when: ansible_virtualization_type != 'docker' or not ansible_check_mode
 
-- name: Setup Network
-  include_tasks: setup_sysctl.yml
+- name: Setup SSL CA
+  include_tasks: setup_SSL_CA.yml
+
+- name: Setup Timezone
+  include_tasks: setup_timezone.yml
+
+- name: Setup Hosts Allow/Deny
+  include_tasks: setup_hosts_allow_deny.yml
+
+- name: All Package Update
+  include_tasks: setup_yum_all_update.yml
+  tags:
+    - update

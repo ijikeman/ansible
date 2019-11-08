@@ -1,10 +1,11 @@
 ---
-- name: Setup sysctl.conf
-  template:
-    src: "sysctl.conf.j2"
-    dest: /etc/sysctl.conf
-    owner: 'root'
-    group: 'root'
-    mode: '0644'
-  notify: Reloaded Sysctl
-  when: SYSCTL_SETTINGS is defined
+- name: Setup
+  sysctl:
+    name: "{{ item.NAME }}"
+    value: "{{ item.VALUE }}"
+    reload: "{{ item.RELOAD | default('yes') }}"
+  with_items:
+    - "{{ COMMON_SYSCTL_SETTINGS | default([]) }}"
+    - "{{ COMMON_HOSTGROUP_SYSCTL_SETTINGS | default([]) }}"
+    - "{{ INVENTORY_SYSCTL_SETTINGS | default([]) }}"
+    - "{{ INVENTORY_HOSTGROUP_SYSCTL_SETTINGS | default([]) }}"

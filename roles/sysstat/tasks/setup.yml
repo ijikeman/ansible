@@ -1,0 +1,9 @@
+---
+- name: Setup Config
+  template:
+    src: 'sysstat.j2'
+    dest: '/etc/cron.d/sysstat'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_DAEMON }}"

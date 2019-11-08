@@ -37,3 +37,15 @@ INVENTORY_HOSTGROUP_USERS:
     UID: '1000',
     CREATE_HOME: 'yes',
     }
+
+INVENTORY_HOSTGROUP_HOSTS_ALLOW_SETTINGS:
+  - {
+    NAME_PROCESS: 'vsftpd',
+    IP: '10.0.0.1',
+    COMMENT: 'test'
+    }
+  - {
+    NAME_PROCESS: 'vsftpd',
+    IP: '10.0.0.2',
+    COMMENT: 'test'
+    }

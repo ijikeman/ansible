@@ -1,5 +1,5 @@
 ---
-- name: include_vars for OS
-  include_vars: "{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml"
+- name: Add the OS AND VERSION specific variables
+  include_vars: "{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.yml"
 
 - include_tasks: setup.yml

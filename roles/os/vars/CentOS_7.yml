@@ -1,0 +1,4 @@
+NAME_SERVICE_MANAGER: Systemd
+NAME_NETWORK_MANAGER: NetworkManager
+FILES_REPO:
+  - CentOS-Base.repo

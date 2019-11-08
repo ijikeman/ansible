@@ -1,0 +1,4 @@
+NAME_SERVICE_MANAGER: Service
+NAME_NETWORK_MANAGER: network
+FILES_REPO:
+  - CentOS-Base.repo

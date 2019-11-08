@@ -1,18 +1,18 @@
 # see "man logrotate" for details
 # rotate log files weekly
-{% LOGROTATED_SETTINGS.INTERVAL if LOGROTATED_SETTINGS.INTERVAL is defined else 'daily' %}
+{{ LOGROTATE_SETTINGS.INTERVAL if LOGROTATE_SETTINGS.INTERVAL is defined else 'weekly' }}
 
 # keep 4 weeks worth of backlogs
-rotate {% LOGROTATED_SETTINGS.COUNT if LOGROTATED_SETTINGS.COUNT is defined else '365' %}
+rotate {{ LOGROTATE_SETTINGS.COUNT if LOGROTATE_SETTINGS.COUNT is defined else '4' }}
 
 # create new (empty) log files after rotating old ones
 create
 
 # use date as a suffix of the rotated file
-{% LOGROTATED_SETTINGS.SUFFIX if LOGROTATED_SETTINGS.SUFFIX is defined else 'dateext' %}
+{{ LOGROTATE_SETTINGS.SUFFIX if LOGROTATE_SETTINGS.SUFFIX is defined else 'dateext' }}
 
 # uncomment this if you want your log files compressed
-{% 'compress' if LOGROTATED_SETTINGS.COMPRESS is true else '#compress' %}
+{{ LOGROTATE_SETTINGS.COMPRESS if LOGROTATE_SETTINGS.COMPRESS is defined else '#compress' }}
 
 # RPM packages drop log rotation information into this directory
 include /etc/logrotate.d

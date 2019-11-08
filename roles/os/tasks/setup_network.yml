@@ -6,24 +6,62 @@
     - ansible_virtualization_type != 'docker'
     - NETWORK_SETTINGS.COMMON.HOSTNAME is defined
 
-- name: Setup resolv.conf
+- name: Setup NetworkManager
+  template:
+    src: NetworkManager.conf.j2
+    dest: /etc/NetworkManager/NetworkManager.conf
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_NETWORK_MANAGER }}"
+  when:
+    - ansible_distribution_major_version >= 7
+    - ansible_virtualization_type != 'docker'
+
+- name: Setup Resolv.conf
   template:
     src: resolv.conf.j2
     dest: /etc/resolv.conf
     owner: 'root'
     group: 'root'
     mode: '0644'
-  when:
-    - ansible_virtualization_type != 'docker'
 
-- name: Setup ifcfg
+- name: Setup /etc/sysconfig/network
   template:
-    src: ifcfg.j2
-    dest: /etc/sysconfig/network-scripts/ifcfg-{{ item.NAME_DEV }}
+    src: network_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.j2
+    dest: /etc/sysconfig/network
     owner: 'root'
     group: 'root'
     mode: '0644'
-  with_items: "{{ NETWORK_SETTINGS.EXTERNAL | default([]) }}"
+  notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_NETWORK_MANAGER }}"
+
+- name: Setup Ethernet Interface
+  template:
+    src:  ifcfg.j2
+    dest: "/etc/sysconfig/network-scripts/ifcfg-{{ item.DEVICE }}"
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  with_items:
+    - "{{ NETWORK_SETTINGS.IFCFG | default([]) }}"
+  notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_NETWORK_MANAGER }}"
+
+- name: Setup Hold Nic-name is eth
+  template:
+    src: grub_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.j2
+    dest: /etc/default/grub
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: Update Grub and Rebooted
   when:
-    - ansible_virtualization_type != 'docker'
-  notify: "{{ NAME_SERVICE }} restarted {{ NAME_NETWORKMANAGER }}"
+    - ansible_distribution_major_version >= 7
+
+- name: Remove 70-persistent-net.rules for Not Hold Mac Address
+  file:
+    state: absent
+    dest: /etc/udev/rules.d/70-persistent-net.rules
+
+- include_role:
+    name: common_tasks
+    tasks_from: flush_handlers.yml
