@@ -1,1 +1,2 @@
-daemon_name: sshd
+NAME_PACKAGE: openssh-server
+NAME_DAEMON: sshd

@@ -13,5 +13,4 @@
     - "{{ COMMON_HOSTGROUP_CRON_SETTINGS | default([]) }}"
     - "{{ INVENTORY_CRON_SETTINGS | default([]) }}"
     - "{{ INVENTORY_HOSTGROUP_CRON_SETTINGS | default([]) }}"
-  when:
-    - not ansible_check_mode
+  when: not ansible_check_mode
