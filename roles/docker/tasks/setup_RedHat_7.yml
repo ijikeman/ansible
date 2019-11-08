@@ -2,7 +2,7 @@
 - name: Set Config
   template:
     src: "{{ item }}.j2"
-    dest: /etc/sysconfig/{{ item | regex_replace('sysconfig\.', '') }}
+    dest: /etc/sysconfig/{{ item | regex_replace('sysconfig\.', '') | regex_replace('_.*', '') }}
     owner: 'root'
     group: 'root'
     mode: '0644'
@@ -10,4 +10,5 @@
     - sysconfig.docker_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}
     - sysconfig.docker-network_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}
     - sysconfig.docker-storage_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}
+    - sysconfig.docker-storage-setup_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}
   notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_DAEMON }}"
