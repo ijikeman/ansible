@@ -14,7 +14,7 @@ INVENTORY_HOSTGROUP_USERS:
   - {
     NAME: 'test',
     SHELL: '/bin/zsh',
-    GRUOP: 'sftponly',
+    GROUP: 'sftponly',
     HOME: '/home/test',
     UID: '1000',
     CREATE_HOME: 'yes',
