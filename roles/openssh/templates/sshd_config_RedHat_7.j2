@@ -38,7 +38,7 @@ SyslogFacility AUTHPRIV
 {% if SSHD_SETTINGS.PERMITROOTLOGIN is defined %}
 PermitRootLogin {{ SSHD_SETTINGS.PERMITROOTLOGIN }}
 {% else %}
-PermitRootLogin without-password
+#PermitRootLogin yes
 {% endif %}
 #StrictModes yes
 #MaxAuthTries 6
@@ -66,7 +66,11 @@ AuthorizedKeysFile	.ssh/authorized_keys
 # To disable tunneled clear text passwords, change to no here!
 #PasswordAuthentication yes
 #PermitEmptyPasswords no
-PasswordAuthentication no
+{% if SSHD_SETTINGS.PASSWORDAUTHENTICATION is defined %}
+PasswordAuthentication {{ SSHD_SETTINGS.PASSWORDAUTHENTICATION }}
+{% else %}
+PasswordAuthentication yes
+{% endif %}
 
 # Change to no to disable s/key passwords
 #ChallengeResponseAuthentication yes
