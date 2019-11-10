@@ -11,5 +11,5 @@
     - cron
     - openssh
     - docker
-    # - docker-compose
-    # - mackerel-agent
+    - docker-compose
+    - mackerel-agent
