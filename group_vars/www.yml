@@ -116,12 +116,23 @@ COMMON_HOSTGROUP_CRON_SETTINGS:
     JOB: "{{ PATH_1MG }}bin/backup.sh"
     }
   - {
+    MINUTE: '45',
+    HOUR: '3',
+    DAY: '1',
+    JOB: "docker exec proxy certbot certonly --webroot -w /usr/share/nginx/html -d blog.1mg.org && cd {{ PATH_1MG }}data/web-docker/ && docker-compose restart proxy"
+    }
+  - {
+    MINUTE: '30',
+    HOUR: '3',
+    DAY: '1',
+    JOB: "docker exec proxy certbot certonly --webroot -w /usr/share/nginx/html -d ee-megane.com && cd {{ PATH_1MG }}data/web-docker/ && docker-compose restart proxy"
+    }
+  - {
     MINUTE: '15',
     HOUR: '3',
     DAY: '1',
-    JOB: "docker exec proxy certbot certonly --webroot -w /usr/share/nginx/html -d server.1mg.org,ee-megane.com,blog.1mg.org && cd {{ PATH_1MG }}data/web-docker/ && docker-compose restart proxy"
+    JOB: "docker exec proxy certbot certonly --webroot -w /usr/share/nginx/html -d server.1mg.org && cd {{ PATH_1MG }}data/web-docker/ && docker-compose restart proxy"
     }
-
 COMMON_HOSTGROUP_TEMPLATE_FILES:
   - {
     SRC: 'backup.sh.j2',
