@@ -1,4 +1,6 @@
 ---
-- name: install
+- name: Install
   yum:
-    name: docker
+    name: "{{ NAME_PACKAGE }}"
+    enablerepo: "{{ NAME_ENABLEREPO | default(['base']) }}"
+    state: present

@@ -1,11 +1,14 @@
 ---
-- name: Set sysconfig
+- name: Set Config
   template:
-    src: sysconfig.docker-storage.j2
-    dest: /etc/sysconfig/docker-storage
-    owner: 0
-    group: 0
-    mode: 0644
-  notify: Systemd restarted {{ daemon_name }}
-  tags:
-    - docker
+    src: "{{ item }}.j2"
+    dest: /etc/sysconfig/{{ item | regex_replace('sysconfig\.', '') | regex_replace('_.*', '') }}
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  with_items:
+    - sysconfig.docker_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}
+    - sysconfig.docker-network_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}
+    - sysconfig.docker-storage_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}
+    - sysconfig.docker-storage-setup_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}
+  notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_DAEMON }}"
