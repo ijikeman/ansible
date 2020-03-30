@@ -6,4 +6,4 @@
     owner: nginx
     group: nginx
     mode: 0644
-  notify: "{{ NAME_SERVICE }} restarted {{ daemon_name }}"
+  notify: "{{ NAME_SERVICE }} restarted {{ NAME_DAEMON }}"

@@ -21,3 +21,6 @@
     - "{{ FILES_ORIGINAL_REPO | default([]) }}"
 
 - include_tasks: setup_repository_epel.yml
+  when:
+    - EPEL_ENABLE is defined
+    - EPEL_ENABLE

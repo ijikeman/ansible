@@ -1,52 +1,52 @@
 ---
-- name: Service started {{ daemon_name }}
+- name: Service started {{ NAME_DAEMON }}
   service:
-    name: "{{ daemon_name }}"
+    name: "{{ NAME_DAEMON }}"
     state: started
     enabled: yes
-  listen: Service started {{ daemon_name }}
+  listen: Service started {{ NAME_DAEMON }}
 
-- name: Service restarted {{ daemon_name }}
+- name: Service restarted {{ NAME_DAEMON }}
   service:
-    name: "{{ daemon_name }}"
+    name: "{{ NAME_DAEMON }}"
     state: restarted
-  listen: Service restarted {{ daemon_name }}
+  listen: Service restarted {{ NAME_DAEMON }}
 
-- name: Service reloaded {{ daemon_name }}
+- name: Service reloaded {{ NAME_DAEMON }}
   service:
-    name: "{{ daemon_name }}"
+    name: "{{ NAME_DAEMON }}"
     state: reloaded
-  listen: Service reloaded {{ daemon_name }}
+  listen: Service reloaded {{ NAME_DAEMON }}
 
-- name: Service stopped {{ daemon_name }}
+- name: Service stopped {{ NAME_DAEMON }}
   service:
-    name: "{{ daemon_name }}"
+    name: "{{ NAME_DAEMON }}"
     state: stopped
     enabled: no
-  listen: Service stopped {{ daemon_name }}
+  listen: Service stopped {{ NAME_DAEMON }}
 
-- name: Systemd started {{ daemon_name }}
+- name: Systemd started {{ NAME_DAEMON }}
   systemd:
-    name: "{{ daemon_name }}"
+    name: "{{ NAME_DAEMON }}"
     state: started
     enabled: yes
-  listen: Systemd started {{ daemon_name }}
+  listen: Systemd started {{ NAME_DAEMON }}
 
-- name: Systemd restarted {{ daemon_name }}
+- name: Systemd restarted {{ NAME_DAEMON }}
   systemd:
-    name: "{{ daemon_name }}"
+    name: "{{ NAME_DAEMON }}"
     state: restarted
-  listen: Systemd restarted {{ daemon_name }}
+  listen: Systemd restarted {{ NAME_DAEMON }}
 
-- name: Systemd reloaded {{ daemon_name }}
+- name: Systemd reloaded {{ NAME_DAEMON }}
   systemd:
-    name: "{{ daemon_name }}"
+    name: "{{ NAME_DAEMON }}"
     state: reloaded
-  listen: Systemd reloaded {{ daemon_name }}
+  listen: Systemd reloaded {{ NAME_DAEMON }}
 
-- name: Systemd stopped {{ daemon_name }}
+- name: Systemd stopped {{ NAME_DAEMON }}
   systemd:
-    name: "{{ daemon_name }}"
+    name: "{{ NAME_DAEMON }}"
     state: stopped
     enabled: no
-  listen: Systemd stopped {{ daemon_name }}
+  listen: Systemd stopped {{ NAME_DAEMON }}

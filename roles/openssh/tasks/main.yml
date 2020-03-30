@@ -11,4 +11,4 @@
     owner: root
     group: root
     mode: 0600
-  notify: Systemd restarted {{ daemon_name }}
+  notify: Systemd restarted {{ NAME_DAEMON }}

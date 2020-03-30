@@ -1,2 +1,5 @@
 [www]
 140.227.234.75 ansible_connection=ssh
+
+[rundeck]
+118.27.39.151 ansible_connection=ssh

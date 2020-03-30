@@ -1,0 +1,4 @@
+---
+NETWORK_SETTINGS:
+  COMMON:
+    HOSTNAME: rundeck.1mg.org

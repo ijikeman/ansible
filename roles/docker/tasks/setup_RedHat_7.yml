@@ -6,6 +6,6 @@
     owner: 0
     group: 0
     mode: 0644
-  notify: Systemd restarted {{ daemon_name }}
+  notify: Systemd restarted {{ NAME_DAEMON }}
   tags:
     - docker

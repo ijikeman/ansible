@@ -1,0 +1,9 @@
+---
+- name: rundeck
+  hosts: rundeck
+  user: root
+  roles:
+    # - systemd
+    # - os
+    # - common
+    - middlewares/mariadb

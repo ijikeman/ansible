@@ -9,6 +9,6 @@
 
 - name: Regist To Systemd
   systemd:
-    name: "{{ daemon_name }}"
+    name: "{{ NAME_DAEMON }}"
     enabled: yes
     state: started
