@@ -3,3 +3,4 @@ NAME_NETWORK_MANAGER: NetworkManager
 FILES_REPO:
   - CentOS-Base.repo
   - CentOS-AppStream.repo
+CURRENT_VERSION_OS: 8.2.2004

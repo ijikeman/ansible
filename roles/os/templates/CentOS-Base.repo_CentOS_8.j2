@@ -10,7 +10,7 @@
 #
 #
 
-{% if VERSION_OS is defined %}
+{% if VERSION_OS is defined and VERSION_OS != CURRENT_VERSION_OS %}
 {% set MIRROR_SERVER='vault.centos.org' %}
 {% else %}
 {% set MIRROR_SERVER='mirror.centos.org' %}

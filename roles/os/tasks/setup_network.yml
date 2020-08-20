@@ -36,7 +36,7 @@
   notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_NETWORK_MANAGER }}"
   when:
     - NETWORK_SETTINGS.GATEWAY is defined
-    
+
 - name: Setup Ethernet Interface
   template:
     src:  ifcfg.j2
