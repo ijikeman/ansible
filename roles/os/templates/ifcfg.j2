@@ -14,7 +14,7 @@ DEVICE={{ item.DEVICE }}
 ONBOOT={{ item.ONBOOT if item.ONBOOT is defined else 'no' }}
 {% if item.IPADDR is defined %}IPADDR={{ item.IPADDR }}{% endif %}
 {% if item.PREFIX is defined %}PREFIX={{ item.PREFIX }}{% endif %}
-{% if item.DEFROUTE is defined and item.DEFROUTE == 'yes' and NETWORK_SETTINGS.COMMON.GATEWAY is define %}
+{% if item.DEFROUTE is defined and item.DEFROUTE == 'yes' and NETWORK_SETTINGS.COMMON.GATEWAY is defined %}
 GATEWAY={{ NETWORK_SETTINGS.COMMON.GATEWAY }}
 {% endif %}
 IPV6_PRIVACY=no
