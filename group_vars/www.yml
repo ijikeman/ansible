@@ -21,7 +21,7 @@ LOGROTATE_SETTINGS:
 COMMON_HOSTGROUP_INSTALL_PACKAGES:
   - { NAME: git }
   - { NAME: wget }
-  - { NAME: libselinux-python }
+  - { NAME: python3-libselinux }
   - { NAME: mariadb }
   - { NAME: sysstat }
 
