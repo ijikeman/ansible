@@ -1,0 +1,11 @@
+---
+- name: Set sysconfig
+  template:
+    src: sysconfig.docker-storage.j2
+    dest: /etc/sysconfig/docker-storage
+    owner: 0
+    group: 0
+    mode: 0644
+  notify: Systemd restarted {{ NAME_DAEMON }}
+  tags:
+    - docker

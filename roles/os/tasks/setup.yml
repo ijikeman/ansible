@@ -9,9 +9,9 @@
   include_tasks: setup_network.yml
   when: ansible_virtualization_type != 'docker'
 
-- name: Setup SELinux
-  include: setup_selinux.yml
-  when: ansible_virtualization_type != 'docker' or not ansible_check_mode
+#- name: Setup SELinux
+#  include: setup_selinux.yml
+#  when: ansible_virtualization_type != 'docker' or not ansible_check_mode
 
 - name: Setup SSL CA
   include_tasks: setup_SSL_CA.yml
@@ -24,5 +24,6 @@
 
 - name: All Package Update
   include_tasks: setup_yum_all_update.yml
-  tags:
-    - update
+  when:
+    - YUM_UPDATE_ALL is defined
+    - YUM_UPDATE_ALL

@@ -4,10 +4,10 @@
   user: root
   roles:
     - systemd
-    - os
     - common
+    - os
     - sysstat
-    - logrotated
+    - logrotate
     - cron
     - openssh
     - docker

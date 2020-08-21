@@ -16,12 +16,14 @@ LOGROTATE_SETTINGS:
   INTERVAL: 'daily'
   COUNT : '365'
 
+FILES_ORIGINAL_REPO:
+  - docker.repo
 
 # COMMON_HOSTGROUP_
 COMMON_HOSTGROUP_INSTALL_PACKAGES:
   - { NAME: git }
   - { NAME: wget }
-  - { NAME: python3-libselinux }
+  - { NAME: "{{ ( (ansible_facts.distribution_major_version | int) < 8) | ternary('libselinux-python','python3-libselinux') }}" }
   - { NAME: mariadb }
   - { NAME: sysstat }
 

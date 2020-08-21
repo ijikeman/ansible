@@ -1,0 +1,11 @@
+---
+- name: Install
+  get_url:
+    url: "{{ URL_DOCKER_COMPOSE }}/{{ VERSION_DOCKER_COMPOSE}}/docker-compose-Linux-x86_64"
+    dest: /usr/local/bin/docker-compose
+    sha256sum: "{{ CSUM_DOCKER_COMPOSE }}"
+
+- name: Set file permission
+  file:
+    path: /usr/local/bin/docker-compose
+    mode: 0755

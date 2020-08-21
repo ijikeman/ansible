@@ -1,0 +1,14 @@
+---
+- name: Set Servicefile to Systemd
+  template:
+    src: systemd.j2
+    dest: /etc/systemd/system/dc@.service
+    owner: 0
+    group: 0
+    mode: 0644
+
+- name: Regist To Systemd
+  systemd:
+    name: "{{ NAME_DAEMON }}"
+    enabled: yes
+    state: started
