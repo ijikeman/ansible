@@ -6,6 +6,7 @@
     - systemd
     - common
     - os
+    - iptables
     - sysstat
     - logrotate
     - cron
