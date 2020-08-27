@@ -1,14 +1,31 @@
 ---
-#- name: install
-#  dnf:
-#    name: "{{ item }}"
-#  with_items:
-#    - "https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm"
 
-- name: Docker install
+- name: Get State repo
+  stat:
+    path: /etc/yum.repos.d/docker.io.repo
+  register: stat_repo
+  failed_when: False
+  changed_when: False
+  when:
+    - not ansible_check_mode
+
+- name: Add Repo
+  command: dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  when:
+    - stat_repo.stat.exists
+
+- name: Containerd.io install
   dnf:
-    name: "{{ item }} --nobest"
-  with_items:
-    - containerd.io
-    - docker-ce
-    - docker-ce-cli
+    name: "containerd.io"
+
+- name: Get Stat Docker Package
+  command: rpm -q docker-ce
+  register: stat_docker
+  failed_when: False
+  changed_when: False
+  when:
+    - not ansible_check_mode
+
+- name: install docker-ce(--nobest)
+  command: dnf install docker-ce --nobest -y
+  when: stat_docker.rc == 1
