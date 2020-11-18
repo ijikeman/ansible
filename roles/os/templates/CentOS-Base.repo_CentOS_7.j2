@@ -5,44 +5,44 @@
 # geographically close to the client.  You should use this for CentOS updates
 # unless you are manually picking other mirrors.
 #
-# If the mirrorlist= does not work for you, as a fall back you can try the
+# If the mirrorlist= does not work for you, as a fall back you can try the 
 # remarked out baseurl= line instead.
 #
 #
 
-{% if VERSION_OS is defined and VERSION_OS != CURRENT_VERSION_OS %}
+{% if VERSION_OS is defined and VERSION_OS_CURRENT > VERSION_OS %}
 {% set MIRROR_SERVER='vault.centos.org' %}
 {% else %}
-{% set MIRROR_SERVER='mirror.centos.org' %}
+{% set MIRROR_SERVER='mirror.centos.org/centos' %}
 {% endif %}
 [base]
-name=CentOS-$releasever - Base
-#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra
-baseurl=http://{{ MIRROR_SERVER }}/centos/$releasever/os/$basearch/
+name=CentOS-$releasever$release_minerver - Base
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever$release_minerver&arch=$basearch&repo=os&infra=$infra
+baseurl=http://{{ MIRROR_SERVER }}/$releasever$release_minerver/os/$basearch/
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 
 #released updates
 [updates]
-name=CentOS-$releasever - Updates
-#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates&infra=$infra
-baseurl=http://{{ MIRROR_SERVER }}/centos/$releasever/updates/$basearch/
+name=CentOS-$releasever$release_minerver - Updates
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever$release_minerver&arch=$basearch&repo=updates&infra=$infra
+baseurl=http://{{ MIRROR_SERVER }}/$releasever$release_minerver/updates/$basearch/
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 
 #additional packages that may be useful
 [extras]
-name=CentOS-$releasever - Extras
-#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras&infra=$infra
-baseurl=http://{{ MIRROR_SERVER }}/centos/$releasever/extras/$basearch/
+name=CentOS-$releasever$release_minerver - Extras
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever$release_minerver&arch=$basearch&repo=extras&infra=$infra
+baseurl=http://{{ MIRROR_SERVER }}/$releasever$release_minerver/extras/$basearch/
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 
 #additional packages that extend functionality of existing packages
 [centosplus]
-name=CentOS-$releasever - Plus
-#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus&infra=$infra
-baseurl=http://{{ MIRROR_SERVER }}/centos/$releasever/centosplus/$basearch/
+name=CentOS-$releasever$release_minerver - Plus
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever$release_minerver&arch=$basearch&repo=centosplus&infra=$infra
+baseurl=http://{{ MIRROR_SERVER }}/$releasever$release_minerver/centosplus/$basearch/
 gpgcheck=1
 enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7

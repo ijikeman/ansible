@@ -6,6 +6,13 @@
     - ansible_virtualization_type != 'docker'
     - NETWORK_SETTINGS.COMMON.HOSTNAME is defined
 
+- name: Install NetworkManager
+  package:
+    name: 'NetworkManager'
+    state: present
+  when:
+    - ansible_distribution_major_version >= '7'
+
 - name: Setup NetworkManager
   template:
     src: NetworkManager.conf.j2
@@ -15,8 +22,7 @@
     mode: '0644'
   notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_NETWORK_MANAGER }}"
   when:
-    - ansible_distribution_major_version >= 7
-    - ansible_virtualization_type != 'docker'
+    - ansible_distribution_major_version >= '7'
 
 - name: Setup Resolv.conf
   template:
@@ -25,6 +31,8 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
+  when:
+    - ansible_virtualization_type != 'docker'
 
 - name: Setup /etc/sysconfig/network
   template:
@@ -34,12 +42,10 @@
     group: 'root'
     mode: '0644'
   notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_NETWORK_MANAGER }}"
-  when:
-    - NETWORK_SETTINGS.GATEWAY is defined
 
 - name: Setup Ethernet Interface
   template:
-    src:  ifcfg.j2
+    src: ifcfg.j2
     dest: "/etc/sysconfig/network-scripts/ifcfg-{{ item.DEVICE }}"
     owner: 'root'
     group: 'root'
@@ -48,22 +54,27 @@
     - "{{ NETWORK_SETTINGS.IFCFG | default([]) }}"
   notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_NETWORK_MANAGER }}"
 
-- name: Setup Hold Nic-name is eth
-  template:
-    src: grub_{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.j2
-    dest: /etc/default/grub
-    owner: 'root'
-    group: 'root'
-    mode: '0644'
-  notify: Update Grub and Rebooted
+- name: Get stat grub file
+  stat:
+    path: '/etc/default/grub'
+  register: stat_grub_file
+
+- name: Setup Host Nic-name is eth
+  replace:
+    path: /etc/default/grub
+    regexp: '^(GRUB_CMDLINE_LINUX=.+ quiet)"$'
+    replace: '\1 net.ifnames=0 biosdevname=0"'
   when:
-    - ansible_distribution_major_version >= 7
+    - stat_grub_file.stat.exists
+    - ansible_distribution_major_version >= '7'
+  notify: Update Grub and Rebooted
 
 - name: Remove 70-persistent-net.rules for Not Hold Mac Address
   file:
     state: absent
     dest: /etc/udev/rules.d/70-persistent-net.rules
 
-- include_role:
-    name: common_tasks
+- import_role:
+    name: libraries
     tasks_from: flush_handlers.yml
+

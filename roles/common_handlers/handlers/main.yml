@@ -1,0 +1,19 @@
+- name: "service {{ NAME_DAEMON }} started"
+  service:
+    name: "{{ NAME_DAEMON }}"
+    state: started
+
+- name: "service {{ NAME_DAEMON }} restarted"
+  service:
+    name: "{{ NAME_DAEMON }}"
+    state: restarted
+
+- name: "service {{ NAME_DAEMON }} stopped"
+  service:
+    name: "{{ NAME_DAEMON }}"
+    state: stopped
+
+- name: "systemd {{ NAME_DAEMON }} restarted"
+  systemd:
+    name: "{{ NAME_DAEMON }}"
+    state: restarted

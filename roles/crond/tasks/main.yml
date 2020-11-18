@@ -1,0 +1,15 @@
+- name: Remove
+  dnf:
+    name: "cronie-anacron"
+    state: absent
+
+- name: Install
+  dnf:
+    name: "cronie-noanacron"
+    state: "present"
+
+- name: Config
+  template:
+    src: "test"
+    dest: "/tmp/test_crond"
+  notify: "{{ NAME_SERVICE_MANAGER }} {{ NAME_DAEMON }} restarted"

@@ -1,0 +1,10 @@
+- name: Install
+  dnf:
+    name: "postfix"
+    state: "present"
+
+- name: Config
+  template:
+    src: "test"
+    dest: "/tmp/test_postfix"
+  notify: "{{ NAME_SERVICE_MANAGER }} {{ NAME_DAEMON }} restarted"

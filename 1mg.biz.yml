@@ -1,0 +1,20 @@
+---
+- name: 1mg.biz
+  hosts: 1mg_biz
+  user: root
+  roles:
+#    - systemd
+#    - common
+#    - os
+#    - iptables
+#    - sysstat
+#    - logrotate
+#    - cron
+#    - openssh
+#    - docker
+#    - docker-compose
+#    - mackerel-agent
+    - httpd
+    - common_handlers
+    - crond
+    - common_handlers

@@ -1,1 +1,1 @@
-{{ VERSION_OS }}
+{{ VERSION_OS | regex_replace('^(\d+).*', '\\1') }}

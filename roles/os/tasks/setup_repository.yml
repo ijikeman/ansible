@@ -5,8 +5,26 @@
     dest: "/etc/yum/vars/releasever"
     owner: 'root'
     group: 'root'
-    mode: '0644'
+    mode: 0644
   when: VERSION_OS is defined
+
+- name: Setup Hold Repository
+  template:
+    src: "release_minerver.j2"
+    dest: "/etc/yum/vars/release_minerver"
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+
+- name: Setup dnf.conf on CentOS8
+  template:
+    src: 'dnf.conf.j2'
+    dest: '/etc/dnf/dnf.conf'
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  when:
+    - ansible_distribution_major_version >= '8'
 
 - name: Setup Default Repo
   template:
@@ -14,13 +32,13 @@
     dest: "/etc/yum.repos.d/{{ item }}"
     owner: 'root'
     group: 'root'
-    mode: '0644'
+    mode: 0644
   notify: Clear Yum Cache
   with_items:
     - "{{ FILES_REPO | default([]) }}"
     - "{{ FILES_ORIGINAL_REPO | default([]) }}"
 
-- include_tasks: setup_repository_epel.yml
+- import_tasks: setup_repository_epel.yml
   when:
-    - EPEL_ENABLE is defined
-    - EPEL_ENABLE
+    - ENABLE_EPEL is defined
+    - ENABLE_EPEL

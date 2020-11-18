@@ -1,5 +1,0 @@
----
-- name: Install
-  yum:
-    name: {{ NAME_PACKAGE }}
-    state: installed

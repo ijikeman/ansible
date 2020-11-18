@@ -1,0 +1,21 @@
+---
+version: '2'
+services:
+  1mg:
+    container_name: 1mg.org
+    image: 'centos:8'
+    privileged: true
+    tty: true
+    command: /sbin/init
+    networks:
+      global:
+        ipv4_address: 192.0.0.1
+networks:
+  global:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.0.0.0/16
+          gateway: 192.0.0.254
+    

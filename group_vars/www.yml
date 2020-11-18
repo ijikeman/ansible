@@ -1,5 +1,5 @@
 # ORIGINAL DEFINED
-VERSION_OS: '8.2.2004'
+VERSION_OS: '7.9.2009'
 
 PATH_1MG : /usr/local/1mg/
 
@@ -16,12 +16,12 @@ LOGROTATE_SETTINGS:
   INTERVAL: 'daily'
   COUNT : '365'
 
-FILES_ORIGINAL_REPO:
-  - docker.repo
-
 # COMMON_HOSTGROUP_
 COMMON_HOSTGROUP_DISABLE_SERVICES:
-  - { NAME: firewalld }
+  - {
+    NAME_SERVICE: firewalld,
+    NAME_PACKAGE: firewalld
+  }
 
 COMMON_HOSTGROUP_INSTALL_PACKAGES:
   - { NAME: git }

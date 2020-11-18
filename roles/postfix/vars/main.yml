@@ -1,0 +1,2 @@
+NAME_DAEMON: postfix
+NAME_SERVICE_MANAGER: systemd

@@ -1,0 +1,25 @@
+# CentOS-Extras.repo
+#
+# The mirror system uses the connecting IP address of the client and the
+# update status of each mirror to pick mirrors that are updated to and
+# geographically close to the client.  You should use this for CentOS updates
+# unless you are manually picking other mirrors.
+#
+# If the mirrorlist= does not work for you, as a fall back you can try the
+# remarked out baseurl= line instead.
+#
+#
+
+{% if VERSION_OS is defined and VERSION_OS_CURRENT > VERSION_OS %}
+{% set MIRROR_SERVER='vault.centos.org' %}
+{% else %}
+{% set MIRROR_SERVER='mirror.centos.org/$contentdir' %}
+{% endif %}
+#additional packages that may be useful
+[extras]
+name=CentOS-$releasever$release_minerver - Extras
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever$release_minerver&arch=$basearch&repo=extras&infra=$infra
+baseurl=http://{{ MIRROR_SERVER }}/$releasever$release_minerver/extras/$basearch/os/
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial

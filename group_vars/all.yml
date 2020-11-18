@@ -1,6 +1,7 @@
 # COMMON_
 COMMON_DISABLE_SERVICES:
-  - {
-    NAME_PACKAGE: 'tuned',
+  -
+    NAME_PACKAGE: 'tuned'
     NAME_SERVICE: 'tuned'
-    }
+
+PATH_1MG: /usr/local/1mg
