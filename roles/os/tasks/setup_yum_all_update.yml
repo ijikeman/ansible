@@ -1,14 +1,20 @@
 ---
+- name: CONVERT NAME_DISABLEREPO_ON_UPDATE_ALL to '--disablerepo='
+  set_fact:
+    DISABLE_REPO: "{{ NAME_DISABLEREPO_ON_UPDATE_ALL | regex_replace('^', '--disablerepo=') }}"
+  when: NAME_DISABLEREPO_ON_UPDATE_ALL is defined
+
 - name: Update check yum
-  shell: yum check-update
-  failed_when: false
-  changed_when: false
+  command: yum check-update {{ DISABLE_REPO | default('') }}
+  failed_when: False
+  changed_when: False
   register: status_check_update
 
 - name: Update yum
   yum:
     name: '*'
     state: latest
+    disablerepo: "{{ NAME_DISABLEREPO_ON_UPDATE_ALL | default('') }}"  # noqa 403
   when:
     - not ansible_check_mode
     - status_check_update.rc != 0
