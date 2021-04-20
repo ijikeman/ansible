@@ -145,3 +145,11 @@ SYSTEMD_SETTINGS:
   JOURNALD_CONF:
     RATELIMITINTERVAL: '0s'
     RATELIMITBURST: '0'
+
+COMMON_DISABLE_SERVICES:
+  -
+    NAME_PACKAGE: 'subscription-manager-rhsm'
+    NAME_SERVICE: 'rhsmcertd'
+  -
+    NAME_PACKAGE: 'polkit'
+    NAME_SERVICE: 'polkit'
