@@ -1,0 +1,9 @@
+---
+- name: Make Direcotry "{{ item.PATH }}"
+  file:
+    state: directory
+    path: "{{ item.PATH }}"
+    owner: "{{ item.OWNER }}"
+    group: "{{ item.GROUP }}"
+    mode: "{{ item.MODE }}"
+    recurse: "{{ item.RECURSE | default('no') }}"

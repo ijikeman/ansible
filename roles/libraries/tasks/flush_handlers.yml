@@ -1,2 +1,3 @@
-- meta: flush_handlers
-
+---
+- name: FLUSH HANDLERS
+  meta: flush_handlers

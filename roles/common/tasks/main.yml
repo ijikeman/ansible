@@ -1,7 +1,7 @@
 ---
 - include_role:
-     name: common_tasks
-     tasks_from: service_disabled.yml
+    name: libraries
+    tasks_from: service_disabled.yml
   with_items:
     - "{{ COMMON_DISABLE_SERVICES | default([]) }}"
     - "{{ COMMON_HOSTGROUP_DISABLE_SERVICES | default([]) }}"
@@ -30,13 +30,23 @@
     - "{{ INVENTORY_INSTALL_PACKAGES | default([]) }}"
     - "{{ INVENTORY_HOSTGROUP_INSTALL_PACKAGES | default([]) }}"
 
+- name: Pip Install Packages
+  pip:
+    name: "{{ item.NAME }}"
+    state: 'present'
+  with_items:
+    - "{{ COMMON_PIP_INSTALL_PACKAGES | default([]) }}"
+    - "{{ COMMON_HOSTGROUP_PIP_INSTALL_PACKAGES | default([]) }}"
+    - "{{ INVENTORY_PIP_INSTALL_PACKAGES | default([]) }}"
+    - "{{ INVENTORY_HOSTGROUP_PIP_INSTALL_PACKAGES | default([]) }}"
+
 - name: Manage Groups
   group:
     name: "{{ item.NAME }}"
     gid: "{{ item.GID }}"
-    local: "{{ item.LOCAL | default('no') }}"
-    non_unique: "{{ item.NON_UNIQUE | default('no') }}"
-    state: "{{ item.STATE | default('present') }}"
+    local: "{{ item.LOCAL| default('no') }}"
+    non_unique: "{{ item.NON_UNIQUE| default('no') }}"
+    state: "{{ item.STATE| default('present') }}"
     system: "{{ item.SYSTEM | default('no') }}"
   with_items:
     - "{{ COMMON_GROUPS | default([]) }}"
@@ -50,7 +60,7 @@
     uid: "{{ item.UID }}"
     group: "{{ item.GROUP | default() }}"
     shell: "{{ item.SHELL | default('/sbin/nologin') }}"
-    home: "{{ item.HOME | default() }}"
+    home: "{{ item.HOME | default('/home/' + item.NAME) }}"
     create_home: "{{ item.CREATE_HOME | default('yes') }}"
     password: "{{ item.PASSWORD | default() }}"
     comment: "{{ item.COMMENT | default() }}"
@@ -62,14 +72,10 @@
     - "{{ INVENTORY_USERS | default([]) }}"
     - "{{ INVENTORY_HOSTGROUP_USERS | default([]) }}"
 
-- name: Manage Make Directory
-  file:
-    state: directory
-    path: "{{ item.PATH }}"
-    owner: "{{ item.OWNER }}"
-    group: "{{ item.GROUP }}"
-    mode: "{{ item.MODE }}"
-    recurse: "{{ item.RECURSE | default('no')}}"
+- name: Manage Directory
+  include_role:
+    name: libraries
+    tasks_from: mkdir.yml
   with_items:
     - "{{ COMMON_MKDIRS | default([]) }}"
     - "{{ COMMON_HOSTGROUP_MKDIRS | default([]) }}"
@@ -112,3 +118,13 @@
     - "{{ COMMON_HOSTGROUP_SYMLINKS | default([]) }}"
     - "{{ INVENTORY_SYMLINKS | default([]) }}"
     - "{{ INVENTORY_HOSTGROUP_SYMLINKS | default([]) }}"
+
+- name: Delete files and directory
+  file:
+    path: "{{ item.PATH }}"
+    state: absent
+  with_items:
+    - "{{ COMMON_DELETE_FILES | default([]) }}"
+    - "{{ COMMON_HOSTGROUP_DELETE_FILES | default([]) }}"
+    - "{{ INVENTORY_DELETE_FILES | default([]) }}"
+    - "{{ INVENTORY_HOSTGROUP_DELETE_FILES | default([]) }}"
