@@ -1,5 +1,13 @@
+---
 NAME_SERVICE_MANAGER: Systemd
 NAME_NETWORK_MANAGER: NetworkManager
 FILES_REPO:
   - CentOS-Base.repo
   - CentOS-AppStream.repo
+  - CentOS-Extras.repo
+  - CentOS-PowerTools.repo
+VERSION_OS_CURRENT: 8.3.2011
+NAME_LIBSELINUX_PYTHON_MODULE:
+  - {
+    name: libselinux-python3
+  }
