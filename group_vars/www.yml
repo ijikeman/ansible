@@ -102,6 +102,16 @@ COMMON_HOSTGROUP_MKDIRS:
     MODE: '0755',
     RECURSE: 'no'
     }
+  -
+    PATH: "{{ DIR_DOCKER_HOME }}"
+    OWNER: "root"
+    GROUP: "root"
+    MODE: "0755"
+  -
+    PATH: "{{ DIR_DOCKER_HOME }}docker_files/"
+    OWNER: "root"
+    GROUP: "root"
+    MODE: "0755"
 
 COMMON_HOSTGROUP_CRON_SETTINGS:
   -
@@ -185,3 +195,16 @@ SSHD_SETTINGS:
         - 'X11Forwarding no'
         - 'AllowTcpForwarding no'
         - 'ForceCommand internal-sftp'
+
+DIR_DOCKER_HOME: "/home/docker/"
+DOCKER_SETTINGS:
+  IPV6: true
+  DOCKERFILES:
+    -
+      SRC: "ansible"
+      DEST: "{{ DIR_DOCKER_HOME }}docker_files/"
+      FILES:
+      OWNER: "root"
+      GROUP: "root"
+      MODE: "0644"
+      IMAGE_NAME: 'ansible'
