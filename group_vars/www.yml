@@ -151,8 +151,5 @@ COMMON_DISABLE_SERVICES:
     NAME_PACKAGE: 'subscription-manager-rhsm'
     NAME_SERVICE: 'rhsmcertd'
   -
-    NAME_PACKAGE: 'audit'
-    NAME_SERVICE: 'auditd'
-  -
     NAME_PACKAGE: 'polkit'
     NAME_SERVICE: 'polkit'
