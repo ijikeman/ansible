@@ -3,7 +3,7 @@
   hosts: www
   user: root
   roles:
-    - systemd
+    - middlewares/systemd
     - os
     - common
     - sysstat
