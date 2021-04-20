@@ -17,15 +17,17 @@
 #LogColor=yes
 #LogLocation=no
 #DumpCore=yes
-#CrashShell=no
 #ShowStatus=yes
-#CrashChVT=1
+#CrashChangeVT=no
+#CrashShell=no
+#CrashReboot=no
 #CtrlAltDelBurstAction=reboot-force
 #CPUAffinity=1 2
 #JoinControllers=cpu,cpuacct net_cls,net_prio
 #RuntimeWatchdogSec=0
 #ShutdownWatchdogSec=10min
 #CapabilityBoundingSet=
+#NoNewPrivileges=no
 #SystemCallArchitectures=
 #TimerSlackNSec=
 #DefaultTimerAccuracySec=1min
@@ -34,14 +36,16 @@
 #DefaultTimeoutStartSec=90s
 #DefaultTimeoutStopSec=90s
 #DefaultRestartSec=100ms
-#DefaultStartLimitInterval=10s
+#DefaultStartLimitIntervalSec=10s
 #DefaultStartLimitBurst=5
 #DefaultEnvironment=
 #DefaultCPUAccounting=no
+#DefaultIOAccounting=no
+#DefaultIPAccounting=no
 #DefaultBlockIOAccounting=no
-#DefaultMemoryAccounting=no
-#DefaultTasksAccounting=no
-#DefaultTasksMax=
+#DefaultMemoryAccounting=yes
+#DefaultTasksAccounting=yes
+#DefaultTasksMax=80%
 #DefaultLimitCPU=
 #DefaultLimitFSIZE=
 #DefaultLimitDATA=
@@ -58,7 +62,9 @@
 #DefaultLimitNICE=
 #DefaultLimitRTPRIO=
 #DefaultLimitRTTIME=
-{% if SYSTEMD_SETTINGS is defined and SYSTEMD_SETTINGS.SYSTEM_CONF is defined %}
+#IPAddressAllow=
+#IPAddressDeny=
+{% if SYSTEMD_SETTINGS.SYSTEM_CONF is defined %}
 {% for item in SYSTEMD_SETTINGS.SYSTEM_CONF %}
 {% if item.COMMENT is defined %}
 # {{ item.COMMENT }}
