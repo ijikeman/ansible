@@ -152,3 +152,24 @@ COMMON_DISABLE_SERVICES:
   -
     NAME_PACKAGE: 'polkit'
     NAME_SERVICE: 'polkit'
+
+SSHD_SETTINGS:
+  PERMITROOTLOGIN: 'yes'
+  PASSWORDAUTHENTICATION: 'no'
+  USEDNS: 'no'
+  X11FORWARDING: 'yes'
+  MATCH_SETTINGS:
+    -
+      USER: 'matsuyanyan'
+      OPTIONS:
+        - 'ChrootDirectory /home/%u'
+        - 'X11Forwarding no'
+        - 'AllowTcpForwarding no'
+        - 'ForceCommand internal-sftp'
+    -
+      USER: 'keiji'
+      OPTIONS:
+        - 'ChrootDirectory /home/%u'
+        - 'X11Forwarding no'
+        - 'AllowTcpForwarding no'
+        - 'ForceCommand internal-sftp'
