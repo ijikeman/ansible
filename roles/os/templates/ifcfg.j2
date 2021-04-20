@@ -6,7 +6,9 @@ NAME="{{ item.DEVICE }}"
 DEVICE="{{ item.DEVICE }}"
 ONBOOT="{{ item.ONBOOT if item.ONBOOT is defined else 'no' }}"
 IPADDR="{{ item.IPADDR }}"
-{% if item.HWADDR is defined %}HWADDR="{{ item.HWADDR }}"{% endif %}
+{% if item.HWADDR is defined %}
+HWADDR="{{ item.HWADDR }}"
+{% endif %}
 PREFIX="{{ item.PREFIX }}"
 {% for NAMESERVER in NETWORK_SETTINGS.COMMON.NAMESERVERS %}
 DNS{{ loop.index }}={{ NAMESERVER }}
