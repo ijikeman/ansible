@@ -1,5 +1,5 @@
 ---
-- name: Setup Config
+- name: Setup Config(CentOS7)
   template:
     src: 'sysstat.j2'
     dest: '/etc/cron.d/sysstat'
@@ -7,3 +7,16 @@
     group: 'root'
     mode: '0644'
   notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_DAEMON }}"
+  when:
+    - ansible_distribution_major_version < '8'
+
+- name: Setup Config(CentOS8)
+  template:
+    src: 'sysstat-collect.timer.j2'
+    dest: '/usr/lib/systemd/system/sysstat-collect.timer'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_DAEMON }}"
+  when:
+    - ansible_distribution_major_version >= '8'

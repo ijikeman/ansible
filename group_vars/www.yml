@@ -23,7 +23,6 @@ COMMON_HOSTGROUP_INSTALL_PACKAGES:
   - { NAME: wget }
   - { NAME: libselinux-python }
   - { NAME: mariadb }
-  - { NAME: sysstat }
 
 COMMON_HOSTGROUP_MKDIRS:
   - {
