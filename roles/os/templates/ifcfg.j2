@@ -4,17 +4,17 @@ BROWSER_ONLY=no
 BOOTPROTO={{ item.BOOTPROTO if item.BOOTPROTO is defined else 'none' }}
 DEFROUTE={{ item.DEFROUTE if item.DEFROUTE is defined else 'no' }}
 IPV4_FAILURE_FATAL=no
-IPV6INIT={{ item.IPV6INIT if item.IPV6INIT is defined else 'no'}}
-IPV6_AUTOCONF={{ item.IPV6_AUTOCONF if item.IPV6_AUTOCONF is defined else 'no'}}
+IPV6INIT=no
+IPV6_AUTOCONF=no
 IPV6_DEFROUTE=no
-IPV6_FAILURE_FATAL={{ item.IPV6_FAILURE_FATAL if item.IPV6_FAILURE_FATAL is defined else 'no'}}
+IPV6_FAILURE_FATAL=no
 IPV6_ADDR_GEN_MODE=stable-privacy
 NAME={{ item.DEVICE }}
 DEVICE={{ item.DEVICE }}
 ONBOOT={{ item.ONBOOT if item.ONBOOT is defined else 'no' }}
-{% if item.IPADDR is defined %}IPADDR={{ item.IPADDR }}{% endif %}
-{% if item.PREFIX is defined %}PREFIX={{ item.PREFIX }}{% endif %}
-{% if item.DEFROUTE is defined and item.DEFROUTE == 'yes' and NETWORK_SETTINGS.COMMON.GATEWAY is define %}
+IPADDR={{ item.IPADDR }}
+PREFIX={{ item.PREFIX }}
+{% if item.DEFROUTE is defined and item.DEFROUTE == 'yes' and NETWORK_SETTINGS.COMMON.GATEWAY is defined %}
 GATEWAY={{ NETWORK_SETTINGS.COMMON.GATEWAY }}
 {% endif %}
 IPV6_PRIVACY=no
