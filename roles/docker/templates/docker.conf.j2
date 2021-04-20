@@ -1,0 +1,7 @@
+{% if DOCKER_SETTINGS is defined and DOCKER_SETTINGS.DOCKER_CONF is defined %}
+[Service]
+{% if DOCKER_SETTINGS.DOCKER_CONF.EXECSTART is defined %}
+ExecStart=
+ExecStart={{ DOCKER_SETTINGS.DOCKER_CONF.EXECSTART }}
+{% endif %}
+{% endif %}

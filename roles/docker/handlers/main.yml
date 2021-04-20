@@ -4,11 +4,15 @@
     name: "{{ NAME_DAEMON }}"
     state: started
     enabled: yes
+  when:
+    - ansible_virtualization_type != 'docker'
 
 - name: Service restarted {{ NAME_DAEMON }}
   service:
     name: "{{ NAME_DAEMON }}"
     state: restarted
+  when:
+    - ansible_virtualization_type != 'docker'
 
 - name: Service reloaded {{ NAME_DAEMON }}
   service:
@@ -26,11 +30,15 @@
     name: "{{ NAME_DAEMON }}"
     state: started
     enabled: yes
+  when:
+    - ansible_virtualization_type != 'docker'
 
 - name: Systemd restarted {{ NAME_DAEMON }}
   systemd:
     name: "{{ NAME_DAEMON }}"
     state: restarted
+  when:
+    - ansible_virtualization_type != 'docker'
 
 - name: Systemd reloaded {{ NAME_DAEMON }}
   systemd:
@@ -42,3 +50,15 @@
     name: "{{ NAME_DAEMON }}"
     state: stopped
     enabled: no
+
+- name: Systemd relaod daemon
+  systemd:
+    daemon-reexec: yes
+  when: ansible_virtualization_type != 'docker'
+  listen: "Systemd reload and restarted docker"
+
+- name: Systemd restarted after reload {{ NAME_DAEMON }}
+  systemd:
+    name: "{{ NAME_DAEMON }}"
+    state: restarted
+  listen: "Systemd reload and restarted docker"

@@ -1,0 +1,14 @@
+---
+- name: "Setup Dockerfile {{ item.SRC }}"
+  copy:
+    src: "{{ item.SRC }}"
+    dest: "{{ item.DEST }}"
+    owner: "{{ item.OWNER | default('root') }}"
+    group: "{{ item.GROUP | default('root') }}"
+    mode: "{{ item.MODE | default('0644') }}"
+
+- name: Build Dockerfile
+  command: "docker build -t {{ item.IMAGE_NAME }}:{{ item.IMAGE_VERSION | default('latest') }} {{ item.DEST }}/{{ item.SRC }}/."
+  when:
+    - item.IMAGE_NAME is defined
+    - ansible_virtualization_type != 'docker'

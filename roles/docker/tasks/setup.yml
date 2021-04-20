@@ -1,0 +1,53 @@
+---
+- name: Setup docker storage config
+  template:
+    src: docker-storage.j2
+    dest: /etc/sysconfig/docker-storage
+    owner: root
+    group: root
+    mode: 0644
+  notify: "{{ NAME_SERVICE }} restarted {{ NAME_DAEMON }}"
+
+- name: Setup docker daemon.json
+  template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: "{{ NAME_SERVICE }} restarted {{ NAME_DAEMON }}"
+  when:
+    - DOCKER_SETTINGS is defined
+    - DOCKER_SETTINGS.IPV6 is defined
+    - DOCKER_SETTINGS.IPV6
+
+- name: Make Direcotry "{{ item.PATH }}"
+  include_role:
+    name: libraries
+    tasks_from: mkdir.yml
+  with_items:
+    - {PATH: '/etc/systemd/system/docker.service.d', OWNER: 'root', GROUP: 'root', MODE: '0755', RECURSE: 'yes'}
+  when:
+    - ansible_distribution_major_version >= '7'
+    - DOCKER_SETTINGS is defined
+    - DOCKER_SETTINGS.DOCKER_CONF is defined
+
+- name: Setup docker config
+  template:
+    src: docker.conf.j2
+    dest: /etc/systemd/system/docker.service.d/docker.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: "{{ NAME_SERVICE }} reload and restarted {{ NAME_DAEMON }}"
+  when:
+    - ansible_distribution_major_version >= '7'
+    - DOCKER_SETTINGS is defined
+    - DOCKER_SETTINGS.DOCKER_CONF is defined
+
+- name: Setup Dockerfile
+  include_tasks: "setup_dockerfile.yml"
+  when:
+    - DOCKER_SETTINGS is defined
+    - DOCKER_SETTINGS.DOCKERFILES is defined
+  with_items: "{{ DOCKER_SETTINGS.DOCKERFILES }}"

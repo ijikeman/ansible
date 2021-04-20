@@ -1,0 +1,5 @@
+{% if DOCKER_SETTINGS.STORAGE_OPTIONS is defined %}
+DOCKER_STORAGE_OPTIONS={{ DOCKER_SETTINGS.STORAGE_OPTIONS }}
+{% else %}
+DOCKER_STORAGE_OPTIONS="--storage-driver overlay2"
+{% endif %}
