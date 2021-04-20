@@ -1,7 +1,7 @@
 ---
 - name: Setup Cron Tab
   cron:
-    name: "{{ item.NAME | default('*') }}"
+    name: "{{ item.NAME }}"
     minute: "{{ item.MINUTE | default('*') }}"
     hour: "{{ item.HOUR | default('*') }}"
     day: "{{ item.DAY | default('*') }}"

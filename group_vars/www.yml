@@ -105,20 +105,24 @@ COMMON_HOSTGROUP_MKDIRS:
 
 COMMON_HOSTGROUP_CRON_SETTINGS:
   -
+    NAME: 'Setup Backup'
     MINUTE: '0'
     HOUR: '0'
     JOB: "{{ PATH_1MG }}bin/backup.sh"
   -
+    NAME: 'Update Cert server.1mg.org'
     MINUTE: '15'
     HOUR: '3'
     DAY: '1'
     JOB: "docker exec proxy certbot certonly --webroot -w /usr/share/nginx/html -d server.1mg.org && cd /usr/local/1mg/data/web-docker/ && docker-compose restart proxy"
   -
+    NAME: 'Update Cert blog.1mg.org'
     MINUTE: '30'
     HOUR: '3'
     DAY: '1'
     JOB: "docker exec proxy certbot certonly --webroot -w /usr/share/nginx/html -d blog.1mg.org && cd /usr/local/1mg/data/web-docker/ && docker-compose restart proxy"
   -
+    NAME: 'Update Cert ee-megane.com'
     MINUTE: '45'
     HOUR: '3'
     DAY: '1'
