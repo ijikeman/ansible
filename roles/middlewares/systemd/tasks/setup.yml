@@ -1,0 +1,19 @@
+---
+- name: Setup Config
+  template:
+    src: '{{ item }}.j2'
+    dest: '/etc/systemd/{{ item }}'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: "{{ NAME_SERVICE_MANAGER }} restarted {{ NAME_DAEMON }}"
+  with_items:
+    - system.conf
+    - journald.conf
+
+- name: Setup add service on systemd
+  include_tasks: setup_service.yml
+  with_items:
+    - "{{ SYSTEMD_SERVICE_SETTINGS | default([]) }}"
+  when:
+    - SYSTEMD_SERVICE_SETTINGS is defined

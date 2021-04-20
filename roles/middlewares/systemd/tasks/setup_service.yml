@@ -1,0 +1,40 @@
+---
+- name: Set_fact NAME_SYSTEMD_SERVICE
+  set_fact:
+    NAME_SYSTEMD_SERVICE: "{{ item.NAME_SYSTEMD_SERVICE }}"
+
+- name: Copy file for Add Service
+  copy:
+    src: "{{ systemd_file.SRC }}"
+    dest: "{{ systemd_file.DEST }}"
+    owner: "{{ systemd_file.OWNER }}"
+    group: "{{ systemd_file.GROUP }}"
+    mode: "{{ systemd_file.MODE }}"
+  with_items:
+    - "{{ item.FILES }}"
+  loop_control:
+    loop_var: systemd_file
+  when: item.FILES is defined
+
+- name: Add Service on Systemd
+  template:
+    src: "{{ item.SRC }}"
+    dest: "/etc/systemd/system/{{ item.DEST }}"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  register: template_result
+  notify: Systemd restarted systemd
+
+- include_role:
+    name: libraries
+    tasks_from: flush_handlers.yml
+
+- name: Service restarted {{ NAME_SYSTEMD_SERVICE }}
+  service:
+    name: "{{ NAME_SYSTEMD_SERVICE }}"
+    state: restarted
+    enabled: yes
+  when:
+    - not ansible_check_mode
+    - template_result.changed # noqa 503

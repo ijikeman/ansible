@@ -136,9 +136,12 @@ COMMON_HOSTGROUP_SYSCTL_SETTINGS:
     VALUE: '1',
     }
 
-COMMON_HOSTGROUP_SYSTEMD_SETTINGS:
-  - {
-    KEY: 'CtrlAltDelBurstAction',
-    VALUE: 'none',
+SYSTEMD_SETTINGS:
+  SYSTEM_CONF:
+  -
+    KEY: 'CtrlAltDelBurstAction'
+    VALUE: 'none'
     COMMENT: 'Disable Ctrl + Alt + Delete'
-    }
+  JOURNALD_CONF:
+    RATELIMITINTERVALSEC: '0s'
+    RATELIMITBURST: '0'

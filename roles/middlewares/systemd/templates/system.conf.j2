@@ -58,23 +58,12 @@
 #DefaultLimitNICE=
 #DefaultLimitRTPRIO=
 #DefaultLimitRTTIME=
-{% set array = [] %}
-{% if COMMON_SYSTEMD_SETTINGS is defined %}
-{% set array = array + COMMON_SYSTEMD_SETTINGS %}
-{% endif %}
-{% if COMMON_HOSTGROUP_SYSTEMD_SETTINGS is defined %}
-{% set array = array + COMMON_HOSTGROUP_SYSTEMD_SETTINGS %}
-{% endif %}
-{% if INVENTORY_SYSTEMD_SETTINGS is defined %}
-{% set array = array + INVENTORY_SYSTEMD_SETTINGS %}
-{% endif %}
-{% if INVENTORY_HOSTROUP_SYSTEMD_SETTINGS is defined %}
-{% set array = array + INVENTORY_HOSTROUP_SYSTEMD_SETTINGS %}
-{% endif %}
-{% for item in array %}
+{% if SYSTEMD_SETTINGS is defined and SYSTEMD_SETTINGS.SYSTEM_CONF is defined %}
+{% for item in SYSTEMD_SETTINGS.SYSTEM_CONF %}
 {% if item.COMMENT is defined %}
 # {{ item.COMMENT }}
 {% endif %}
 {{ item.KEY }}={{ item.VALUE }}
 
 {% endfor %}
+{% endif %}
