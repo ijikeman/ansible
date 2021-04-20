@@ -9,7 +9,7 @@
     - sysstat
     - logrotate
     - cron
-    - openssh
+    - sshd
     - docker
     - docker-compose
     - mackerel-agent
