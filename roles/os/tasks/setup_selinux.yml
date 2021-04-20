@@ -1,11 +1,13 @@
 ---
 - name: Install python module for SELinux
   yum:
-    name: libselinux-python
+    name: "{{ item.name }}"
     state: installed
+  with_items:
+    - "{{ NAME_LIBSELINUX_PYTHON_MODULE }}"
 
 - name: Get SELinux Status
-  shell: getenforce
+  command: getenforce
   register: status_selinux
   changed_when: False
   failed_when: False
@@ -18,8 +20,8 @@
   notify: Rebooted
   when:
     - not ansible_check_mode
-    - status_selinux.stdout == 'Enforcing'
+    - status_selinux.stdout != 'Disabled'
 
-- include_role:
-    name: common_tasks
+- import_role:
+    name: libraries
     tasks_from: flush_handlers.yml

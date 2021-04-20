@@ -18,19 +18,25 @@
   systemd:
     name: NetworkManager
     state: restarted
+  when:
+    - ansible_virtualization_type != 'docker'
 
 # Update Grub and Rebooted
 - name: Update Grub
   command: grub2-mkconfig -o /boot/grub2/grub.cfg
   listen: Update Grub and Rebooted
-  when: not ansible_check_mode
+  when:
+    - ansible_virtualization_type != 'docker'
+    - not ansible_check_mode
 
 - name: Server Reboot
   reboot:
     connect_timeout: 60
     post_reboot_delay: 5
   listen: Update Grub and Rebooted
-  when: not ansible_check_mode
+  when:
+    - ansible_virtualization_type != 'docker'
+    - not ansible_check_mode
 
 - name: Clear Yum Cache
   command: yum clean all
@@ -45,9 +51,3 @@
     daemon-reexec: yes
   listen: Systemd restarted
   when: ansible_virtualization_type != 'docker'
-
-- name: Systemd restarted systemd
-  systemd:
-    daemon-reexec: yes
-  listen: Systemd restarted
-

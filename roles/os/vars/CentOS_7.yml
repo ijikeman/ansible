@@ -5,6 +5,5 @@ FILES_REPO:
   - CentOS-Base.repo
 VERSION_OS_CURRENT: 7.9.2009
 NAME_LIBSELINUX_PYTHON_MODULE:
-  - {
+  -
     name: libselinux-python
-  }
