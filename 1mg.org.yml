@@ -7,7 +7,7 @@
     - os
     - common
     - sysstat
-    - logrotated
+    - logrotate
     - cron
     - openssh
     - docker

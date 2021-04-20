@@ -1,0 +1,44 @@
+{% for target_file in item.TARGET_FILES %}
+{{ target_file }}
+{% endfor %}
+{
+{% if item.COUNT is defined %}
+    rotate {{ item.COUNT }}
+{% endif %}
+{% if item.COMPRESS is defined %}
+    {{ item.COMPRESS }}
+{% endif %}
+{% if item.NOCOMPRESS is defined and item.NOCOMPRESS == 'yes' %}
+    nocompress
+{% endif %}
+{% if item.INTERVAL is defined %}
+    {{ item.INTERVAL }}
+{% endif %}
+{% if item.DATE_FORMAT is defined %}
+    dateformat {{ item.DATE_FORMAT }}
+{% endif %}
+{% if item.PERMISSON is defined %}
+    {{ item.PERMISSON }}
+{% endif %}
+{% if item.ROTATION_USER is defined %}
+    {{ item.ROTATION_USER }}
+{% endif %}
+{% if item.MISSINGOK is defined and item.MISSINGOK == 'yes' %}
+    missingok
+{% endif %}
+{% if item.IFEMPTY is defined and item.IFEMPTY == 'yes' %}
+    ifempty
+{% endif %}
+{% if item.SHAREDSCRIPTS is defined and item.SHAREDSCRIPTS == 'yes' %}
+    sharedscripts
+{% endif %}
+{% if item.POSTROTATE is defined and item.POSTROTATE == 'yes' %}
+    postrotate
+{% endif %}
+{% if item.ROTATE_COMMAND is defined %}
+        {{ item.ROTATE_COMMAND }}
+{% endif %}
+{% if item.ENDSCRIPT is defined and item.ENDSCRIPT == 'yes' %}
+    endscript
+{% endif %}
+}

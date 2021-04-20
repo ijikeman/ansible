@@ -6,3 +6,13 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
+
+- name: Setup Other Config
+  template:
+    src: "logrotate_d.conf.j2"
+    dest: "/etc/logrotate.d/{{ item.FILE_NAME }}"
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  with_items: "{{ LOGROTATE_INDIVIDUAL_SETTINGS | default([]) }}"
+  notify: logrotate reload
