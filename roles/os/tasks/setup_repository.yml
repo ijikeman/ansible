@@ -5,8 +5,43 @@
     dest: "/etc/yum/vars/releasever"
     owner: 'root'
     group: 'root'
+    mode: 0644
+  when: VERSION_OS is defined
+
+- name: Setup Hold Repository
+  template:
+    src: "release_minerver.j2"
+    dest: "/etc/yum/vars/release_minerver"
+    owner: 'root'
+    group: 'root'
     mode: '0644'
   when: VERSION_OS is defined
+
+- name: Setup dnf.conf on CentOS8
+  template:
+    src: 'dnf.conf.j2'
+    dest: '/etc/dnf/dnf.conf'
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  when:
+    - ansible_distribution_major_version >= '8'
+
+- name: Install fastestmirror plugin
+  yum:
+    name: yum-plugin-fastestmirror
+    state: present
+  when:
+    - ansible_distribution_major_version == '7'
+
+- name: Setup fastestmirror.conf
+  template:
+    src: 'fastestmirror.conf.{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.j2'
+    dest: '/etc/yum/pluginconf.d/fastestmirror.conf'
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  notify: 'Clear Yum Cache'
 
 - name: Setup Default Repo
   template:

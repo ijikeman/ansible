@@ -10,15 +10,15 @@
 #
 #
 
-{% if VERSION_OS is defined %}
+{% if VERSION_OS is defined and VERSION_OS_CURRENT > VERSION_OS %}
 {% set MIRROR_SERVER='vault.centos.org' %}
 {% else %}
-{% set MIRROR_SERVER='mirror.centos.org' %}
+{% set MIRROR_SERVER='mirror.centos.org/$contentdir' %}
 {% endif %}
 [AppStream]
-name=CentOS-$releasever - AppStream
-#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=AppStream&infra=$infra
-baseurl=http://{{ MIRROR_SERVER }}/$contentdir/$releasever/AppStream/$basearch/os/
+name=CentOS-$releasever{% if VERSION_OS is defined %}$release_minerver{% endif %} - AppStream
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever{% if VERSION_OS is defined %}$release_minerver{% endif %}&arch=$basearch&repo=AppStream&infra=$infra
+baseurl=http://{{ MIRROR_SERVER }}/$releasever{% if VERSION_OS is defined %}$release_minerver{% endif %}/AppStream/$basearch/os/
 gpgcheck=1
 enabled=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
