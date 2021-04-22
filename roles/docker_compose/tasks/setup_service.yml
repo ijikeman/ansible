@@ -22,7 +22,7 @@
 - name: Copy files
   copy:
     src: "{{ docker_compose_item.NAME_DAEMON }}/{{ item.SRC }}"
-    dest: "/opt/docker-compose-service/{{ docker_compose_item.NAME_DAEMON }}/{{ item.DEST | item.SRC }}"
+    dest: "/opt/docker-compose-service/{{ docker_compose_item.NAME_DAEMON }}/{{ item.DEST | default(item.SRC) }}"
     owner: "{{ item.OWNER | default('root') }}"
     group: "{{ item.GROUP | default('root') }}"
     mode: "{{ item.MODE | default('0644') }}"
@@ -36,7 +36,7 @@
 - name: Template files
   template:
     src: "{{ docker_compose_item.NAME_DAEMON }}/{{ item.SRC }}"
-    dest: "/opt/docker-compose-service/{{ docker_compose_item.NAME_DAEMON }}/{{ item.DEST | item.SRC }}"
+    dest: "/opt/docker-compose-service/{{ docker_compose_item.NAME_DAEMON }}/{{ item.DEST | default(item.SRC) }}"
     owner: "{{ item.OWNER | default('root') }}"
     group: "{{ item.GROUP | default('root') }}"
     mode: "{{ item.MODE | default('0644') }}"
