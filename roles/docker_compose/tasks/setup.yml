@@ -1,11 +1,4 @@
 ---
-- name: Make Direcotry "{{ item.PATH }}"
-  include_role:
-    name: libraries
-    tasks_from: mkdir.yml
-  with_items:
-    - {PATH: '/opt/docker-compose-service', OWNER: 'root', GROUP: 'root', MODE: '0755', RECURSE: 'yes'}
-
 - name: Set docker-compose service
   copy:
     src: "docker-compose-service.file"
