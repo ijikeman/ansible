@@ -8,7 +8,9 @@
     name: libraries
     tasks_from: mkdir.yml
   with_items:
-    - {PATH: "/opt/docker-compose-service/{{ docker_compose_item.NAME_DAEMON }}", OWNER: 'root', GROUP: 'root', MODE: '0755', RECURSE: 'yes'}
+    - {PATH: "/opt/", OWNER: 'root', GROUP: 'root', MODE: '0755', RECURSE: 'no'}
+    - {PATH: "/opt/docker-compose-service/", OWNER: 'root', GROUP: 'root', MODE: '0755', RECURSE: 'no'}
+    - {PATH: "/opt/docker-compose-service/{{ docker_compose_item.NAME_DAEMON }}", OWNER: 'root', GROUP: 'root', MODE: '0755', RECURSE: 'no'}
 
 - name: Service enabled {{ NAME_DAEMON }}
   service:
