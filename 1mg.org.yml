@@ -11,5 +11,5 @@
     - cron
     - sshd
     - docker
-    - docker-compose
+    - docker_compose
     - mackerel-agent

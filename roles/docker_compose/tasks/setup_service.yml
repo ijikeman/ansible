@@ -1,0 +1,59 @@
+---
+- name: Set_fact NAME_DAEMON
+  set_fact:
+    NAME_DAEMON: "docker-compose-service@{{ docker_compose_item.NAME_DAEMON }}"
+
+- name: Make Direcotry "{{ item.PATH }}"
+  include_role:
+    name: libraries
+    tasks_from: mkdir.yml
+  with_items:
+    - {PATH: "/opt/docker-compose-service/{{ docker_compose_item.NAME_DAEMON }}", OWNER: 'root', GROUP: 'root', MODE: '0755', RECURSE: 'yes'}
+
+- name: Service enabled {{ NAME_DAEMON }}
+  service:
+    name: "{{ NAME_DAEMON }}"
+    enabled: yes
+
+- include_role:
+    name: libraries
+    tasks_from: flush_handlers.yml
+
+- name: Copy files
+  copy:
+    src: "{{ docker_compose_item.NAME_DAEMON }}/{{ item.SRC }}"
+    dest: "/opt/docker-compose-service/{{ docker_compose_item.NAME_DAEMON }}/{{ item.DEST | item.SRC }}"
+    owner: "{{ item.OWNER | default('root') }}"
+    group: "{{ item.GROUP | default('root') }}"
+    mode: "{{ item.MODE | default('0644') }}"
+  with_items:
+    - "{{ docker_compose_item.COPY_FILES }}"
+  when:
+    - docker_compose_item is defined
+    - docker_compose_item.COPY_FILES is defined
+  register: copy_result
+
+- name: Template files
+  template:
+    src: "{{ docker_compose_item.NAME_DAEMON }}/{{ item.SRC }}"
+    dest: "/opt/docker-compose-service/{{ docker_compose_item.NAME_DAEMON }}/{{ item.DEST | item.SRC }}"
+    owner: "{{ item.OWNER | default('root') }}"
+    group: "{{ item.GROUP | default('root') }}"
+    mode: "{{ item.MODE | default('0644') }}"
+  with_items:
+    - "{{ docker_compose_item.TEMPLATE_FILES }}"
+  when:
+    - docker_compose_item is defined
+    - docker_compose_item.TEMPLATE_FILES is defined
+  register: template_result
+
+- name: Service restarted {{ NAME_DAEMON }}
+  service:
+    name: "{{ NAME_DAEMON }}"
+    state: restarted
+  when:
+    - copy_result.changed or template_result.changed # noqa 503
+
+- include_role:
+    name: libraries
+    tasks_from: flush_handlers.yml

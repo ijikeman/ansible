@@ -1,0 +1,16 @@
+[Unit]
+Description=%i managed by docker-compose
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=simple
+
+Environment=COMPOSE_FILE=/opt/docker-compose-service/%i/docker-compose.yml
+
+ExecStartPre=-/usr/local/bin/docker-compose -f ${COMPOSE_FILE} down
+ExecStart=/usr/local/bin/docker-compose -f ${COMPOSE_FILE} up
+ExecStop=/usr/local/bin/docker-compose -f ${COMPOSE_FILE} down
+
+[Install]
+WantedBy=multi-user.target

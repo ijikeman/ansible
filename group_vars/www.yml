@@ -208,3 +208,15 @@ DOCKER_SETTINGS:
       GROUP: "root"
       MODE: "0644"
       IMAGE_NAME: 'ansible'
+
+DOCKER_COMPOSE_SETTINGS:
+  SERVICES:
+    -
+      NAME_DAEMON: 'wordpress'
+      COPY_FILES:
+        -
+          SRC: 'docker-compose.yml.j2'
+          DEST: 'docker-compose.yml'
+          OWNER: 'root'
+          GROUP: 'root'
+          MODE: '0644'

@@ -26,11 +26,13 @@
     name: "{{ NAME_DAEMON }}"
     state: started
     enabled: yes
+    daemon_reload: yes
 
 - name: Systemd restarted {{ NAME_DAEMON }}
   systemd:
     name: "{{ NAME_DAEMON }}"
     state: restarted
+    daemon_reload: yes
 
 - name: Systemd reloaded {{ NAME_DAEMON }}
   systemd:
@@ -42,3 +44,6 @@
     name: "{{ NAME_DAEMON }}"
     state: stopped
     enabled: no
+
+- name: Reload Systemd
+  command: systemctl daemon-reload

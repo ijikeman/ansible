@@ -1,0 +1,26 @@
+---
+- name: Make Direcotry "{{ item.PATH }}"
+  include_role:
+    name: libraries
+    tasks_from: mkdir.yml
+  with_items:
+    - {PATH: '/opt/docker-compose-service', OWNER: 'root', GROUP: 'root', MODE: '0755', RECURSE: 'yes'}
+
+- name: Set docker-compose service
+  copy:
+    src: "docker-compose-service.file"
+    dest: '/etc/systemd/system/docker-compose-service@.service'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: Reload Systemd
+
+- name: Setup Docker-compose service
+  include_tasks: setup_service.yml
+  with_items:
+    - "{{ DOCKER_COMPOSE_SETTINGS.SERVICES }}"
+  when:
+    - DOCKER_COMPOSE_SETTINGS is defined
+    - DOCKER_COMPOSE_SETTINGS.SERVICES is defined
+  loop_control:
+    loop_var: docker_compose_item
