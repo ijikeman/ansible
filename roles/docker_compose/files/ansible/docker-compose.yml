@@ -6,4 +6,5 @@ services:
     build: /opt/docker-compose-service/ansible/
     volumes:
       - /usr/local/git/ansible:/etc/ansible
+      - /root/.ssh:/root/.ssh
     tty: true
