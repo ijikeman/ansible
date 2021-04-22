@@ -199,18 +199,24 @@ SSHD_SETTINGS:
 DIR_DOCKER_HOME: "/home/docker/"
 DOCKER_SETTINGS:
   IPV6: true
-  DOCKERFILES:
-    -
-      SRC: "ansible"
-      DEST: "{{ DIR_DOCKER_HOME }}docker_files/"
-      FILES:
-      OWNER: "root"
-      GROUP: "root"
-      MODE: "0644"
-      IMAGE_NAME: 'ansible'
 
 DOCKER_COMPOSE_SETTINGS:
   SERVICES:
+    -
+      NAME_DAEMON: 'ansible'
+      COPY_FILES:
+        -
+          SRC: 'Dockerfile'
+          DEST: 'Dockerfile'
+          OWNER: 'root'
+          GROUP: 'root'
+          MODE: '0644'
+        -
+          SRC: 'docker-compose.yml'
+          DEST: 'docker-compose.yml'
+          OWNER: 'root'
+          GROUP: 'root'
+          MODE: '0644'
     -
       NAME_DAEMON: 'wordpress'
       COPY_FILES:
