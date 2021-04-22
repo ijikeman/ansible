@@ -215,7 +215,7 @@ DOCKER_COMPOSE_SETTINGS:
       NAME_DAEMON: 'wordpress'
       COPY_FILES:
         -
-          SRC: 'docker-compose.yml.j2'
+          SRC: 'wordpress/docker-compose.yml'
           DEST: 'docker-compose.yml'
           OWNER: 'root'
           GROUP: 'root'
